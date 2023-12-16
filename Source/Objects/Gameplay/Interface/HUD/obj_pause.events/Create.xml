@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="CREATE" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Init.
+
+// Deactivate instances.
+instance_deactivate_all(true);
+instance_activate_object(gm82core_object);
+instance_activate_object(ctrl_audio);
+instance_activate_object(ctrl_screen);
+instance_activate_object(ctrl_gamepad);
+
+// Pause sounds and create snapshot.
+sound_pause_all();
+game_snapshot = background_create_from_screen(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, false, false);
+
+// Options.
+option_selected    = 0;
+option_description = "";
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

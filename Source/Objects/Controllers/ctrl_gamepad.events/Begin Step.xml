@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="1">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Simulate the keyboard using our gamepad.
+if (gmp_exists)
+{
+    // Up:
+    if (joystick_pov(0) == 0 || joystick_ypos(0) &lt;= -0.5)
+    {
+        gmp_cup = true;
+        keyboard_key_press(global.key_up);
+    }
+    else
+    {
+        if (gmp_cup)
+        {
+            gmp_cup = false;
+            keyboard_key_release(global.key_up);
+        }
+    }
+
+    // Down:
+    if (joystick_pov(0) == 180 || joystick_ypos(0) &gt;= 0.5)
+    {
+        gmp_cdown = true;
+        keyboard_key_press(global.key_down);
+    }
+    else
+    {
+        if (gmp_cdown)
+        {
+            gmp_cdown = false;
+            keyboard_key_release(global.key_down);
+        }
+    }
+
+    // Left:
+    if (joystick_pov(0) == 270 || joystick_xpos(0) &lt;= -0.5)
+    {
+        gmp_cleft = true;
+        keyboard_key_press(global.key_left);
+    }
+    else
+    {
+        if (gmp_cleft)
+        {
+            gmp_cleft = false;
+            keyboard_key_release(global.key_left);
+        }
+    }
+
+    // Right:
+    if (joystick_pov(0) == 90 || joystick_xpos(0) &gt;= 0.5)
+    {
+        gmp_cright = true;
+        keyboard_key_press(global.key_right);
+    }
+    else
+    {
+        if (gmp_cright)
+        {
+            gmp_cright = false;
+            keyboard_key_release(global.key_right);
+        }
+    }
+
+    // Action:
+    if (joystick_check_button(0, global.gmp_action))
+    {
+        gmp_caction = true;
+        keyboard_key_press(global.key_action);
+    }
+    else
+    {
+        if (gmp_caction)
+        {
+            gmp_caction = false;
+            keyboard_key_release(global.key_action);
+        }
+    }
+
+    // Special:
+    if (joystick_check_button(0, global.gmp_special))
+    {
+        gmp_cspecial = true;
+        keyboard_key_press(global.key_special);
+    }
+    else
+    {
+        if (gmp_cspecial)
+        {
+            gmp_cspecial = false;
+            keyboard_key_release(global.key_special);
+        }
+    }
+
+    // Swap:
+    if (joystick_check_button(0, global.gmp_swap))
+    {
+        gmp_cswap = true;
+        keyboard_key_press(global.key_swap);
+    }
+    else
+    {
+        if (gmp_cswap)
+        {
+            gmp_cswap = false;
+            keyboard_key_release(global.key_swap);
+        }
+    }
+
+    // Start:
+    if (joystick_check_button(0, global.gmp_start))
+    {
+        gmp_cstart = true;
+        keyboard_key_press(global.key_start);
+    }
+    else
+    {
+        if (gmp_cstart)
+        {
+            gmp_cstart = false;
+            keyboard_key_release(global.key_start);
+        }
+    }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

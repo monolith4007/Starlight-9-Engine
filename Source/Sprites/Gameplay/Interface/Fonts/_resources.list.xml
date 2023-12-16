@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="spr_font_title_card_s3" type="RESOURCE"/>
+  <resource name="spr_font_title_card_s2" type="RESOURCE"/>
+  <resource name="spr_font_title_card_s1" type="RESOURCE"/>
+  <resource name="spr_font_numbers" type="RESOURCE"/>
+  <resource name="spr_font_main" type="RESOURCE"/>
+  <resource name="spr_font_lives" type="RESOURCE"/>
+</resources>

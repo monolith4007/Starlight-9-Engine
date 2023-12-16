@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="spr_badnik_block" type="RESOURCE"/>
+  <resource name="Examples" type="GROUP"/>
+  <resource name="Projectiles" type="GROUP"/>
+</resources>

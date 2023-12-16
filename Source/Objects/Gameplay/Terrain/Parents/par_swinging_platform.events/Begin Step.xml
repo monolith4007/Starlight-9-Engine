@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="1">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Swing &amp; player movement.
+
+// Temp variables:
+var player_main, i, _cos, _sin;
+
+// Set previous x position:
+x_previous = x;
+
+// Set cos/sin:
+_cos = dcos(angle_mov) * chain_size;
+_sin = dsin(angle_mov) * chain_size;
+
+// Set the X/Y position:
+x = floor(x_relative + _cos);
+y = floor(y_relative - _sin);
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

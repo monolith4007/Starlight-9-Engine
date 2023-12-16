@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Magnetization.
+
+// Find nearest player:
+var player;
+player = instance_nearest(x, y, par_player);
+if (player != noone)
+{
+    var xx, yy;
+    xx = sign(player.x - x);
+    yy = sign(player.y - y);
+
+    hspeed += xx * (0.1875 + (0.75 * (sign(hspeed) != xx)));
+    vspeed += yy * (0.1875 + (0.75 * (sign(vspeed) != yy)));
+    speed   = clamp(speed, -64, 64);
+
+    // If the player no longer has the electric shield, stop accelerating and create a dropped ring.
+    if (player.shield_index != SHIELD_ELECTRIC)
+    {
+        instance_destroy();
+    }
+
+    // Destroy if outside the view.
+    if (player.x &gt; x + SCREEN_WIDTH * 4 || player.x &lt; x - SCREEN_WIDTH * 4 || player.y &gt; y + SCREEN_HEIGHT * 4 || player.y &lt; y - SCREEN_HEIGHT * 4)
+    {
+        instance_destroy();
+    }
+}
+</argument>
+      </arguments>
+    </action>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Animation speed.
+image_index = STG.object_time div 120;
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

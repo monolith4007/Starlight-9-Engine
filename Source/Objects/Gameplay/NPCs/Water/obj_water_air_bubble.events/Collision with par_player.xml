@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="COLLISION" with="par_player">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Destroy and give the player some fresh air.
+if (bubble_pop &amp;&amp; other.shield_index != SHIELD_BUBBLE &amp;&amp; other.state != STATE_DEATH)
+{
+    other.drown_timer = 1800;
+    other.state       = STATE_BREATH;
+    audio_play(SFX._player_air, SFX.sfx_volume, 1, 0, 0);
+    instance_destroy();
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

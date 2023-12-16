@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Swing Movement.
+var temp;
+temp      = angle_mov + angle_spd;
+angle_mov = wrap_angle(temp);
+
+if (angle_mov &gt; angle_val)
+{
+    angle_spd -= 0.051;
+}
+if (angle_mov &lt; angle_val)
+{
+    angle_spd += 0.051;
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

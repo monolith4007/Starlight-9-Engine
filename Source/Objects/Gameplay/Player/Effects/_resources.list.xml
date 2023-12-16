@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="obj_electric_spark" type="RESOURCE"/>
+  <resource name="obj_amy_heart" type="RESOURCE"/>
+  <resource name="obj_homing_reticle" type="RESOURCE"/>
+  <resource name="obj_afterimage" type="RESOURCE"/>
+  <resource name="obj_player_pointer" type="RESOURCE"/>
+  <resource name="obj_boost" type="RESOURCE"/>
+  <resource name="obj_grind_spark" type="RESOURCE"/>
+</resources>

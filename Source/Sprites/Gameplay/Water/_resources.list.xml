@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="spr_water_surface" type="RESOURCE"/>
+  <resource name="spr_water_bubble_generator" type="RESOURCE"/>
+  <resource name="spr_water_air_bubble" type="RESOURCE"/>
+  <resource name="spr_water_bubble_pop" type="RESOURCE"/>
+  <resource name="spr_water_air_warning" type="RESOURCE"/>
+  <resource name="spr_water_splash" type="RESOURCE"/>
+</resources>

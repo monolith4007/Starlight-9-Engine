@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="player_handle_launch_sensor" type="RESOURCE"/>
+  <resource name="player_handle_platforms" type="RESOURCE"/>
+  <resource name="player_handle_falling_tiles" type="RESOURCE"/>
+  <resource name="player_handle_layers" type="RESOURCE"/>
+  <resource name="player_handle_tunnels" type="RESOURCE"/>
+  <resource name="player_handle_rings" type="RESOURCE"/>
+  <resource name="player_handle_springs" type="RESOURCE"/>
+  <resource name="player_handle_monitors" type="RESOURCE"/>
+  <resource name="player_handle_badniks" type="RESOURCE"/>
+  <resource name="player_handle_breakable_walls" type="RESOURCE"/>
+  <resource name="player_handle_spikes" type="RESOURCE"/>
+  <resource name="player_handle_hangs" type="RESOURCE"/>
+  <resource name="player_handle_watersurface" type="RESOURCE"/>
+  <resource name="player_handle_corkscrews" type="RESOURCE"/>
+  <resource name="player_handle_projectiles" type="RESOURCE"/>
+</resources>

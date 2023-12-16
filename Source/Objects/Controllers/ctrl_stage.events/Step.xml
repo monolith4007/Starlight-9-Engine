@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Gain a life with 100x rings.
+if (global.player_rings &gt;= (ring_life_check * 100))
+{
+    // Gain a life:
+    global.player_lives += 1;
+    ring_life_check     += 1;
+
+    // Play life jingle.
+    audio_play(SFX._jingle_life, SFX.max_bgm_volume, 1, 0, 0);
+}
+
+// Limit the number of rings the player can have:
+if (global.player_rings &gt; 999)
+{
+    global.player_rings = 999;
+}
+</argument>
+      </arguments>
+    </action>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Pause the game.
+if (keyboard_check_pressed(global.key_start) &amp;&amp; add_time)
+{
+    if (!instance_exists(obj_pause))
+    {
+        instance_create(0, 0, obj_pause);
+    }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="par_shield" type="RESOURCE"/>
+  <resource name="obj_shield_normal" type="RESOURCE"/>
+  <resource name="obj_shield_fire" type="RESOURCE"/>
+  <resource name="obj_shield_bubble" type="RESOURCE"/>
+  <resource name="obj_shield_electric" type="RESOURCE"/>
+  <resource name="obj_shield_insta" type="RESOURCE"/>
+</resources>

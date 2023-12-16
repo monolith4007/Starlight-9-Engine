@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="DRAW" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Draw EHZ parallax background.
+var width;
+width = background_get_width(bg_emerald_hill);
+
+// Draw the ocean &amp; island.
+draw_background_tiled_area(bg_emerald_hill, 0, 0, view_xview[0] * 0.930, view_yview[0], view_xview[0] + width, 112);
+
+// Draw the hills.
+draw_background_tiled_area(bg_emerald_hill, 0, 112, view_xview[0] * 0.850, view_yview[0] + 112, view_xview[0] + width, 15);
+draw_background_tiled_area(bg_emerald_hill, 0, 127, view_xview[0] * 0.830, view_yview[0] + 127, view_xview[0] + width, 16);
+
+// Draw the fields.
+draw_background_tiled_area(bg_emerald_hill, 0, 143, view_xview[0] * 0.780, view_yview[0] + 143, view_xview[0] + width, 12);
+draw_background_tiled_area(bg_emerald_hill, 0, 155, view_xview[0] * 0.740, view_yview[0] + 155, view_xview[0] + width, 9);
+draw_background_tiled_area(bg_emerald_hill, 0, 164, view_xview[0] * 0.670, view_yview[0] + 164, view_xview[0] + width, 16);
+draw_background_tiled_area(bg_emerald_hill, 0, 180, view_xview[0] * 0.640, view_yview[0] + 180, view_xview[0] + width, 37);
+draw_background_tiled_area(bg_emerald_hill, 0, 217, view_xview[0] * 0.590, view_yview[0] + 217, view_xview[0] + width, 35);
+draw_background_tiled_area(bg_emerald_hill, 0, 217, view_xview[0] * 0.570, view_yview[0] + 252, view_xview[0] + width, 35);
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

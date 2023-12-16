@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="spr_animal_cucky" type="RESOURCE"/>
+  <resource name="spr_animal_flicky" type="RESOURCE"/>
+  <resource name="spr_animal_pecky" type="RESOURCE"/>
+  <resource name="spr_animal_pocky" type="RESOURCE"/>
+  <resource name="spr_animal_ricky" type="RESOURCE"/>
+  <resource name="spr_animal_rocky" type="RESOURCE"/>
+</resources>

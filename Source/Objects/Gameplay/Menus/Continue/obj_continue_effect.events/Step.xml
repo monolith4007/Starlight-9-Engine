@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Effect size and alpha.
+if (fade_size &lt; SCREEN_WIDTH)
+{
+    fade_size += 16;
+}
+else
+{
+    if (fade_alpha &gt; 0)
+    {
+        fade_alpha -= 0.05;
+    }
+    else
+    {
+        obj_continue_controller.alarm[1]  = 30;
+        obj_continue_post.sign_post_state = 1;
+        instance_destroy();
+    }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

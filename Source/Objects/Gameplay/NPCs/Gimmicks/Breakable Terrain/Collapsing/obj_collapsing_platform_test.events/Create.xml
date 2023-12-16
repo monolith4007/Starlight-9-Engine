@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="CREATE" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Variables.
+event_inherited();
+tile_ox     = 2;
+tile_oy     = 5;
+tile_size   = 16;
+tile_width  = sprite_width  div tile_size;
+tile_height = sprite_height div tile_size;
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

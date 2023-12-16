@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="1">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Global timers.
+
+// Game time:
+if (add_time)
+{
+    game_time += 1000 / 60;
+
+    // Get a time over.
+    if (global.limit_time)
+    {
+        if (game_time &gt;= 599999)
+        {
+            with (global.player_id[0]) state = STATE_DEATH;
+            game_time = 599999;
+        }
+    }
+}
+
+// Object time:
+object_time += 1000 / 60;
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="Initialization" type="GROUP"/>
+  <resource filename="Title _ Options" name="Title / Options" type="GROUP"/>
+  <resource filename="Data _ Level Select" name="Data / Level Select" type="GROUP"/>
+  <resource name="Stages" type="GROUP"/>
+  <resource name="Continue" type="GROUP"/>
+</resources>

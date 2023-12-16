@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="spr_platform_dir_up" type="RESOURCE"/>
+  <resource name="spr_platform_dir_down" type="RESOURCE"/>
+  <resource name="spr_platform_dir_left" type="RESOURCE"/>
+  <resource name="spr_platform_dir_right" type="RESOURCE"/>
+</resources>

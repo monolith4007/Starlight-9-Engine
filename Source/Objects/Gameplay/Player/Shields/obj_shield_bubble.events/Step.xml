@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Animation.
+if (instance_exists(handle))
+{
+    switch (handle.shield_action)
+    {
+        case 0:
+        {
+            image_speed = 0.5;
+            break;
+        }
+        case 1:
+        {
+            image_speed = 0;
+            image_index = 1;
+            break;
+        }
+        case 2:
+        {
+            image_speed = 0.25;
+            if (image_index &gt; 5)
+            {
+                handle.shield_action = 0;
+                sprite_index         = spr_shield_bubble;
+            }
+            break;
+        }
+    }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="CREATE" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Create Swing.
+chains           = 6;                  // How many chains.
+chain_sprite     = spr_test_chain;     // Sprite of each chain.
+chain_sprite_top = spr_test_chain_top; // Sprite of the top chain / chain handle.
+swing_speed      = 3;                  // How fast the platform swings.
+platform_offset  = 10;                 // Character Offset. Usually 10 but might need tweaks for other platforms.
+
+// Call Parent:
+event_inherited();
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

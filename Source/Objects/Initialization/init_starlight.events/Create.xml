@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="CREATE" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Initialize global variables, fonts &amp; savestates.
+
+// Keyboard input:
+global.key_up      = vk_up;
+global.key_down    = vk_down;
+global.key_left    = vk_left;
+global.key_right   = vk_right;
+global.key_action  = ord("Z");
+global.key_special = ord("X");
+global.key_swap    = ord("C");
+global.key_start   = vk_enter;
+
+// Gamepad input:
+global.gmp_action  = -1;
+global.gmp_special = -1;
+global.gmp_swap    = -1;
+global.gmp_start   = -1;
+
+// Player:
+global.player_rings     = 0; // Amount of rings the player has.
+global.player_score     = 0; // Current score.
+global.player_continues = 0; // Amount of continues the player has.
+global.player_lives     = 3; // Amount of lives the player has.
+global.player_emeralds  = 0; // Amount of chaos emeralds the player has collected.
+
+// Level:
+global.player_id[0]    = noone; // The main player.
+global.player_id[1]    = noone; // The CPU player.
+global.character_index = 0;     // The character index of the main player.
+global.cpu_index       = 0;     // The character index of the CPU player.
+global.limit_time      = true;  // Toggles the 'time over' event when 10 in-game minutes have passed.
+global.gravity_angle   = 0;     // The angle at which the player's gravity acts towards.
+global.checkpoint_x    = -1;    // Horizontal position the player(s) should respawn at.
+global.checkpoint_y    = -1;    // Vertical position the player(s) should respawn at.
+global.checkpoint_t    = 0;     // The value the game timer should be set to after respawning.
+global.goal_style      = 1;     // The player's method of completing the level (0 = None, 1 = The player moves to the right of the screen, 2 = The player strikes a pose).
+
+// Data select:
+global.zone_id        = 0;             // ID of the current zone.
+global.game_completed = false;         // Have we completed the game?
+global.first_zone     = rm_playground; // The first zone in the game. See the code in the data select slot objects.
+global.previous_room  = -1;            // Stores the previous room.
+
+// Rendering:
+global.screen_scale   = 1;     // The screen scale value.
+global.use_vsync      = false; // Sets whether VSync should be used or not.
+global.rotation_style = 0;     // The method of visually rotating the player (0 for classic, 1 for smooth).
+global.use_trail      = true;  // Sets whether the trail effect should be used for the player or not.
+global.display_hud    = true;  // Sets whether the HUD should be visible or not.
+
+// Fonts:
+global.font_main          = font_add_sprite(spr_font_main,          ord("!"), true,  1);
+global.font_lives         = font_add_sprite(spr_font_lives,         ord("0"), false, 0);
+global.font_hud           = font_add_sprite(spr_font_numbers,       ord("0"), false, 0);
+global.font_dataselect    = font_add_sprite(spr_font_dataselect,    ord("0"), false, 0);
+global.font_title_card_s3 = font_add_sprite(spr_font_title_card_s3, ord("A"), true,  0);
+global.font_title_card_s2 = font_add_sprite(spr_font_title_card_s2, ord("A"), true,  0);
+global.font_title_card_s1 = font_add_sprite(spr_font_title_card_s1, ord("A"), true,  2);
+
+// Create the save directory if missing.
+if (!directory_exists(working_directory + "\data\save"))
+{
+    directory_create(working_directory + "\data\save");
+}
+
+// Load save slots:
+save_reload_all();
+
+// Set each room view automatically (credit to TsukiruP).
+var room_id;
+room_id = room_first;
+while (room_id != -1)
+{
+    room_set_view_enabled(room_id, true);
+    room_set_view(room_id, 0, true, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, -1, -1, noone);
+    room_id = room_next(room_id);
+}
+
+// Center window.
+window_center();
+
+// Randomize seed.
+randomize();
+
+// Splash variables.
+s8e_index   = 1;
+s8e_step    = 0;
+s8e_alpha   = -1;
+s8e_galpha  = 0;
+s8e_done    = false;
+image_speed = 0;
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

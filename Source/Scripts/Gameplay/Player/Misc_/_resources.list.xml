@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="player_physics_values" type="RESOURCE"/>
+  <resource name="player_ringtoss" type="RESOURCE"/>
+  <resource name="player_add_score" type="RESOURCE"/>
+  <resource name="player_reset_trail" type="RESOURCE"/>
+</resources>

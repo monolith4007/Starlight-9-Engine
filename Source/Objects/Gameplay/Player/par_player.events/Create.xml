@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="CREATE" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Main variables.
+
+// Horizontal movement:
+x_allow        = true;     // Allows horizontal movement.
+x_speed        = 0;        // The current horizontal speed.
+x_speed_top    = 6;        // Horizontal top speed while on flat ground.
+x_speed_max    = 16;       // Fastest the player can move.
+x_acceleration = 0.046875; // Horizontal acceleration on ground.
+x_deceleration = 0.5;      // Horizontal deceleration on ground.
+x_speed_limit  = false;    // Limits the horizontal speed.
+
+// Vertical movement:
+y_allow        = true;    // Allows vertical movement.
+y_speed        = 0;       // The current vertical speed.
+y_speed_max    = 16;      // Fastest the player can fall.
+y_acceleration = 0.21875; // Force of gravity applied to the player.
+y_accel_common = 0.21875; // Stores the default gravity value in case we change it.
+y_speed_limit  = false;   // Limits the vertical speed.
+
+// Collision:
+col_launch_angle     = 90;    // The angle to launch the player at after leaving a ramp/slope.
+col_launch_flag      = true;  // Checks if the player can launch off a tile.
+col_launch_direction = 1;     // Checks if the player is facing in the same direction as a ramp when launching off of it (1 = Right, -1 = Left, 0 = None).
+col_rotate_flag      = false; // Checks if the player can rotate on the tile they're moving on.
+col_edge_skip        = false; // Skips the edge sensor collision check to prevent collision issues with certain tiles after landing on them (such as quarter ellipes).
+col_edge_exception   = false; // Prevents the player from horizontally colliding with certain tiles at angles of 90 and 270 degrees.
+col_ceiling_movement = false; // Checks if the player can move on ceilings.
+
+// Terrain:
+ground           = false; // Checks if the player is on the ground.
+angle            = 0;     // The angle of the player.
+angle_relative   = 0;     // The angle relative to the gravity angle.
+collision_layer  = 0;     // Stores the layer the player is on.
+platform_check   = false; // Checks if the player has landed on platforms.
+disable_wallstop = false; // Flag for whether the player can horizontally collide with terrain or not.
+
+// Flags:
+state               = STATE_DEFAULT; // The player's current state.
+input_lock_timer    = 0;             // Locks the player's inputs (used for slopes &amp; springs).
+tunnel_lock         = false;         // Locks the player when inside a tunnel.
+jump_action         = false;         // Allows the player to perform any special actions while jumping.
+score_multiplier    = 0;             // Score multiplier when defeating badniks.
+shield_index        = 0;             // The player's current shield.
+shield_object       = noone;         // The player's shield object.
+shield_action       = 0;             // The player's shield action.
+invincibility_type  = 0;             // Is the player invulnerable to hazards? (0 = No, 1 - After getting hit, 2 - Invincibility sparkles or Super form)
+invincibility_timer = 0;             // How long invincibility lasts.
+invincibility_angle = 0;             // Used for creating invincibility sparkles.
+superspeed_timer    = 0;             // How long superspeed sneakers last.
+
+// Underwater:
+underwater    = false; // Are we underwater?
+drown_timer   = 1800;  // How long it takes (in frames) for the player to drown.
+drown_counter = noone; // The number count down above the player while about to drown.
+bubble_timer  = 0;     // How long the player is stuck in the breathing state after touching a bubble.
+breath_timer  = 40;    // Needed for creating bubbles after we drowned.
+has_drowned   = false; // Checks if the player has drowned.
+
+// Jumping:
+jump_strength  = -6.5;  // The player's default jump strength.
+jump_release   = -4;    // The player's jump strength when performing a variable jump.
+jump_completed = false; // Checks if the player has completed their jump.
+jump_lock      = false; // Disables horizontal input when jumping after rolling.
+
+// Spindash:
+spindash_strength = 0; // Current strength of the spindash.
+
+// Rolling:
+roll_deceleration = 0.125;     // Rolling deceleration.
+roll_friction     = 0.0234375; // Friction while rolling.
+roll_decel_up     = 0.078125;  // Deceleration while rolling up slopes.
+roll_decel_down   = 0.3125;    // Deceleration while rolling down slopes.
+roll_rebounce     = false;     // Checks if the player should fully rebound off a badnik/monitor when falling after rolling.
+
+// Balancing:
+balance_direction = 0; // Direction the player is balancing to.
+
+// Hanging:
+hang_timer    = 0; // Hang timer, prevents us from grabbing onto something as soon as we try to let go.
+hang_type     = 0; // Grab type, see the hang scripts for more information.
+hang_distance = 0; // How far we can travel.
+hang_move_dir = 0; // Checks which direction we're moving towards if the hang type is DISTANCE.
+hang_x        = 0; // Our horizontal hanging position.
+hang_y        = 0; // Our vertical hanging position.
+
+// Pushing:
+push_timer     = 0; // Used to trigger pushing state.
+push_timer_max = 3; // The maximum value the push timer can be before triggering the pushing state.
+
+// Miscellaneous:
+death_timer      = -5;    // Timer that manages how the player should remain dead before restarting the level.
+swap_timer       = 0;     // Timer that prevents the swapping between characters.
+afterimage_draw  = false; // Flag for drawing the afterimage.
+afterimage_timer = 0;     // Timer that prevents the spawning of another afterimage.
+
+// CPU only:
+cpu_offscreen_timer = 300; // Keeps track of how long the CPU has been offscreen for. Used for respawning.
+</argument>
+      </arguments>
+    </action>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Character specific variables.
+
+// Sonic:
+dropdash_state = 0;     // Current dropdash state (0 = Null, 1 = Charging, 2 = Ready).
+dropdash_timer = 20;    // The time it takes to charge the dropdash.
+peelout_flag   = false; // Used to keep Sonic in his figure 8 animation after performing it.
+peelout_timer  = 0;     // Keeps track of how long the figure 8 move has been charged.
+
+// Tails:
+tails_flight_timer   = 480;   // How long we've been flying.
+tails_tail_sprite    = noone; // Sprite for Tails' tail.
+tails_tail_frame     = 0;     // Current tail frame.
+tails_tail_speed     = 0;     // Animation speed for the tail.
+tails_tail_x         = 0;     // X Position for the tail.
+tails_tail_y         = 0;     // Y Position for the tail.
+tails_tail_angle     = 0;     // Angle of the tail.
+tails_tail_direction = 1;     // Direction of the tail.
+
+// Knuckles:
+glide_top_speed    = 24;       // Fastest Knuckles can move horizontally while gliding.
+glide_acceleration = 0.015625; // Knuckles' horizontal acceleration while gliding.
+glide_gravity      = 0.125;    // The gravity used while gliding.
+glide_crouch_timer = 15;       // How long knuckles stays in his crouched state (after a drop)
+glide_turn_speed   = 0;        // Special variable that stores Knuckles' speed when performing a glide turn.
+glide_turn_angle   = 0;        // Special variable that stores Knuckles' angle when performing a glide turn.
+climb_ox           = 0;        // Variable that stores Knuckles' X position when grabbing onto a wall. If his X position is different to this variable, he stops climbing.
+climb_speed        = 1;        // How fast Knuckles can climb up a wall.
+ledge_grabbing     = false;    // Checks if Knuckles climbing a ledge.
+
+// Amy:
+amy_hammer_attack = 0; // Sets Amy's hammer attack (0 = No attack, 1 = Hammer punch, 2 = Hammer spin, 3 = Hammer air dash, 4 = Hammer flip).
+
+// Modern Sonic:
+homing_mode     = 0;     // Set the homing mode (0 = Normal, 1 = Utopia like - Modern Sonic doesn't come to a full stop after homing into a badnik or spring).
+homing_speed    = 12;    // The speed at which Modern Sonic should move towards a homing target.
+homing_distance = 128;   // The maximum distance the homing reticle can be created.
+boosting        = false; // Checks if Modern Sonic is boosting or not.
+boost_amount    = 120;   // Modern Sonic's boosting capacity.
+</argument>
+      </arguments>
+    </action>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Input keys.
+input_up              = false;
+input_down            = false;
+input_right           = false;
+input_left            = false;
+input_action          = false;
+input_special         = false;
+input_swap            = false;
+
+input_up_pressed      = false;
+input_down_pressed    = false;
+input_right_pressed   = false;
+input_left_pressed    = false;
+input_action_pressed  = false;
+input_special_pressed = false;
+input_swap_pressed    = false;
+
+// Create the CPU player's input queues.
+cpu_ip_up           = ds_queue_create();
+cpu_ip_down         = ds_queue_create();
+cpu_ip_action_press = ds_queue_create();
+
+repeat (16) // The CPU player retrieves the main player's inputs from 16 frames into the past.
+{
+    ds_queue_enqueue(cpu_ip_up,           false);
+    ds_queue_enqueue(cpu_ip_down,         false);
+    ds_queue_enqueue(cpu_ip_action_press, false);
+}
+</argument>
+      </arguments>
+    </action>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Animation variables.
+animation_sprite          = spr_sonic_idle;
+animation_index           = "";
+animation_previous        = "";
+animation_speed           = 0;
+animation_rendering_speed = 0;
+animation_start           = 0;
+animation_frame           = 0;
+animation_end             = 0;
+animation_loop            = 0;
+animation_loop_count      = 0;
+animation_next            = "";
+animation_next_frame      = 0;
+animation_finished        = false;
+animation_direction       = 1;
+animation_color           = c_white;
+animation_angle           = 0;
+animation_angle_mod       = 0;
+animation_alpha           = 1;
+// animation_x               = x;
+// animation_y               = y;
+animation_timer           = 0;
+</argument>
+      </arguments>
+    </action>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Trail variables.
+if (global.use_trail)
+{
+    trail_length = 20;
+
+    // Allocate vertexes list:
+    vertex_x[1] = ds_list_create();
+    vertex_x[2] = ds_list_create();
+    vertex_y[1] = ds_list_create();
+    vertex_y[2] = ds_list_create();
+
+    repeat (trail_length)
+    {
+        ds_list_add(vertex_x[1], x);
+        ds_list_add(vertex_x[2], x);
+        ds_list_add(vertex_y[1], y);
+        ds_list_add(vertex_y[2], y);
+    }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

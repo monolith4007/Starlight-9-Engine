@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="CREATE" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Init.
+
+// Gamepad connection check:
+gmp_exists = joystick_exists(0);
+
+// Button variables:
+gmp_cup      = false;
+gmp_cdown    = false;
+gmp_cleft    = false;
+gmp_cright   = false;
+gmp_caction  = false;
+gmp_cspecial = false;
+gmp_cswap    = false;
+gmp_cstart   = false;
+alarm[0]     = 300;
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

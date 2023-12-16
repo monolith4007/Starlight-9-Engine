@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="ALARM" id="1">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Continue fade.
+global.player_lives     = 3;
+global.player_continues = max(global.player_continues - 1, 0);
+
+if (global.save_selected != 0)
+{
+    save_create(global.save_selected);
+}
+
+room_fade_to(global.previous_room);
+global.previous_room = -1;
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

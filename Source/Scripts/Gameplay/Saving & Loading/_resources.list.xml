@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="Config" type="GROUP"/>
+  <resource name="Data Select" type="GROUP"/>
+  <resource name="Zone List" type="GROUP"/>
+</resources>

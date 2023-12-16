@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="spr_shield_normal" type="RESOURCE"/>
+  <resource name="spr_shield_fire" type="RESOURCE"/>
+  <resource name="spr_shield_fire_dash" type="RESOURCE"/>
+  <resource name="spr_shield_bubble" type="RESOURCE"/>
+  <resource name="spr_shield_bubble_bounce" type="RESOURCE"/>
+  <resource name="spr_shield_electric" type="RESOURCE"/>
+  <resource name="spr_shield_insta" type="RESOURCE"/>
+</resources>

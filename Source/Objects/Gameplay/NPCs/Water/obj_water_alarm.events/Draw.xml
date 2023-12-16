@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="DRAW" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Draw.
+if (instance_exists(parent))
+{
+    if (parent.state != STATE_DEATH)
+    {
+        if (image_index mod 2 != 0)
+        {
+            if (frac(image_index) == 0)
+            {
+                if ((STG.object_time div 60) mod 3)
+                {
+                    draw_sprite(sprite_index, image_index, floor(parent.x), floor(parent.y - 54));
+                }
+            }
+        }
+        else
+        {
+            draw_sprite(sprite_index, image_index, floor(parent.x), floor(parent.y - 54));
+        }
+    }
+}
+else
+{
+    if (image_index mod 2 != 0)
+    {
+        if (frac(image_index) == 0)
+        {
+            if ((STG.object_time div 60) mod 3)
+            {
+                draw_sprite(sprite_index, image_index, floor(x), floor(y));
+            }
+        }
+    }
+    else
+    {
+        draw_sprite(sprite_index, image_index, floor(x), floor(y));
+    }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

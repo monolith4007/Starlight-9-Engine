@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="DRAW" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Draw the Fade.
+draw_set_alpha(1);
+
+if (color == c_black)
+{
+    draw_set_blend_mode(bm_subtract);
+}
+else
+{
+    draw_set_blend_mode(bm_add);
+}
+draw_set_color(make_color_rgb(color_red, color_green, color_blue));
+draw_rectangle(view_xview[0], view_yview[0], view_xview[0] + view_wview[0], view_yview[0] + view_hview[0], false);
+draw_set_blend_mode(bm_normal);
+draw_set_alpha(image_alpha);
+
+draw_set_blend_mode(bm_normal);
+draw_set_alpha(1);
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

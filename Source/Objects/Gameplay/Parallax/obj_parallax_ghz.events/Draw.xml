@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="DRAW" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Draw GHZ parallax background.
+
+// Draw the colored background based on view position.
+// We do this as it saves memory as opposed to setting the background color in the room, which fills the entirety of it.
+draw_set_color(make_color_rgb(32, 0, 160));
+draw_rectangle(view_xview[0], view_yview[0], view_xview[0] + view_wview[0], view_yview[0] + view_hview[0], false);
+draw_set_color(c_white);
+
+// Draw the ocean.
+var xx, yy, i;
+for (i = 0; i &lt; 7; i += 1)
+{
+    xx = 0.875 - (i * 0.05);
+    yy = 0.125 + (i * 0.05);
+    draw_background_tiled_area(ocean_bg, 0, i * 16, view_xview[0] * xx, view_yview[0] + i * 16 + 160, view_xview[0] * yy + view_wview[0], 16);
+}
+
+// Draw the clouds.
+draw_background_tiled_area(bg_green_hill_clouds, 0, 0,  view_xview[0] + cloud_speed * 0.75, view_yview[0] + 16, view_wview[0] - cloud_speed * 0.75, 32);
+draw_background_tiled_area(bg_green_hill_clouds, 0, 32, view_xview[0] + cloud_speed * 0.75, view_yview[0] + 48, view_wview[0] - cloud_speed * 0.75, 16);
+draw_background_tiled_area(bg_green_hill_clouds, 0, 48, view_xview[0] + cloud_speed * 0.75, view_yview[0] + 64, view_wview[0] - cloud_speed * 0.75, 16);
+
+// Draw the mountains.
+draw_background_tiled_area(mountain_bg, 0, 0,  view_xview[0] * 0.875, view_yview[0] + 80,  view_xview[0] * 0.125 + view_wview[0], 50);
+draw_background_tiled_area(mountain_bg, 0, 50, view_xview[0] * 0.850, view_yview[0] + 130, view_xview[0] * 0.150 + view_wview[0], 50);
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

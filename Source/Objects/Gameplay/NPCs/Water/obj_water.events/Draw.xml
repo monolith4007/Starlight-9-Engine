@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="DRAW" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Draw the Water.
+
+// Don't run if the water position is -1.
+if (STG.zone_water_height == -1) exit;
+
+// Draw the water below the surface:
+var water_y;
+water_y = max(STG.zone_water_height - view_yview[0], 0);
+draw_set_blend_mode_ext(bm_dest_color, bm_src_alpha_sat);
+draw_set_color(make_color_rgb(107, 107, 148)); // Change this if you want to use a different color.
+draw_rectangle(view_xview[0], view_yview[0] + water_y - 8, view_xview[0] + view_wview[0], view_yview[0] + view_hview[0], 0);
+draw_set_color(c_white);
+draw_set_blend_mode(bm_normal);
+
+// Draw the Surface:
+draw_sprite_tiled_horizontal(spr_water_surface, current_time div 80, view_xview[0], STG.zone_water_height);
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

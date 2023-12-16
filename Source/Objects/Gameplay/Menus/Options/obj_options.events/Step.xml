@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Keyboard rebind.
+if (option_bind == 1)
+{
+    if (bind_status == 9)
+    {
+        option_bind  = 0;
+        bind_status  = 1;
+        option_delay = 30;
+    }
+
+    switch (bind_status)
+    {
+        case 1: bind_key = "UP"; break;
+        case 2: bind_key = "DOWN"; break;
+        case 3: bind_key = "LEFT"; break;
+        case 4: bind_key = "RIGHT"; break;
+        case 5: bind_key = "ACTION"; break;
+        case 6: bind_key = "SPECIAL"; break;
+        case 7: bind_key = "SWAP"; break;
+        case 8: bind_key = "START"; break;
+    }
+
+    if (option_delay == 0)
+    {
+        key_bind_check = keyboard_key;
+    }
+
+    if (key_bind_check != 0 &amp;&amp; option_delay == 0)
+    {
+        switch (bind_status)
+        {
+            case 1:
+            {
+                global.key_up = key_bind_check;
+                option_delay  = 30;
+                bind_status   = 2;
+                keyboard_clear(vk_anykey);
+                break;
+            }
+            case 2:
+            {
+                global.key_down = key_bind_check;
+                option_delay    = 30;
+                bind_status     = 3;
+                keyboard_clear(vk_anykey);
+                break;
+            }
+            case 3:
+            {
+                global.key_left = key_bind_check;
+                option_delay    = 30;
+                bind_status     = 4;
+                keyboard_clear(vk_anykey);
+                break;
+            }
+            case 4:
+            {
+                global.key_right = key_bind_check;
+                option_delay     = 30;
+                bind_status      = 5;
+                keyboard_clear(vk_anykey);
+                break;
+            }
+            case 5:
+            {
+                global.key_action = key_bind_check;
+                option_delay      = 30;
+                bind_status       = 6;
+                keyboard_clear(vk_anykey);
+                break;
+            }
+            case 6:
+            {
+                global.key_special = key_bind_check;
+                option_delay       = 30;
+                bind_status        = 7;
+                keyboard_clear(vk_anykey);
+                break;
+            }
+            case 7:
+            {
+                global.key_swap = key_bind_check;
+                option_delay    = 30;
+                bind_status     = 8;
+                keyboard_clear(vk_anykey);
+                break;
+            }
+            case 8:
+            {
+                global.key_start = key_bind_check;
+                option_delay     = 30;
+                bind_status      = 9;
+                keyboard_clear(vk_anykey);
+                break;
+            }
+        }
+    }
+}
+
+// Delay.
+if (option_delay &gt; 0)
+{
+    option_delay -= 1;
+}
+</argument>
+      </arguments>
+    </action>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Gamepad rebind.
+if (option_bind == 2)
+{
+    if (bind_status == 5)
+    {
+        option_bind  = 0;
+        bind_status  = 1;
+        option_delay = 30;
+    }
+
+    switch (bind_status)
+    {
+        case 1: bind_key = "ACTION"; break;
+        case 2: bind_key = "SPECIAL"; break;
+        case 3: bind_key = "SWAP"; break;
+        case 4: bind_key = "START"; break;
+    }
+
+    if (option_delay == 0)
+    {
+        gmp_bind_check = joystick_get_button();
+    }
+
+    if (gmp_bind_check != -1 &amp;&amp; option_delay == 0)
+    {
+        switch (bind_status)
+        {
+            case 1:
+            {
+                global.gmp_action = gmp_bind_check;
+                option_delay      = 30;
+                bind_status       = 2;
+                break;
+            }
+            case 2:
+            {
+                global.gmp_special = gmp_bind_check;
+                option_delay       = 30;
+                bind_status        = 3;
+                break;
+            }
+            case 3:
+            {
+                global.gmp_swap = gmp_bind_check;
+                option_delay    = 30;
+                bind_status     = 4;
+                break;
+            }
+            case 4:
+            {
+                global.gmp_start = gmp_bind_check;
+                option_delay     = 30;
+                bind_status      = 5;
+                break;
+            }
+        }
+    }
+}
+
+// Delay.
+if (option_delay &gt; 0)
+{
+    option_delay -= 1;
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

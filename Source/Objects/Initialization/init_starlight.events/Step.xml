@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Boot sequence.
+if (s8e_step == 0)
+{
+    if (s8e_alpha &lt; 1)
+    {
+        s8e_alpha += 0.045;
+    }
+    else
+    {
+        s8e_alpha = 1;
+        s8e_step = 1;
+        alarm[0] = 60;
+    }
+}
+if (s8e_step == 2)
+{
+    if (s8e_alpha &gt; 0)
+    {
+        s8e_alpha -= 0.045;
+    }
+    else
+    {
+        s8e_alpha = -1;
+        s8e_step = 3;
+        alarm[1] = 30;
+    }
+}
+if (s8e_step == 4)
+{
+    if (s8e_alpha &lt; 1)
+    {
+        s8e_alpha += 0.045;
+    }
+    else
+    {
+        s8e_alpha = 1;
+        s8e_step = 1;
+        alarm[2] = 60;
+    }
+}
+
+if (s8e_done)
+{
+    s8e_galpha += 0.045;
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

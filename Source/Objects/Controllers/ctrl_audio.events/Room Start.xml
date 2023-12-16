@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="OTHER" id="4">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Music initialization.
+
+// Revert the fadeout flags if they're enabled.
+fadeout_flag = false;
+zone_results = false;
+
+// Set the volumes.
+bgm_volume = max_bgm_volume;
+sfx_volume = max_sfx_volume;
+
+// Then play music for the current room.
+switch (room)
+{
+    case rm_title:
+    {
+        audio_play(SFX._jingle_title, SFX.bgm_volume, 1, 0, 0);
+        break;
+    }
+    case rm_continue:
+    {
+        audio_play(SFX._jingle_continue, SFX.bgm_volume, 1, 0, 0);
+        break;
+    }
+    case rm_data_select:
+    {
+        music_play(SFX._music_dataselect);
+        break;
+    }
+    case rm_level_select:
+    {
+        music_play(SFX._music_levelselect);
+        break;
+    }
+    case rm_options:
+    {
+        music_play(SFX._music_options);
+        break;
+    }
+    case rm_playground:
+    case rm_playground_2:
+    {
+        music_play(SFX._music_test);
+        break;
+    }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

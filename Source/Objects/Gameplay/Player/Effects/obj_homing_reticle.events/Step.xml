@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Position, Scaling &amp; Angle.
+
+// Destroy if the target no longer exists or the main player isn't Modern Sonic.
+if (!instance_exists(target) || global.player_id[0].character_id != CHAR_MODERN)
+{
+    instance_destroy();
+    exit;
+}
+
+// Reposition:
+x = target.x;
+y = target.y;
+
+// Scale.
+if (target_scale &gt; 1)
+{
+    target_scale += floor(1 - target_scale) * 0.5;
+}
+else
+{
+    target_scale = 1;
+}
+
+// Angle.
+if (target_scale == 1)
+{
+    target_angle += 5;
+}
+
+// Alpha.
+if (target_alpha != 1)
+{
+    target_alpha += (1 - target_alpha) * 0.05;
+}
+
+// Check if there's terrain between the player and the target, preventing homing into a wall.
+with (target)
+{
+    if (collision_line(x, y, global.player_id[0].x, global.player_id[0].y, par_solid,      true, true)
+    ||  collision_line(x, y, global.player_id[0].x, global.player_id[0].y, par_layer_low,  true, true)
+    ||  collision_line(x, y, global.player_id[0].x, global.player_id[0].y, par_layer_high, true, true))
+    {
+        other.visible = false;
+    }
+    else
+    {
+        other.visible = true;
+    }
+}
+
+// Reset properties if invisible.
+if (!visible)
+{
+    target_scale = 25;
+    target_angle = 0;
+    target_alpha = 0;
+
+    // Stop the lock-on sound.
+    if (audio_is_playing(SFX._general_switch))
+    {
+        audio_stop(SFX._general_switch);
+    }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

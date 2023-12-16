@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="spr_dataselect_robotnik_delete" type="RESOURCE"/>
+  <resource name="spr_dataselect_robotnik_spin" type="RESOURCE"/>
+  <resource name="spr_dataselect_robotnik_full_spin" type="RESOURCE"/>
+  <resource name="spr_dataselect_robotnik_selection" type="RESOURCE"/>
+</resources>

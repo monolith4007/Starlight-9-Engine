@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="spr_tail_part_1" type="RESOURCE"/>
+  <resource name="spr_tail_part_2" type="RESOURCE"/>
+  <resource name="spr_tail_part_3" type="RESOURCE"/>
+  <resource name="spr_tail_part_4" type="RESOURCE"/>
+  <resource name="spr_tail_part_5" type="RESOURCE"/>
+  <resource name="spr_tail_part_6" type="RESOURCE"/>
+</resources>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="DRAW" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Draw Player.
+if (!debug_mode)
+{
+    // Draw Trail:
+    if (global.use_trail)
+    {
+        var color, i;
+        draw_set_blend_mode(bm_add);
+        draw_primitive_begin(pr_trianglestrip);
+
+        // Set character trail color.
+        switch (character_id)
+        {
+            case CHAR_SONIC:    color = make_color_rgb(0,   0,   255); break;
+            case CHAR_TAILS:    color = make_color_rgb(255, 153, 51);  break;
+            case CHAR_KNUCKLES: color = make_color_rgb(255, 0,   0);   break;
+            case CHAR_AMY:      color = make_color_rgb(255, 51,  153); break;
+            case CHAR_MODERN:   color = make_color_rgb(0,   0,   96);  break;
+        }
+
+        for (i = 0; i &lt; trail_length; i += 1)
+        {
+            draw_vertex_color(ds_list_find_value(vertex_x[1], i), ds_list_find_value(vertex_y[1], i) + 4, color, i / 24);
+            draw_vertex_color(ds_list_find_value(vertex_x[2], i), ds_list_find_value(vertex_y[2], i) + 4, color, i / 24);
+        }
+
+        draw_primitive_end();
+        draw_set_blend_mode(bm_normal);
+    }
+
+    // Flash when hurt.
+    if (invincibility_type == 1 &amp;&amp; invincibility_timer &gt; 0)
+    {
+        animation_alpha = (invincibility_timer div 4) mod 2;
+    }
+    else if (animation_alpha &lt; 1)
+    {
+        animation_alpha = 1;
+    }
+
+    // Draw character:
+    if (tails_tail_sprite != noone)
+    {
+        draw_sprite_ext(tails_tail_sprite, floor(tails_tail_frame), floor(x + tails_tail_x), floor(y + tails_tail_y), tails_tail_direction, 1, tails_tail_angle, animation_color, animation_alpha);
+    }
+    draw_sprite_ext(animation_sprite, floor(animation_frame), floor(x), floor(y), animation_direction, 1, animation_angle, animation_color, animation_alpha);
+
+    // Draw Spindash dust:
+    if (state == STATE_SPINDASH)
+    {
+        draw_sprite_ext(spr_spindash_dust, current_time div 40, floor(x - animation_direction), floor(y), animation_direction, 1, animation_angle, c_white, 1);
+    }
+}
+else
+{
+    var dbgX, dbgY;
+    dbgX = floor(x);
+    dbgY = floor(y);
+
+    draw_sprite(MASK_MAIN, 0, dbgX, dbgY);
+    draw_sprite(MASK_BIG,  0, dbgX - dcos(angle) * 11, dbgY + dsin(angle) * 11);
+    draw_sprite(MASK_BIG,  0, dbgX + dcos(angle) * 11, dbgY - dsin(angle) * 11);
+    draw_sprite(MASK_MID,  0, dbgX - dcos(angle) * 11, dbgY + dsin(angle) * 11);
+    draw_sprite(MASK_MID,  0, dbgX + dcos(angle) * 11, dbgY - dsin(angle) * 11);
+    draw_sprite(MASK_MID,  0, dbgX - dsin(angle) * 11, dbgY - dcos(angle) * 11);
+    draw_sprite(MASK_MID,  0, dbgX + dsin(angle) * 11, dbgY + dcos(angle) * 11);
+    draw_sprite(MASK_LINES, floor(angle), dbgX, dbgY);
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

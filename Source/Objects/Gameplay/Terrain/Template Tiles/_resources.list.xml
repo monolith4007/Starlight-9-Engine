@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="Solid" type="GROUP"/>
+  <resource name="Platforms" type="GROUP"/>
+  <resource name="Moving Platforms" type="GROUP"/>
+  <resource name="Low Layer" type="GROUP"/>
+  <resource name="High Layer" type="GROUP"/>
+</resources>

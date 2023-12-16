@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="spr_sign_post" type="RESOURCE"/>
+  <resource name="spr_results_name" type="RESOURCE"/>
+  <resource name="spr_results_through" type="RESOURCE"/>
+  <resource name="spr_results_act" type="RESOURCE"/>
+  <resource name="spr_results_zone" type="RESOURCE"/>
+  <resource name="spr_results_time" type="RESOURCE"/>
+  <resource name="spr_results_ring" type="RESOURCE"/>
+  <resource name="spr_results_total" type="RESOURCE"/>
+  <resource name="spr_camera" type="RESOURCE"/>
+</resources>

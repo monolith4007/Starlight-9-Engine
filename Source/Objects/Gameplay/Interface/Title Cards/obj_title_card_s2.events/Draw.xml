@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="DRAW" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Draw title card.
+
+// Black Rectangle:
+if (tc_state == 1)
+{
+    draw_set_color(c_black);
+    draw_rectangle(view_xview[0], view_yview[0], view_xview[0] + view_wview[0], view_yview[0] + view_hview[0], false);
+}
+
+// Player-Colored Rectangle:
+switch (global.character_index)
+{
+    case CHAR_SONIC:
+    case CHAR_MODERN:
+    {
+        draw_set_color(c_blue);
+        break;
+    }
+    case CHAR_TAILS:
+    {
+        draw_set_color(c_orange);
+        break;
+    }
+    case CHAR_KNUCKLES:
+    {
+        draw_set_color(c_green);
+        break;
+    }
+    case CHAR_AMY:
+    {
+        draw_set_color(make_color_rgb(255, 105, 180)); // Since GameMaker doesn't have a c_pink constant, we have to make our own.
+        break;
+    }
+}
+draw_rectangle(view_xview[0], view_yview[0] - (tc_state != 1), view_xview[0] + view_wview[0], view_yview[0] + tc_blue_y, false);
+
+// Yellow Rectangle:
+draw_set_color(c_yellow);
+draw_rectangle(view_xview[0] + view_wview[0] - tc_yellow_x, view_yview[0] + view_hview[0] - 64, view_xview[0] + view_wview[0], view_yview[0] + view_hview[0], false);
+
+// Game Name:
+draw_sprite(spr_title_card_game_name_s2, 0, view_xview[0] + view_wview[0] - tc_yellow_x + 168, view_yview[0] + view_hview[0] - 56);
+
+// Red Rectangle:
+tc_red_y = 0;
+repeat (ceil(view_hview[0] / sprite_get_height(spr_title_card_banner_s2)))
+{
+    draw_sprite(spr_title_card_banner_s2, 0, view_xview[0] + tc_red_x, view_yview[0] + tc_red_y);
+    tc_red_y += 80;
+}
+
+// Set title card font.
+draw_set_font(global.font_title_card_s2);
+draw_set_color(c_white);
+draw_set_halign(fa_right);
+
+// Zone name:
+draw_text(view_xview[0] + tc_name_x, view_yview[0] + 58, string(STG.zone_name));
+draw_text(view_xview[0] + tc_zone_x, view_yview[0] + 82, "ZONE");
+
+// Act:
+if (STG.zone_act &gt; 0)
+{
+    draw_sprite(spr_title_card_act_s2, STG.zone_act - 1, view_xview[0] + tc_zone_x + 1, view_yview[0] + 82);
+}
+
+draw_set_halign(fa_left);
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

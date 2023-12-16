@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="CREATE" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Init.
+
+// Image properties:
+image_speed = 0.5;
+image_alpha = 0.6;
+
+// Sound effects:
+audio_play(SFX._player_boost_continue, SFX.sfx_volume, 1, 0, 0);
+audio_play(SFX._player_boost_loop,     SFX.sfx_volume, 1, 1, 0);
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

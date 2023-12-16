@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="2">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Gravity.
+if (bumped)
+{
+    // Check for collision:
+    repeat (abs(y_speed))
+    {
+        if (!place_meeting(x, y + sign(y_speed), par_terrain))
+        {
+            y += sign(y_speed);
+        }
+        else
+        {
+            y_speed = 0;
+            bumped  = false;
+        }
+    }
+
+    // Add gravity:
+    y_speed = min(y_speed + y_accel, 12);
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Set flag and movement.
+
+// Set flag.
+var spike_trigger;
+spike_trigger = instance_place(x, y, obj_spike_moving_trigger);
+if (spike_trigger != noone)
+{
+    if (spike_flag == 0)
+    {
+        spike_flag = 1;
+        with (spike_trigger) instance_destroy();
+    }
+}
+
+// Movement.
+if (spike_flag == 1)
+{
+    // Timer.
+    if (y_timer &gt; 0)
+    {
+        y_timer -= 1;
+    }
+    else
+    {
+        y_position += 1
+        if (y_position &gt; 2)
+        {
+            y_position = 1;
+        }
+        y_timer = 80;
+    }
+
+    // The movement, smooth tween.
+    if (y_position == 1 &amp;&amp; y != ystart)
+    {
+        y += (ystart - y) * 0.50;
+    }
+    if (y_position == 2 &amp;&amp; y != (ystart - sprite_height - 4))
+    {
+        y += ((ystart - sprite_height - 4) - y) * 0.50;
+    }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

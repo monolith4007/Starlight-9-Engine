@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Move the logo up and down.
+title_y += 4;
+y        = (SCREEN_HEIGHT / 2) + lengthdir_y(8, title_y);
+</argument>
+      </arguments>
+    </action>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Change menu option.
+
+// Run only if we can interact with the title menu.
+if (title_menu_active)
+{
+    // Change options.
+    if (keyboard_check_pressed(global.key_right))
+    {
+        if (title_menu_option &lt; 2)
+        {
+            title_menu_option += 1;
+        }
+        else
+        {
+            title_menu_option = 0;
+        }
+        audio_play(SFX._general_switch, SFX.sfx_volume, 1, 0, 0);
+    }
+    if (keyboard_check_pressed(global.key_left))
+    {
+        if (title_menu_option &gt; 0)
+        {
+            title_menu_option -= 1;
+        }
+        else
+        {
+            title_menu_option = 2;
+        }
+        audio_play(SFX._general_switch, SFX.sfx_volume, 1, 0, 0);
+    }
+
+    // String.
+    switch (title_menu_option)
+    {
+        case 0: title_menu_string = "START"; break;
+        case 1: title_menu_string = "OPTIONS"; break;
+        case 2: title_menu_string = "EXIT"; break;
+    }
+
+    // Choose an option.
+    if (keyboard_check_pressed(global.key_action) || keyboard_check_pressed(global.key_start))
+    {
+        title_menu_active = false;
+        switch (title_menu_option)
+        {
+            case 0:
+            {
+                room_fade_to(rm_data_select);
+                break;
+            }
+            case 1:
+            {
+                room_fade_to(rm_options);
+                break;
+            }
+            case 2:
+            {
+                if (!instance_exists(obj_fade_game_end))
+                {
+                    instance_create(0, 0, obj_fade_game_end);
+                }
+                break;
+            }
+        }
+    }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

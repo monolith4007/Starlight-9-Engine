@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Change volume &amp; pitch.
+
+// Exit when the game/time over is onscreen.
+if (instance_exists(obj_game_over) || instance_exists(obj_time_over))
+{
+    bgm_volume = max_bgm_volume;
+    sfx_volume = max_sfx_volume;
+    exit;
+}
+
+// Exit when the results are onscreen.
+if (instance_exists(obj_results) &amp;&amp; !zone_results)
+{
+    zone_results = true;
+    audio_stop(all);
+    bgm_volume = max_bgm_volume;
+    sfx_volume = max_sfx_volume;
+    audio_play(SFX._jingle_scoring, SFX.bgm_volume, 1, 0, 0);
+    exit;
+}
+if (zone_results) exit;
+
+// Exit if there's no instance of background music.
+if (music_id &lt;= -1) exit;
+
+// Lower the music volume if the life/emerald jingle is playing.
+if (instance_exists(global.player_id[0]))
+{
+    if (!fadeout_flag)
+    {
+        if (audio_is_playing(SFX._jingle_life) || audio_is_playing(SFX._jingle_emerald))
+        {
+            bgm_volume = 0.00;
+            sfx_volume = 0.00;
+        }
+        else
+        {
+            bgm_volume = min(bgm_volume + 0.01, max_bgm_volume);
+            sfx_volume = min(sfx_volume + 0.01, max_sfx_volume);
+        }
+    }
+    else // Lower all volumes when the player has died.
+    {
+        bgm_volume = max(bgm_volume - 0.01, 0.00);
+        sfx_volume = max(sfx_volume - 0.01, 0.00);
+    }
+}
+
+// Mute the zone music if the invincibility or drowning jingle is playing.
+if (audio_is_playing(SFX._jingle_invincibility) || audio_is_playing(SFX._jingle_drown))
+{
+    audio_set_volume(music_id, 0.00);
+}
+else
+{
+    audio_set_volume(music_id, SFX.bgm_volume);
+}
+
+// If the drowning jingle is playing, mute the invincibility jingle.
+if (audio_is_playing(SFX._jingle_invincibility))
+{
+    if (audio_is_playing(SFX._jingle_drown))
+    {
+        audio_set_volume(SFX._jingle_invincibility, 0.00);
+    }
+    else
+    {
+        audio_set_volume(SFX._jingle_invincibility, SFX.bgm_volume);
+    }
+}
+
+// Set the pitch of the music depending on whether the player's superspeed sneakers are active or not.
+if (instance_exists(global.player_id[0]))
+{
+    if (global.player_id[0].superspeed_timer &gt; 0)
+    {
+        if (audio_get_pitch(music_id) &lt; 1.15)
+        {
+            audio_set_pitch(music_id, audio_get_pitch(music_id) + 0.01);
+        }
+        else if (audio_get_pitch(music_id) &gt; 1.15)
+        {
+            audio_set_pitch(music_id, 1.15);
+        }
+    }
+    else
+    {
+        if (audio_get_pitch(music_id) &gt; 1.00)
+        {
+            audio_set_pitch(music_id, audio_get_pitch(music_id) - 0.01);
+        }
+        else if (audio_get_pitch(music_id) &lt; 1.00)
+        {
+            audio_set_pitch(music_id, 1.00);
+        }
+    }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

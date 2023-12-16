@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="1">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Movement &amp; Player position.
+
+// Set previous positions.
+previous_x = x;
+previous_y = y;
+
+// Set Horizontal/Vertical speed.
+if (x_spd &lt; xd_speed)
+{
+    xd_speed -= 0.025;
+}
+else if (x_spd &gt; xd_speed)
+{
+    xd_speed += 0.025;
+}
+
+if (y_spd &lt; yd_speed)
+{
+    yd_speed -= 0.025;
+}
+else if (y_spd &gt; yd_speed)
+{
+    yd_speed += 0.025;
+}
+
+x_speed += xd_speed;
+y_speed += yd_speed;
+
+x = floor(relative_x + x_speed);
+y = floor(relative_y + y_speed);
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="ALARM" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Deactivate instances.
+instance_deactivate_all(true);
+instance_activate_object(gm82core_object);
+instance_activate_object(ctrl_audio);
+instance_activate_object(ctrl_screen);
+instance_activate_object(ctrl_gamepad);
+instance_activate_object(ctrl_stage);
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

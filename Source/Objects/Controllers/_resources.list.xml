@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="ctrl_indestructible" type="RESOURCE"/>
+  <resource name="ctrl_culling" type="RESOURCE"/>
+  <resource name="ctrl_stage" type="RESOURCE"/>
+  <resource name="ctrl_audio" type="RESOURCE"/>
+  <resource name="ctrl_screen" type="RESOURCE"/>
+  <resource name="ctrl_gamepad" type="RESOURCE"/>
+</resources>

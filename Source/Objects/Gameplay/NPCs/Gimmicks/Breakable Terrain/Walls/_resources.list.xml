@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="obj_breakable_wall_test" type="RESOURCE"/>
+  <resource name="obj_breakable_wall_knuckles_test" type="RESOURCE"/>
+  <resource name="obj_breakable_wall_test_piece" type="RESOURCE"/>
+  <resource name="obj_breakable_wall_test_knuckles_piece" type="RESOURCE"/>
+</resources>

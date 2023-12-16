@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Motion (dropped).
+
+// Apply motion:
+if (motion)
+{
+    // Decrease lifespan:
+    lifespan = max(lifespan - 1, 0);
+
+    // Horizontal movement and collision:
+    if (place_meeting(x + x_speed, y, par_solid))
+    {
+        x_speed *= -0.25;
+    }
+    else
+    {
+        x += x_speed;
+    }
+
+    // Vertical movement and collision:
+    y_speed += y_accel;
+    if (place_meeting(x, y + y_speed, par_solid) || (y_speed &gt;= 0 &amp;&amp; place_meeting(x, y + y_speed, par_platform) &amp;&amp; !place_meeting(x, y, par_platform)))
+    {
+        y_speed *= -0.75;
+    }
+    else
+    {
+        y += y_speed;
+    }
+
+    // Destroy if the lifespan has run out or if outside the view.
+    if (lifespan &lt;= 0 || !in_view(id))
+    {
+        instance_destroy();
+    }
+}
+</argument>
+      </arguments>
+    </action>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Trigger magnetization.
+
+// Exit if in motion.
+if (motion) exit;
+
+// Find nearest player:
+var player;
+player = instance_nearest(x, y, par_player);
+if (player != noone)
+{
+    // Magnetize the ring by checking if the player has an electric shield.
+    if (player.shield_index == SHIELD_ELECTRIC)
+    {
+        if (distance_to_object(player) &lt; 64)
+        {
+            magnetized = true;
+            instance_destroy();
+        }
+    }
+}
+</argument>
+      </arguments>
+    </action>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Animation speed.
+if (!motion)
+{
+    image_index = STG.object_time div 120;
+}
+else
+{
+    if (lifespan &gt; 120)
+    {
+        image_index = STG.object_time div 80;
+    }
+    if (lifespan &lt; 120)
+    {
+        image_index = STG.object_time div 200;
+    }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

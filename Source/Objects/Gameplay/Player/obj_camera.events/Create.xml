@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="CREATE" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Camera variables.
+
+// Focus view:
+view_object[0] = id;
+cam_handle     = global.player_id[0];
+
+// Bounds:
+bound_left   = 0;
+bound_top    = 0;
+bound_right  = room_width;
+bound_bottom = room_height;
+
+// Camera position:
+cam_x          = x;
+cam_y          = y;
+cam_x_shift    = 0;
+cam_y_shift    = 0;
+cam_look_timer = 0;
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

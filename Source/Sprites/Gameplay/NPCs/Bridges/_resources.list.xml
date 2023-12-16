@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="spr_test_bridge_log" type="RESOURCE"/>
+  <resource name="spr_test_bridge_6_logs" type="RESOURCE"/>
+  <resource name="spr_test_bridge_12_logs" type="RESOURCE"/>
+</resources>

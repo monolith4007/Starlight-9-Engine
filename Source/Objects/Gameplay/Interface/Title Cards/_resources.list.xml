@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="obj_title_card_s3" type="RESOURCE"/>
+  <resource name="obj_title_card_s2" type="RESOURCE"/>
+  <resource name="obj_title_card_s1" type="RESOURCE"/>
+</resources>

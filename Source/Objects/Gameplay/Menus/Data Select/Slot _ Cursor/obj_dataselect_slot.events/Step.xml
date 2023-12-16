@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Character combinations.
+if (dataslot_zone == 0 &amp;&amp; !obj_dataselect_robotnik.active &amp;&amp; !instance_exists(obj_fade_to))
+{
+    if (obj_dataselect_cursor.datacursor_slot_index == dataslot_index &amp;&amp; obj_dataselect_cursor.datacursor_direction == 0)
+    {
+        if (keyboard_check_pressed(global.key_up))
+        {
+            if (dataslot_combo == 24)
+            {
+                dataslot_combo = 0;
+            }
+            else
+            {
+                dataslot_combo += 1;
+            }
+            audio_play(SFX._general_switch, SFX.sfx_volume, 1, 0, 0);
+        }
+        if (keyboard_check_pressed(global.key_down))
+        {
+            if (dataslot_combo == 0)
+            {
+                dataslot_combo = 24;
+            }
+            else
+            {
+                dataslot_combo -= 1;
+            }
+            audio_play(SFX._general_switch, SFX.sfx_volume, 1, 0, 0);
+        }
+    }
+
+    switch (dataslot_combo)
+    {
+        case 0:
+        {
+            dataslot_character = 1;
+            dataslot_cpu       = 2;
+            break;
+        }
+        case 1:
+        {
+            dataslot_character = 1;
+            dataslot_cpu       = 3;
+            break;
+        }
+        case 2:
+        {
+            dataslot_character = 1;
+            dataslot_cpu       = 4;
+            break;
+        }
+        case 3:
+        {
+            dataslot_character = 1;
+            dataslot_cpu       = 5;
+            break;
+        }
+        case 4:
+        {
+            dataslot_character = 2;
+            dataslot_cpu       = 1;
+            break;
+        }
+        case 5:
+        {
+            dataslot_character = 2;
+            dataslot_cpu       = 3;
+            break;
+        }
+        case 6:
+        {
+            dataslot_character = 2;
+            dataslot_cpu       = 4;
+            break;
+        }
+        case 7:
+        {
+            dataslot_character = 2;
+            dataslot_cpu       = 5;
+            break;
+        }
+        case 8:
+        {
+            dataslot_character = 3;
+            dataslot_cpu       = 1;
+            break;
+        }
+        case 9:
+        {
+            dataslot_character = 3;
+            dataslot_cpu       = 2;
+            break;
+        }
+        case 10:
+        {
+            dataslot_character = 3;
+            dataslot_cpu       = 4;
+            break;
+        }
+        case 11:
+        {
+            dataslot_character = 3;
+            dataslot_cpu       = 5;
+            break;
+        }
+        case 12:
+        {
+            dataslot_character = 4;
+            dataslot_cpu       = 1;
+            break;
+        }
+        case 13:
+        {
+            dataslot_character = 4;
+            dataslot_cpu       = 2;
+            break;
+        }
+        case 14:
+        {
+            dataslot_character = 4;
+            dataslot_cpu       = 3;
+            break;
+        }
+        case 15:
+        {
+            dataslot_character = 4;
+            dataslot_cpu       = 5;
+            break;
+        }
+        case 16:
+        {
+            dataslot_character = 5;
+            dataslot_cpu       = 1;
+            break;
+        }
+        case 17:
+        {
+            dataslot_character = 5;
+            dataslot_cpu       = 2;
+            break;
+        }
+        case 18:
+        {
+            dataslot_character = 5;
+            dataslot_cpu       = 3;
+            break;
+        }
+        case 19:
+        {
+            dataslot_character = 5;
+            dataslot_cpu       = 4;
+            break;
+        }
+        case 20:
+        {
+            dataslot_character = 1;
+            dataslot_cpu       = 0;
+            break;
+        }
+        case 21:
+        {
+            dataslot_character = 2;
+            dataslot_cpu       = 0;
+            break;
+        }
+        case 22:
+        {
+            dataslot_character = 3;
+            dataslot_cpu       = 0;
+            break;
+        }
+        case 23:
+        {
+            dataslot_character = 4;
+            dataslot_cpu       = 0;
+            break;
+        }
+        case 24:
+        {
+            dataslot_character = 5;
+            dataslot_cpu       = 0;
+            break;
+        }
+    }
+}
+</argument>
+      </arguments>
+    </action>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Selecting slot.
+
+// Check if cursor slot id is equal to this slot's id and that the cursor is not moving.
+if (obj_dataselect_cursor.datacursor_slot_index == dataslot_index &amp;&amp; obj_dataselect_cursor.datacursor_direction == 0)
+{
+    // Make sure to only run if robotnik is deactivated.
+    if (!obj_dataselect_robotnik.active)
+    {
+        // If we press Action or Start, start a new game, resume it or go to the level select.
+        if (keyboard_check_pressed(global.key_action) || keyboard_check_pressed(global.key_start))
+        {
+            // New game:
+            if (dataslot_zone == 0)
+            {
+                if (!instance_exists(obj_fade_to))
+                {
+                    // Set the first zone of the game. You can tweak it to change depending on the main character!
+                    switch (dataslot_character)
+                    {
+                        case 1: global.first_zone = rm_playground; break;
+                        case 2: global.first_zone = rm_playground; break;
+                        case 3: global.first_zone = rm_playground; break;
+                        case 4: global.first_zone = rm_playground; break;
+                    }
+
+                    // Set global variables.
+                    global.zone_id          = 1;
+                    global.character_index  = dataslot_character;
+                    global.cpu_index        = dataslot_cpu;
+                    global.player_lives     = 3;
+                    global.player_continues = 0;
+                    global.player_emeralds  = 0;
+                    global.game_completed   = false;
+
+                    // Create the fade out.
+                    room_fade_to(global.first_zone);
+                    obj_dataselect_cursor.datacursor_lock = true;
+                }
+            }
+
+            // Resume game.
+            if (dataslot_zone &gt; 0)
+            {
+                if (!instance_exists(obj_fade_to))
+                {
+                    // Set global variables.
+                    global.zone_id          = dataslot_zone;
+                    global.character_index  = dataslot_character;
+                    global.cpu_index        = dataslot_cpu;
+                    global.player_lives     = dataslot_lives;
+                    global.player_continues = dataslot_continues;
+                    global.player_emeralds  = dataslot_emeralds;
+                    global.game_completed   = false;
+
+                    // Create the fade out.
+                    room_fade_to(zonelist_dataselect());
+                    obj_dataselect_cursor.datacursor_lock = true;
+                }
+            }
+
+            // Level select.
+            if (dataslot_zone == -1)
+            {
+                if (!instance_exists(obj_fade_to))
+                {
+                    // Set global variables.
+                    global.zone_id          = dataslot_zone;
+                    global.character_index  = dataslot_character;
+                    global.cpu_index        = dataslot_cpu;
+                    global.player_lives     = dataslot_lives;
+                    global.player_continues = dataslot_continues;
+                    global.player_emeralds  = dataslot_emeralds;
+                    global.game_completed   = true;
+
+                    // Create the fade out.
+                    room_fade_to(rm_level_select);
+                    obj_dataselect_cursor.datacursor_lock = true;
+                }
+            }
+            
+            // Reset score.
+            global.player_score = 0;
+        }
+    }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

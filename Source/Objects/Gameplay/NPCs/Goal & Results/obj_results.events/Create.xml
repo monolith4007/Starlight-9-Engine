@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="CREATE" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Variables.
+
+// Bonuses:
+bonus_rings    = global.player_rings * 100;
+bonus_total    = 0;
+bonus_continue = 0;
+
+// Set the time bonus:
+seconds = floor(STG.game_time / 1000);
+if (seconds &lt;= 29)
+{
+    bonus_time = 50000;
+}
+else if (seconds &gt; 29 &amp;&amp; seconds &lt;= 44)
+{
+    bonus_time = 10000;
+}
+else if (seconds &gt;= 45 &amp;&amp; seconds &lt;= 59)
+{
+    bonus_time = 5000;
+}
+else if (seconds &gt;= 60 &amp;&amp; seconds &lt;= 89)
+{
+    bonus_time = 4000;
+}
+else if (seconds &gt;= 90 &amp;&amp; seconds &lt;= 119)
+{
+    bonus_time = 3000;
+}
+else if (seconds &gt;= 120 &amp;&amp; seconds &lt;= 179)
+{
+    bonus_time = 2000;
+}
+else if (seconds &gt;= 180 &amp;&amp; seconds &lt;= 239)
+{
+    bonus_time = 1000;
+}
+else if (seconds &gt;= 240 &amp;&amp; seconds &lt;= 299)
+{
+    bonus_time = 500;
+}
+else if (seconds &gt;= 300)
+{
+    bonus_time = 0;
+}
+
+// Set score values for when we skip counting:
+bonus_skip    = bonus_time + bonus_rings;
+bonus_current = global.player_score;
+
+// Reset checkpoint variables:
+global.checkpoint_x = -1;
+global.checkpoint_y = -1;
+global.checkpoint_t =  0;
+
+// Allow counting:
+can_do      = 0;
+can_count   = 0;
+count_sound = 1;
+
+// Skip:
+can_skip = 0;
+
+// Positions / Going out:
+going_out =  0;
+go_off    =  SCREEN_WIDTH;
+go_off_2  = -SCREEN_WIDTH;
+
+// Text Positions:
+result_gfx_position[0]        = -SCREEN_WIDTH;
+result_gfx_position[1]        =  SCREEN_WIDTH;
+result_gfx_position[2]        =  SCREEN_WIDTH + 30;
+result_gfx_position[3]        =  SCREEN_WIDTH + 60;
+result_gfx_position[4]        =  SCREEN_WIDTH + 90;
+result_gfx_position_completed =  false;
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

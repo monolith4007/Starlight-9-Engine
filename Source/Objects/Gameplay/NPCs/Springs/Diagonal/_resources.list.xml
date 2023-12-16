@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="obj_spring_diagonal_up_right" type="RESOURCE"/>
+  <resource name="obj_spring_diagonal_up_left" type="RESOURCE"/>
+  <resource name="obj_spring_diagonal_down_right" type="RESOURCE"/>
+  <resource name="obj_spring_diagonal_down_left" type="RESOURCE"/>
+</resources>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="COLLISION" with="par_player">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Activate.
+if (!activated &amp;&amp; !finished)
+{
+    if (global.checkpoint_x != x &amp;&amp; global.checkpoint_y != y)
+    {
+        activated = true;
+        audio_play(SFX._general_checkpoint, SFX.sfx_volume, 1, 0, 0);
+        global.checkpoint_x = x;
+        global.checkpoint_y = y - 5;
+        global.checkpoint_t = STG.game_time;
+    }
+    else
+    {
+        finished      = true;
+        sprite_index  = spr_star_post_activated;
+        image_speed   = 0.25;
+        STG.game_time = global.checkpoint_t;
+    }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

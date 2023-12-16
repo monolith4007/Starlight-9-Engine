@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="CREATE" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Variables.
+
+// Wait to deactivate instances:
+alarm[0] = 1;
+
+// State:
+tc_state         = 1;
+tc_wait_timer[1] = 120;
+tc_wait_timer[2] = 75;
+
+// Card:
+tc_card_x = view_wview[0] + sprite_get_width(spr_title_card_card_s1);
+
+// Stage data:
+tc_name_x = -string_width(STG.zone_name);
+tc_zone_x = -string_width("ZONE");
+tc_act_x  =  view_wview[0] + sprite_get_width(spr_title_card_act_s1);
+
+// Backdrop:
+tc_backdrop_alpha = 1;
+
+// Completion flag:
+tc_completed = false;
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

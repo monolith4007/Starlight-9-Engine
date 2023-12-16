@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="Player" type="GROUP"/>
+  <resource name="NPCs" type="GROUP"/>
+  <resource name="Interface" type="GROUP"/>
+  <resource name="Terrain" type="GROUP"/>
+  <resource name="Parallax" type="GROUP"/>
+  <resource name="Menus" type="GROUP"/>
+</resources>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="2">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Positioning.
+if (instance_exists(global.player_id[0]))
+{
+    // Set image properties:
+    image_xscale = global.player_id[0].animation_direction;
+    image_angle  = global.player_id[0].animation_angle;
+
+    // Center position on player:
+    x = floor(global.player_id[0].x - 2 * image_xscale);
+    if (global.player_id[0].animation_index != "ROLL")
+    {
+        y = floor(global.player_id[0].y);
+    }
+    else y = floor(global.player_id[0].y + 5);
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="obj_collision_tile_01" type="RESOURCE"/>
+  <resource name="obj_collision_tile_02" type="RESOURCE"/>
+  <resource name="obj_collision_tile_03" type="RESOURCE"/>
+  <resource name="obj_collision_tile_04" type="RESOURCE"/>
+  <resource name="obj_collision_tile_05" type="RESOURCE"/>
+  <resource name="obj_collision_tile_06" type="RESOURCE"/>
+  <resource name="obj_collision_tile_07" type="RESOURCE"/>
+  <resource name="obj_collision_tile_08" type="RESOURCE"/>
+  <resource name="obj_collision_tile_09" type="RESOURCE"/>
+  <resource name="obj_collision_tile_10" type="RESOURCE"/>
+  <resource name="obj_collision_tile_11" type="RESOURCE"/>
+  <resource name="obj_collision_tile_12" type="RESOURCE"/>
+  <resource name="obj_collision_tile_13" type="RESOURCE"/>
+  <resource name="obj_collision_tile_14" type="RESOURCE"/>
+  <resource name="obj_collision_tile_15" type="RESOURCE"/>
+  <resource name="obj_collision_tile_16" type="RESOURCE"/>
+  <resource name="obj_collision_tile_17" type="RESOURCE"/>
+  <resource name="obj_collision_tile_20" type="RESOURCE"/>
+  <resource name="obj_collision_tile_s_tunnel" type="RESOURCE"/>
+  <resource name="obj_debug_playground" type="RESOURCE"/>
+</resources>

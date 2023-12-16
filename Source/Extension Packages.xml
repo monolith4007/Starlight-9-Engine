@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<extensionPackages>
+  <package>Game Maker 8.2 Core</package>
+  <package>Game Maker 8.2 Joystick</package>
+  <package>Game Maker 8.2 Sound</package>
+</extensionPackages>

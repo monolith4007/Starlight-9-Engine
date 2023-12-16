@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="obj_monitor_ring" type="RESOURCE"/>
+  <resource name="obj_monitor_invincibility" type="RESOURCE"/>
+  <resource name="obj_monitor_sneaker" type="RESOURCE"/>
+  <resource name="obj_monitor_eggman" type="RESOURCE"/>
+  <resource name="obj_monitor_normal_shield" type="RESOURCE"/>
+  <resource name="obj_monitor_fire_shield" type="RESOURCE"/>
+  <resource name="obj_monitor_bubble_shield" type="RESOURCE"/>
+  <resource name="obj_monitor_electric_shield" type="RESOURCE"/>
+  <resource name="obj_monitor_life" type="RESOURCE"/>
+</resources>

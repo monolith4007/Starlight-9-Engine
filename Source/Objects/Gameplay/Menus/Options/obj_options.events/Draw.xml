@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="DRAW" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Draw option pages.
+draw_set_font(global.font_main);
+draw_set_halign(fa_center);
+draw_set_color(c_yellow)
+draw_text(SCREEN_WIDTH / 2, 16, "----------------#- SETTINGS -");
+draw_text(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 32, "----------------#" + string(option_description));
+draw_set_color(c_white);
+
+if (option_bind == 0)
+{
+    // Change option.
+    if (keyboard_check_pressed(global.key_down) &amp;&amp; !option_ended)
+    {
+        audio_play(SFX._general_switch, SFX.sfx_volume, 1, 0, 0);
+        if (option_selected &lt; 11)
+        {
+            option_selected += 1;
+        }
+        else
+        {
+            option_selected = 0;
+        }
+    }
+
+    if (keyboard_check_pressed(global.key_up) &amp;&amp; !option_ended)
+    {
+        audio_play(SFX._general_switch, SFX.sfx_volume, 1, 0, 0);
+        if (option_selected &gt; 0)
+        {
+            option_selected -= 1;
+        }
+        else
+        {
+            option_selected = 11;
+        }
+    }
+
+    // Change display resolution.
+    if (option_selected == 0)
+    {
+        option_description = "- Change the Display Resolution -";
+        draw_set_color(c_yellow);
+
+        if (keyboard_check_pressed(global.key_left) &amp;&amp; !option_ended)
+        {
+            audio_play(SFX._general_switch, SFX.sfx_volume, 1, 0, 0);
+            if (global.screen_scale &gt; 1)
+            {
+                global.screen_scale -= 1;
+            }
+            else
+            {
+                global.screen_scale = 4;
+            }
+
+            // Set screen resolution.
+            window_resize();
+        }
+        if (keyboard_check_pressed(global.key_right) &amp;&amp; !option_ended)
+        {
+            audio_play(SFX._general_switch, SFX.sfx_volume, 1, 0, 0);
+            if (global.screen_scale &lt; 4)
+            {
+                global.screen_scale += 1;
+            }
+            else
+            {
+                global.screen_scale = 1;
+            }
+
+            // Set screen resolution.
+            window_resize();
+        }
+    }
+    else
+    {
+        draw_set_color(c_white);
+    }
+
+    // Draw display option sub-heading.
+    draw_text(SCREEN_WIDTH / 2, 48, "DISPLAY RESOLUTION - [" + string(SCREEN_WIDTH * global.screen_scale) + "x" + string(SCREEN_HEIGHT * global.screen_scale) + "]");
+
+    // Toggle VSync.
+    if (option_selected == 1)
+    {
+        option_description = "- Enable/Disable Vertical Synchronization -";
+        draw_set_color(c_yellow);
+
+        if (keyboard_check_pressed(global.key_left) &amp;&amp; !option_ended)
+        {
+            audio_play(SFX._general_switch, SFX.sfx_volume, 1, 0, 0);
+            global.use_vsync = false;
+            set_synchronization(false);
+        }
+        if (keyboard_check_pressed(global.key_right) &amp;&amp; !option_ended)
+        {
+            audio_play(SFX._general_switch, SFX.sfx_volume, 1, 0, 0);
+            global.use_vsync = true;
+            set_synchronization(true);
+        }
+    }
+    else
+    {
+        draw_set_color(c_white);
+    }
+
+    // Draw VSync option sub-heading.
+    if (global.use_vsync)
+    {
+        draw_text(SCREEN_WIDTH / 2, 64, "VSYNC - ON");
+    }
+    else
+    {
+        draw_text(SCREEN_WIDTH / 2, 64, "VSYNC - OFF");
+    }
+
+    // Change music volume.
+    if (option_selected == 2)
+    {
+        option_description = "- Change the Volume of Background Music -";
+        draw_set_color(c_yellow);
+
+        if (keyboard_check_pressed(global.key_left) &amp;&amp; !option_ended)
+        {
+            audio_play(SFX._general_switch, SFX.sfx_volume, 1, 0, 0);
+            SFX.bgm_volume = max(SFX.bgm_volume - 0.01, 0);
+        }
+        if (keyboard_check_pressed(global.key_right) &amp;&amp; !option_ended)
+        {
+            audio_play(SFX._general_switch, SFX.sfx_volume, 1, 0, 0);
+            SFX.bgm_volume = min(SFX.bgm_volume + 0.01, 1);
+        }
+    }
+    else
+    {
+        draw_set_color(c_white);
+    }
+
+    // Draw music volume option sub-heading.
+    draw_text(SCREEN_WIDTH / 2, 80, "BGM VOLUME - " + string(round(SFX.bgm_volume * 100)) + "%");
+
+    // Change sound volume.
+    if (option_selected == 3)
+    {
+        option_description = "- Change the Volume of Sound Effects -";
+        draw_set_color(c_yellow);
+
+        if (keyboard_check_pressed(global.key_left) &amp;&amp; !option_ended)
+        {
+            audio_play(SFX._general_switch, SFX.sfx_volume, 1, 0, 0);
+            SFX.sfx_volume = max(SFX.sfx_volume - 0.01, 0);
+        }
+        if (keyboard_check_pressed(global.key_right) &amp;&amp; !option_ended)
+        {
+            audio_play(SFX._general_switch, SFX.sfx_volume, 1, 0, 0);
+            SFX.sfx_volume = min(SFX.sfx_volume + 0.01, 1);
+        }
+    }
+    else
+    {
+        draw_set_color(c_white);
+    }
+
+    // Draw sound volume option sub-heading.
+    draw_text(SCREEN_WIDTH / 2, 96, "SFX VOLUME - " + string(round(SFX.sfx_volume * 100)) + "%");
+
+    // Change keyboard bindings.
+    if (option_selected == 4)
+    {
+        option_description = "- Change the Keyboard bindings -";
+        draw_set_color(c_yellow);
+
+        if (keyboard_check_pressed(global.key_action) &amp;&amp; !option_ended)
+        {
+            option_delay = 30;
+            option_bind  = 1;
+        }
+    }
+    else
+    {
+        draw_set_color(c_white);
+    }
+
+    // Draw keyboard binding option sub-heading.
+    draw_text(SCREEN_WIDTH / 2, 112, "KEYBOARD BINDINGS");
+
+    // Change gamepad bindings.
+    if (option_selected == 5)
+    {
+        option_description = "- Change the Gamepad bindings -";
+        if (ctrl_gamepad.gmp_exists)
+        {
+            draw_set_color(c_yellow);
+            if (keyboard_check_pressed(global.key_action) &amp;&amp; !option_ended)
+            {
+                option_delay = 30;
+                option_bind  = 2;
+            }
+        }
+        else
+        {
+            draw_set_color(c_red);
+            if (keyboard_check_pressed(global.key_action) &amp;&amp; !option_ended)
+            {
+                audio_play(SFX._general_error, SFX.sfx_volume, 1, 0, 0);
+            }
+        }
+    }
+    else
+    {
+        draw_set_color(c_white);
+    }
+
+    // Draw gamepad binding option sub-heading.
+    draw_text(SCREEN_WIDTH / 2, 128, "GAMEPAD BINDINGS");
+
+    // Set rotation style.
+    if (option_selected == 6)
+    {
+        option_description = "- Change the Player's Rotation Style -";
+        draw_set_color(c_yellow);
+
+        if (keyboard_check_pressed(global.key_left) &amp;&amp; !option_ended)
+        {
+            audio_play(SFX._general_switch, SFX.sfx_volume, 1, 0, 0);
+            global.rotation_style = 0;
+        }
+        if (keyboard_check_pressed(global.key_right) &amp;&amp; !option_ended)
+        {
+            audio_play(SFX._general_switch, SFX.sfx_volume, 1, 0, 0);
+            global.rotation_style = 1;
+        }
+    }
+    else
+    {
+        draw_set_color(c_white);
+    }
+
+    // Draw rotation style option sub-heading.
+    if (global.rotation_style == 0)
+    {
+        draw_text(SCREEN_WIDTH / 2, 144, "ROTATION STYLE - CLASSIC");
+    }
+    else
+    {
+        draw_text(SCREEN_WIDTH / 2, 144, "ROTATION STYLE - SMOOTH");
+    }
+
+    // Toggle trail.
+    if (option_selected == 7)
+    {
+        option_description = "- Toggle the use of the Player's Trail Effect -";
+        draw_set_color(c_yellow);
+
+        if (keyboard_check_pressed(global.key_left) &amp;&amp; !option_ended)
+        {
+            audio_play(SFX._general_switch, SFX.sfx_volume, 1, 0, 0);
+            global.use_trail = false;
+        }
+        if (keyboard_check_pressed(global.key_right) &amp;&amp; !option_ended)
+        {
+            audio_play(SFX._general_switch, SFX.sfx_volume, 1, 0, 0);
+            global.use_trail = true;
+        }
+    }
+    else
+    {
+        draw_set_color(c_white);
+    }
+
+    // Draw trail toggle option sub-heading.
+    if (global.use_trail)
+    {
+        draw_text(SCREEN_WIDTH / 2, 160, "TRAIL EFFECT - ON");
+    }
+    else
+    {
+        draw_text(SCREEN_WIDTH / 2, 160, "TRAIL EFFECT - OFF");
+    }
+
+    // Toggle the Time Over event.
+    if (option_selected == 8)
+    {
+        option_description = "- Toggle the Time Over event when 10 minutes have passed -";
+        draw_set_color(c_yellow);
+
+        if (keyboard_check_pressed(global.key_left) &amp;&amp; !option_ended)
+        {
+            audio_play(SFX._general_switch, SFX.sfx_volume, 1, 0, 0);
+            global.limit_time = false;
+        }
+        if (keyboard_check_pressed(global.key_right) &amp;&amp; !option_ended)
+        {
+            audio_play(SFX._general_switch, SFX.sfx_volume, 1, 0, 0);
+            global.limit_time = true;
+        }
+    }
+    else
+    {
+        draw_set_color(c_white);
+    }
+
+    // Draw Time Over option sub-heading.
+    if (global.limit_time)
+    {
+        draw_text(SCREEN_WIDTH / 2, 176, "TIME OVER - ON");
+    }
+    else
+    {
+        draw_text(SCREEN_WIDTH / 2, 176, "TIME OVER - OFF");
+    }
+
+    // Toggle the visibility of the HUD.
+    if (option_selected == 9)
+    {
+        option_description = "- Show/Hide the HUD in Levels -";
+        draw_set_color(c_yellow);
+
+        if (keyboard_check_pressed(global.key_left) &amp;&amp; !option_ended)
+        {
+            audio_play(SFX._general_switch, SFX.sfx_volume, 1, 0, 0);
+            global.display_hud = false;
+        }
+        if (keyboard_check_pressed(global.key_right) &amp;&amp; !option_ended)
+        {
+            audio_play(SFX._general_switch, SFX.sfx_volume, 1, 0, 0);
+            global.display_hud = true;
+        }
+    }
+    else
+    {
+        draw_set_color(c_white);
+    }
+
+    // Draw HUD visibility option sub-heading.
+    if (global.display_hud)
+    {
+        draw_text(SCREEN_WIDTH / 2, 192, "HUD - VISIBLE");
+    }
+    else
+    {
+        draw_text(SCREEN_WIDTH / 2, 192, "HUD - HIDDEN");
+    }
+
+    // Toggle the player's level completion style.
+    if (option_selected == 10)
+    {
+        option_description = "- Set the Player's Level Completion Style -";
+        draw_set_color(c_yellow);
+
+        if (keyboard_check_pressed(global.key_left) &amp;&amp; !option_ended)
+        {
+            audio_play(SFX._general_switch, SFX.sfx_volume, 1, 0, 0);
+            global.goal_style = max(global.goal_style - 1, 0);
+        }
+        if (keyboard_check_pressed(global.key_right) &amp;&amp; !option_ended)
+        {
+            audio_play(SFX._general_switch, SFX.sfx_volume, 1, 0, 0);
+            global.goal_style = min(global.goal_style + 1, 2);
+        }
+    }
+    else
+    {
+        draw_set_color(c_white);
+    }
+
+    // Draw HUD visibility option sub-heading.
+    switch (global.goal_style)
+    {
+        case 0:
+        {
+            draw_text(SCREEN_WIDTH / 2, 208, "LEVEL COMPLETION - NONE");
+            break;
+        }
+        case 1:
+        {
+            draw_text(SCREEN_WIDTH / 2, 208, "LEVEL COMPLETION - SONIC 1/2");
+            break;
+        }
+        case 2:
+        {
+            draw_text(SCREEN_WIDTH / 2, 208, "LEVEL COMPLETION - SONIC 3");
+            break;
+        }
+    }
+
+    // Title screen option.
+    if (option_selected == 11)
+    {
+        option_description = "- Return to the Title Screen -";
+        draw_set_color(c_yellow);
+        if (keyboard_check_pressed(global.key_action) &amp;&amp; !option_ended)
+        {
+            if (!instance_exists(obj_fade_to))
+            {
+                option_ended = true;
+                room_fade_to(rm_title);
+                config_save();
+            }
+        }
+    }
+    else
+    {
+        draw_set_color(c_white);
+    }
+
+    // Draw title screen option sub-heading.
+    draw_text(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 48, "EXIT");
+}
+else
+{
+    draw_text(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, "PRESS ANY KEY FOR: " + string(bind_key));
+}
+
+// Reset drawing properties.
+draw_set_color(c_white);
+draw_set_halign(fa_left);
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

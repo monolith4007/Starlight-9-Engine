@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="Audio" type="GROUP"/>
+  <resource name="Gamepad" type="GROUP"/>
+  <resource name="Utilities" type="GROUP"/>
+</resources>

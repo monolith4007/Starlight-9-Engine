@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="DRAW" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Drawing.
+draw_set_blend_mode(bm_add);
+if (tails_tail_sprite != noone)
+{
+    draw_sprite_ext(tails_tail_sprite, floor(tails_tail_frame), floor(x + tails_tail_x), floor(y + tails_tail_y), tails_tail_direction, 1, tails_tail_angle, c_white, image_alpha);
+}
+draw_sprite_ext(sprite_index, floor(image_index), floor(x), floor(y), image_xscale, 1, image_angle, c_white, image_alpha);
+draw_set_blend_mode(bm_normal);
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

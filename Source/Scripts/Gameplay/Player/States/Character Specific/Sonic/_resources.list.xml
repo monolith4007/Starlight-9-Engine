@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="player_state_shield" type="RESOURCE"/>
+  <resource name="player_state_dropdash" type="RESOURCE"/>
+  <resource name="player_state_peelout" type="RESOURCE"/>
+</resources>

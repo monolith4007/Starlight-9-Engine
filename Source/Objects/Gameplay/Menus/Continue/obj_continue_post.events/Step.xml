@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Everything.
+
+// Spin.
+if (sign_post_state == 0)
+{
+    sign_post_spintimer += 1;
+    if (sign_post_timer != 0)
+    {
+        sign_post_timer -= 1;
+    }
+    else
+    {
+        sign_post_timer = 2;
+        image_index    += 1;
+    }
+
+    if (sign_post_spintimer mod 4 == 0)
+    {
+        create_effect(spr_invincibility_sparkle, 0.6, x - 24 + (irandom_range(0, 3) * 16), y - 48 + (irandom_range(0, 2) * 16), -1, 0);
+    }
+}
+
+// Character:
+if (sign_post_state == 1)
+{
+    image_index = global.character_index * 4;
+}
+
+// End:
+if (sign_post_state == 2)
+{
+    image_index = 0;
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

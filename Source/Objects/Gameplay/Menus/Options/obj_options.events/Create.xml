@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="CREATE" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Variables.
+option_selected    = 0;  // Option we're currently highlighting.
+option_description = ""; // Description of a highlighted option.
+option_delay       = 30;
+option_bind        = 0;
+key_bind_check     = 0;
+gmp_bind_check     = -1;
+bind_status        = 1;
+bind_key           = "";
+option_ended       = false;
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

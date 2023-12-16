@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Movement.
+
+// Exit.
+if (datacursor_lock) exit;
+
+// Move to the next slot.
+if (datacursor_direction == 0 &amp;&amp; datacursor_allow_movement)
+{
+    // Move to the right.
+    if (datacursor_slot_index != 9 &amp;&amp; keyboard_check_pressed(global.key_right))
+    {
+        datacursor_x           = x;
+        datacursor_direction   = 1;
+        datacursor_slot_index += 1;
+        audio_play(SFX._general_dataselect_cursor, SFX.sfx_volume, 1, 0, 0);
+    }
+
+    // Move to the left.
+    if (obj_dataselect_robotnik.state == "IDLE")
+    {
+        if (!obj_dataselect_robotnik.active)
+        {
+            if (datacursor_slot_index != 0 &amp;&amp; keyboard_check_pressed(global.key_left))
+            {
+                datacursor_x           = x;
+                datacursor_direction   = -1;
+                datacursor_slot_index -= 1;
+                audio_play(SFX._general_dataselect_cursor, SFX.sfx_volume, 1, 0, 0);
+            }
+        }
+        else
+        {
+            if (datacursor_slot_index != 1 &amp;&amp; keyboard_check_pressed(global.key_left))
+            {
+                datacursor_x           = x;
+                datacursor_direction   = -1;
+                datacursor_slot_index -= 1;
+                audio_play(SFX._general_dataselect_cursor, SFX.sfx_volume, 1, 0, 0);
+            }
+        }
+    }
+}
+
+// Move outside the no save slot if we want to delete something.
+if (obj_dataselect_robotnik.state == "IDLE" &amp;&amp; obj_dataselect_robotnik.active &amp;&amp; datacursor_direction == 0)
+{
+    if (datacursor_slot_index != 1 &amp;&amp; datacursor_slot_index &lt; 1)
+    {
+        datacursor_x           = x;
+        datacursor_direction   = 1;
+        datacursor_slot_index += 1;
+    }
+}
+
+// Move towards the next slot.
+if (datacursor_direction != 0)
+{
+    if (datacursor_direction == 1)
+    {
+        if (x &lt; datacursor_x + 104)
+        {
+            x += 8;
+        }
+        else
+        {
+            x                    = datacursor_x + 104;
+            datacursor_direction = 0;
+        }
+    }
+    if (datacursor_direction == -1)
+    {
+        if (x &gt; datacursor_x - 104)
+        {
+            x -= 8;
+        }
+        else
+        {
+            x                    = datacursor_x - 104;
+            datacursor_direction = 0;
+        }
+    }
+}
+
+// Set global save.
+global.save_selected = datacursor_slot_index;
+
+// Return to the title screen.
+if (keyboard_check_pressed(global.key_special))
+{
+    room_fade_to(rm_title);
+    datacursor_lock = true;
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

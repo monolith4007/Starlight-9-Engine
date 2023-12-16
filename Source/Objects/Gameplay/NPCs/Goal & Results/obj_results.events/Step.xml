@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Text Positions.
+if (going_out == 0)
+{
+    if (result_gfx_position[0] &lt; 0)
+    {
+        result_gfx_position[0] += 10;
+    }
+    else
+    {
+        result_gfx_position[0] = 0;
+    }
+
+    if (result_gfx_position[1] &gt; 0)
+    {
+        result_gfx_position[1] -= 10;
+    }
+    else
+    {
+        result_gfx_position[1] = 0;
+    }
+
+    if (result_gfx_position[2] &gt; 0)
+    {
+        result_gfx_position[2] -= 10;
+    }
+    else
+    {
+        result_gfx_position[2] = 0;
+    }
+
+    if (result_gfx_position[3] &gt; 0)
+    {
+        result_gfx_position[3] -= 10;
+    }
+    else
+    {
+        result_gfx_position[3] = 0;
+    }
+
+    if (result_gfx_position[4] &gt; 0)
+    {
+        result_gfx_position[4] -= 10;
+    }
+    else
+    {
+        result_gfx_position[4] = 0;
+    }
+
+    if (result_gfx_position[0] == 0 &amp;&amp; result_gfx_position[1] == 0 &amp;&amp; result_gfx_position[2] == 0 &amp;&amp;
+        result_gfx_position[4] == 0 &amp;&amp; !result_gfx_position_completed)
+    {
+        result_gfx_position_completed = true;
+
+        // Trigger Bonuses.
+        alarm[0] = 280;
+        if (bonus_time &gt; 0)
+        {
+            alarm[1] = 280;
+        }
+        alarm[2] = 280;
+        alarm[3] = 280;
+        alarm[4] = 30;
+    }
+}
+</argument>
+      </arguments>
+    </action>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Finish counting bonuses.
+if (can_count == 0)
+{
+    if (bonus_rings == 0 &amp;&amp; bonus_time == 0)
+    {
+        if (can_do == 0)
+        {
+            count_sound         = 0;
+            global.player_rings = 0;
+            can_do              = 1;
+            audio_play(SFX._general_score_result, SFX.sfx_volume, 1, 0, 0);
+        }
+        if (can_do == 1 &amp;&amp; !audio_is_playing(SFX._general_score_result))
+        {
+            can_do = 2;
+        }
+        if (going_out == 0 &amp;&amp; can_do == 2)
+        {
+            if (!audio_is_playing(SFX._jingle_scoring))
+            {
+                going_out = 1;
+                alarm[4]  = 100;
+            }
+        }
+    }
+}
+</argument>
+      </arguments>
+    </action>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Skip counting.
+if (keyboard_check(global.key_start) &amp;&amp; can_skip == 1)
+{
+    can_skip             =  0;
+    bonus_time           =  0;
+    bonus_rings          =  0;
+    alarm[0]             = -1;
+    alarm[1]             = -1;
+    alarm[3]             =  1;
+    bonus_total          = bonus_skip;
+    global.player_score  = bonus_current + bonus_skip;
+}
+</argument>
+      </arguments>
+    </action>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Continue bonus.
+if (bonus_total &gt;= 50000)
+{
+    if (bonus_continue == 0)
+    {
+        bonus_continue           = 1;
+        global.player_continues += 1;
+        audio_play(SFX._jingle_life, SFX.bgm_volume, 1, 0, 0);
+    }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

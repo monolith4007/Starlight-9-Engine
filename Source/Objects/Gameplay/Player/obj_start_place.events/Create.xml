@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="CREATE" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Create player(s).
+
+// Handle checkpoint respawn.
+if (global.checkpoint_x != -1)
+{
+    x             = global.checkpoint_x;
+    y             = global.checkpoint_y;
+    STG.game_time = global.checkpoint_t;
+}
+
+// Reset player IDs.
+global.player_id[0] = noone;
+global.player_id[1] = noone;
+
+// Main player:
+with (instance_create(x, y, par_player))
+{
+    character_id        = global.character_index;
+    cpu_flag            = false;
+    depth               = 0;
+    global.player_id[0] = id;
+}
+
+// CPU player:
+if (global.cpu_index != 0)
+{
+    with (instance_create(x - 16, y, par_player))
+    {
+        character_id        = global.cpu_index;
+        cpu_flag            = true;
+        depth               = 1;
+        global.player_id[1] = id;
+    }
+}
+
+// Create camera:
+instance_create(x, y, obj_camera);
+
+// Finish.
+instance_destroy();
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

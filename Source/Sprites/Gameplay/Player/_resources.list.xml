@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="Sonic" type="GROUP"/>
+  <resource name="Tails" type="GROUP"/>
+  <resource name="Knuckles" type="GROUP"/>
+  <resource name="Amy" type="GROUP"/>
+  <resource name="Modern Sonic" type="GROUP"/>
+  <resource name="Shields" type="GROUP"/>
+  <resource name="Masks" type="GROUP"/>
+  <resource filename="Misc_" name="Misc." type="GROUP"/>
+</resources>

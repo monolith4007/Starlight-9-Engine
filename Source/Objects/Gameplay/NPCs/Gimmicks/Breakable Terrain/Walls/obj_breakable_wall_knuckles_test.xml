@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<object id="166">
+  <sprite>spr_breakable_wall_knuckles_test</sprite>
+  <solid>false</solid>
+  <visible>true</visible>
+  <depth>0</depth>
+  <persistent>false</persistent>
+  <parent>par_breakable_wall_knuckles</parent>
+  <mask/>
+</object>

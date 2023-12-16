@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="spr_collapsing_platform_test" type="RESOURCE"/>
+  <resource name="spr_collapsing_tile_test" type="RESOURCE"/>
+  <resource name="spr_breakable_wall_test" type="RESOURCE"/>
+  <resource name="spr_breakable_wall_test_piece" type="RESOURCE"/>
+  <resource name="spr_breakable_wall_knuckles_test" type="RESOURCE"/>
+  <resource name="spr_breakable_wall_knuckles_test_piece" type="RESOURCE"/>
+</resources>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="par_collapsing_platform" type="RESOURCE"/>
+  <resource name="par_collapsing_tile" type="RESOURCE"/>
+  <resource name="par_breakable_wall" type="RESOURCE"/>
+  <resource name="par_breakable_wall_knuckles" type="RESOURCE"/>
+  <resource name="par_breakable_wall_piece" type="RESOURCE"/>
+</resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="par_ring" type="RESOURCE"/>
+  <resource name="obj_ring" type="RESOURCE"/>
+  <resource name="obj_ring_magnetized" type="RESOURCE"/>
+</resources>

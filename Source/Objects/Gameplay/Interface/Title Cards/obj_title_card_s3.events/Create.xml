@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="CREATE" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Variables.
+
+// Wait to deactivate instances:
+alarm[0] = 1;
+
+// Title card:
+tc_state              = 1;                                                   // Title Card state - used to move positions.
+
+tc_zone_position_x[0] = view_wview[0];                                       // X Position of the Zone name text.
+tc_zone_position_x[1] = view_wview[0];                                       // X Position of the "Zone" string below the zone name text.
+tc_zone_position_y    = 90;                                                  // Y Position of the zone name text.
+
+tc_act_position_x     = view_wview[0];                                          // X Position of the Act number.
+tc_act_position_y     = 90 + (sprite_get_height(spr_title_card_act_s3) * 2); // Y Position of the Act number.
+
+tc_banner_position_x  =  sprite_get_width(spr_title_card_banner_s3);         // X Position of the Red Banner.
+tc_banner_position_y  = -sprite_get_height(spr_title_card_banner_s3);        // Y Position of the Red Banner.
+
+tc_stop_timer         = 60;                                                  // How long we stop after showing all details.
+tc_backdrop_alpha     = 1;                                                   // Alpha of the black backdrop.
+
+tc_completed          = false;                                               // Checks if title card is done.
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Animation + Position.
+if (activated &amp;&amp; !finished)
+{
+    if (bulb_loop &gt; 0)
+    {
+        post_frame += 2;
+    }
+    else
+    {
+        image_index = 0;
+        image_speed = 0;
+        alarm[0]    = 1;
+    }
+
+    if (post_frame &gt;= image_number - 1)
+    {
+        bulb_loop -= 1;
+        post_frame = 0;
+    }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

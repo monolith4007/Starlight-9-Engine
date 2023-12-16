@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="DRAW" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Draw Results.
+
+// "Character" Got:
+draw_sprite(spr_results_name, player_name - 1, view_xview[0] + 124 + result_gfx_position[0], view_yview[0] + 88);
+
+// Draw the following text in different positions depending on the current title card style.
+if (STG.zone_title_card &gt; 0 &amp;&amp; STG.zone_title_card != 2 &amp;&amp; STG.zone_act &gt; 0)
+{
+    // Through:
+    draw_sprite(spr_results_through, 0, view_xview[0] + 181 + result_gfx_position[1], view_yview[0] + 108);
+
+    // Act Number:
+    if (STG.zone_title_card == 3)
+    {
+        draw_sprite(spr_title_card_act_s3, STG.zone_act - 1, view_xview[0] + 306 + result_gfx_position[1], view_yview[0] + 91);
+    }
+    else
+    {
+        draw_sprite(spr_title_card_act_s1, STG.zone_act - 1, view_xview[0] + 306 + result_gfx_position[1], view_yview[0] + 101);
+    }
+}
+else
+{
+    // Through:
+    draw_sprite(spr_results_through, 0, view_xview[0] + 150 + result_gfx_position[1], view_yview[0] + 108);
+
+    if (STG.zone_title_card == 2 &amp;&amp; STG.zone_act &gt; 0)
+    {
+        // "Act" Text:
+        draw_sprite(spr_results_act, 0, view_xview[0] + 276 + result_gfx_position[1], view_yview[0] + 108);
+
+        // Act Number:
+        draw_sprite(spr_title_card_act_s2, STG.zone_act - 1, view_xview[0] + 330 + result_gfx_position[1], view_yview[0] + 97);
+    }
+    else
+    {
+        // "Zone" Text:
+        draw_sprite(spr_results_zone, player_name - 1, view_xview[0] + 276 + result_gfx_position[1], view_yview[0] + 108);
+    }
+}
+
+// "Time Bonus" Text:
+draw_sprite(spr_results_time, 0, view_xview[0] + 146 + result_gfx_position[2], view_yview[0] + 140);
+
+// "Ring Bonus" Text:
+draw_sprite(spr_results_ring, 0, view_xview[0] + 146 + result_gfx_position[3], view_yview[0] + 156);
+
+// "Total" Text:
+draw_sprite(spr_results_total, 0, view_xview[0] + 166 + result_gfx_position[4], view_yview[0] + 183);
+
+// Draw Bonuses:
+draw_set_font(global.font_hud);
+draw_set_color(c_white);
+draw_set_halign(fa_right);
+
+draw_number_zero(view_xview[0] + 337 + result_gfx_position[2], view_yview[0] + 145, "" + string(bonus_time),  0);
+draw_number_zero(view_xview[0] + 337 + result_gfx_position[3], view_yview[0] + 161, "" + string(bonus_rings), 0);
+draw_number_zero(view_xview[0] + 337 + result_gfx_position[4], view_yview[0] + 189,      string(bonus_total), 0);
+
+draw_set_halign(fa_left);
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

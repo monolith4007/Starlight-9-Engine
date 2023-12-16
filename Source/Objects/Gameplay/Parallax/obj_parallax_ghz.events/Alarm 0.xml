@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="ALARM" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Update background indexes.
+switch (ocean_bg)
+{
+    case bg_green_hill_water_01:
+    {
+        mountain_bg = bg_green_hill_mountains_02;
+        ocean_bg    = bg_green_hill_water_02;
+        break;
+    }
+    case bg_green_hill_water_02:
+    {
+        mountain_bg = bg_green_hill_mountains_03;
+        ocean_bg    = bg_green_hill_water_03;
+        break;
+    }
+    case bg_green_hill_water_03:
+    {
+        mountain_bg = bg_green_hill_mountains_04;
+        ocean_bg    = bg_green_hill_water_04;
+        break;
+    }
+    case bg_green_hill_water_04:
+    {
+        mountain_bg = bg_green_hill_mountains_01;
+        ocean_bg    = bg_green_hill_water_01;
+        break;
+    }
+}
+
+// Repeat.
+alarm[0] = 4;
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

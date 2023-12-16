@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="ALARM" id="2">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Create a large bubble.
+if (active)
+{
+    large_bubble              = instance_create(x + choose(8, -5, -5, -4, 4, 10.14), y - 8, obj_water_air_bubble);
+    large_bubble.bubble_index = 6;
+}
+alarm[2] = random(300) + 150;
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

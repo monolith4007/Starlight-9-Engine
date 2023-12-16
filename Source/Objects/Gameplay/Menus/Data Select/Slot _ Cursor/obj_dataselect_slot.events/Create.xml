@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="CREATE" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Variables.
+
+// Slot data.
+dataslot_zone      = 0;
+dataslot_character = 1;
+dataslot_cpu       = 2;
+dataslot_lives     = 3;
+dataslot_continues = 0;
+dataslot_emeralds  = 0;
+dataslot_completed = 0;
+
+// Refresh data. Needs to be done after initializing the variables.
+alarm[1] = 1;
+
+// Player combinations.
+dataslot_combo = 0;
+
+// Misc.
+dataslot_arrow_frame   = 0;
+dataslot_emerald_frame = 0;
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

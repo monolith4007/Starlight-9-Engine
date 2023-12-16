@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="obj_start_place" type="RESOURCE"/>
+  <resource name="obj_camera" type="RESOURCE"/>
+  <resource name="par_player" type="RESOURCE"/>
+  <resource name="Shields" type="GROUP"/>
+  <resource name="Effects" type="GROUP"/>
+</resources>

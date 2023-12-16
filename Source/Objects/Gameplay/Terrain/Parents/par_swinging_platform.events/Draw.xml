@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="DRAW" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Draw Chains and platform.
+draw_sprite(chain_sprite_top, 0, _x, _y);
+x_relative = _x;
+y_relative = _y;
+repeat (chains - 1)
+{
+    x_relative = x_relative + (dcos(angle_mov) * chain_size);
+    y_relative = y_relative - (dsin(angle_mov) * chain_size);
+    draw_sprite(chain_sprite, 0, floor(x_relative), floor(y_relative));
+}
+
+// Draw Platform:
+draw_sprite(sprite_index, 0, floor(x), floor(y));
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

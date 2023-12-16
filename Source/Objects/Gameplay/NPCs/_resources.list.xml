@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="Collectibles" type="GROUP"/>
+  <resource name="Checkpoints" type="GROUP"/>
+  <resource name="Gimmicks" type="GROUP"/>
+  <resource name="Springs" type="GROUP"/>
+  <resource name="Harmful" type="GROUP"/>
+  <resource name="Monitors" type="GROUP"/>
+  <resource name="Water" type="GROUP"/>
+  <resource name="Goal &amp; Results" type="GROUP"/>
+  <resource filename="Misc_" name="Misc." type="GROUP"/>
+</resources>

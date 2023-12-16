@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="in_view" type="RESOURCE"/>
+  <resource name="string_place_number" type="RESOURCE"/>
+  <resource name="create_effect" type="RESOURCE"/>
+  <resource name="wrap_angle" type="RESOURCE"/>
+  <resource name="rotate_towards" type="RESOURCE"/>
+  <resource name="instance_nth_nearest" type="RESOURCE"/>
+  <resource name="instance_nearest_dir_x" type="RESOURCE"/>
+  <resource name="safe_division" type="RESOURCE"/>
+  <resource name="draw_sprite_tiled_horizontal" type="RESOURCE"/>
+  <resource name="draw_background_tiled_area" type="RESOURCE"/>
+  <resource name="draw_number_zero" type="RESOURCE"/>
+  <resource name="window_resize" type="RESOURCE"/>
+  <resource name="room_fade_to" type="RESOURCE"/>
+</resources>

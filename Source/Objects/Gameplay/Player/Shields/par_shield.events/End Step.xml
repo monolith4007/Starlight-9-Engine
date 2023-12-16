@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="2">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Positioning.
+if (!instance_exists(handle))
+{
+    instance_destroy();
+    exit;
+}
+image_xscale = handle.animation_direction;
+
+// Set position on player based on their animation.
+if (handle.animation_index != "HANG_CARRY")
+{
+    x = floor(handle.x);
+}
+else x = floor(handle.x + image_xscale * 3);
+
+switch (handle.animation_index)
+{
+    case "ROLL":
+    case "DROPDASH":
+    case "GLIDE":
+    case "SLIDE":
+    {
+        y = floor(handle.y + 5);
+        break;
+    }
+    case "HANG":
+    case "HANG_MOVE":
+    case "HANG_SHIMMY":
+    {
+        y = floor(handle.y + 15);
+        break;
+    }
+    case "HANG_CARRY":
+    {
+        y = floor(handle.y + 7);
+        break;
+    }
+    default:
+    {
+        y = floor(handle.y);
+    }
+}
+
+// Adjust position based on the player's angle (credit to VectorSatyr).
+x -= dsin(handle.animation_angle) * 6;
+y -= dcos(handle.animation_angle) * 6;
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

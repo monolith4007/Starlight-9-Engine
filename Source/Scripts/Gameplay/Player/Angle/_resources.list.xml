@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="player_get_angle" type="RESOURCE"/>
+  <resource name="player_set_angle" type="RESOURCE"/>
+</resources>

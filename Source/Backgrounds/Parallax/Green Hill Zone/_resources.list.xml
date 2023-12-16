@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="bg_green_hill_clouds" type="RESOURCE"/>
+  <resource name="bg_green_hill_mountains_01" type="RESOURCE"/>
+  <resource name="bg_green_hill_mountains_02" type="RESOURCE"/>
+  <resource name="bg_green_hill_mountains_03" type="RESOURCE"/>
+  <resource name="bg_green_hill_mountains_04" type="RESOURCE"/>
+  <resource name="bg_green_hill_water_01" type="RESOURCE"/>
+  <resource name="bg_green_hill_water_02" type="RESOURCE"/>
+  <resource name="bg_green_hill_water_03" type="RESOURCE"/>
+  <resource name="bg_green_hill_water_04" type="RESOURCE"/>
+</resources>

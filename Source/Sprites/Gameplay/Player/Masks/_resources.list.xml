@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="spr_mask_main" type="RESOURCE"/>
+  <resource name="spr_mask_large" type="RESOURCE"/>
+  <resource name="spr_mask_big" type="RESOURCE"/>
+  <resource name="spr_mask_mid" type="RESOURCE"/>
+  <resource name="spr_mask_small" type="RESOURCE"/>
+  <resource name="spr_mask_dot" type="RESOURCE"/>
+  <resource name="spr_mask_lines" type="RESOURCE"/>
+  <resource name="spr_mask_edge_line" type="RESOURCE"/>
+  <resource name="spr_mask_ledge_climb" type="RESOURCE"/>
+</resources>

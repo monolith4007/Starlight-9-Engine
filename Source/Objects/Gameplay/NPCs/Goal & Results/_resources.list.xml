@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="obj_results" type="RESOURCE"/>
+  <resource name="obj_sign_post" type="RESOURCE"/>
+  <resource name="obj_sign_post_camera" type="RESOURCE"/>
+</resources>

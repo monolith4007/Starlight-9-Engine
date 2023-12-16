@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="obj_water" type="RESOURCE"/>
+  <resource name="obj_water_bubble_generator" type="RESOURCE"/>
+  <resource name="obj_water_air_bubble" type="RESOURCE"/>
+  <resource name="obj_water_alarm" type="RESOURCE"/>
+</resources>

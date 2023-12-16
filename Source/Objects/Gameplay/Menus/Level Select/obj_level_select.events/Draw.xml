@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="DRAW" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Draw level select.
+
+// Level preview.
+draw_sprite(sprite_index, lvlselect_zone - 1, x, y);
+
+// Level select background.
+draw_background(bg_levelselect, 0, 0);
+
+// Level act.
+draw_sprite(spr_title_card_act_s3, lvlselect_act - 1, 310, 166);
+
+// Draw arrows.
+lvlselect_arrow_frame += 0.15;
+draw_sprite(spr_levelselect_arrows, floor(lvlselect_arrow_frame), 0, 0);
+
+// Level name &amp; description.
+draw_set_color(c_white);
+draw_set_font(global.font_main);
+draw_set_halign(fa_center);
+draw_text(x + sprite_width / 2, y + sprite_height + 11, lvlselect_zone_name[lvlselect_zone]);
+draw_text(x + sprite_width / 2, y + sprite_height + 43, lvlselect_zone_description[lvlselect_zone, lvlselect_act]);
+draw_set_halign(fa_left);
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

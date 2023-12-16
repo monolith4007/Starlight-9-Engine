@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="player_collision" type="RESOURCE"/>
+  <resource name="player_collision_check" type="RESOURCE"/>
+  <resource name="tile_set_flags" type="RESOURCE"/>
+</resources>

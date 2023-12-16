@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="spr_dataselect_characters" type="RESOURCE"/>
+  <resource name="spr_dataselect_emeralds" type="RESOURCE"/>
+  <resource name="spr_dataselect_emeralds_white" type="RESOURCE"/>
+  <resource name="spr_dataselect_lives" type="RESOURCE"/>
+</resources>

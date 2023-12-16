@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="Collision" type="GROUP"/>
+  <resource name="Angle" type="GROUP"/>
+  <resource name="States" type="GROUP"/>
+  <resource name="Handle" type="GROUP"/>
+  <resource name="Animation" type="GROUP"/>
+  <resource filename="Misc_" name="Misc." type="GROUP"/>
+</resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="player_state_jump" type="RESOURCE"/>
+  <resource name="player_state_lookup" type="RESOURCE"/>
+  <resource name="player_state_crouch" type="RESOURCE"/>
+  <resource name="player_state_spindash" type="RESOURCE"/>
+  <resource name="player_state_roll" type="RESOURCE"/>
+  <resource name="player_state_skid" type="RESOURCE"/>
+  <resource name="player_state_balance" type="RESOURCE"/>
+  <resource name="player_state_hurt" type="RESOURCE"/>
+  <resource name="player_state_push" type="RESOURCE"/>
+  <resource name="player_state_hang" type="RESOURCE"/>
+  <resource name="player_state_respawn" type="RESOURCE"/>
+  <resource name="player_state_swap" type="RESOURCE"/>
+  <resource name="player_state_carry" type="RESOURCE"/>
+  <resource name="player_state_grind" type="RESOURCE"/>
+</resources>

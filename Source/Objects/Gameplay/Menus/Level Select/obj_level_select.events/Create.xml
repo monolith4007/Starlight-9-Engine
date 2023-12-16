@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="CREATE" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Variables.
+
+// Main variables.
+lvlselect_zone     = 1; // Zone we want to go to or preview.
+lvlselect_zone_end = 1; // This should be the amount of zones in game.
+lvlselect_act      = 1; // The act of the zone.
+
+// Misc.
+lvlselect_arrow_frame = 0;
+
+// Zone Name / Description.
+// Add the names and descriptions for each zone here.
+lvlselect_zone_name[1]           = "S9E TEST STAGE";
+lvlselect_zone_description[1, 1] = "THIS IS A SIMPLE TEST STAGE#THAT WAS MADE FOR THE ENGINE.#IT SHOWCASES MOST IF NOT ALL BASIC FEATURES.";
+lvlselect_zone_description[1, 2] = "THIS IS ANOTHER SMALL TEST AREA#FOR THE PLAYER TO MESS AROUND IN.#GO FAST AND THE CAMERA CAN BARELY KEEP UP HERE!";
+
+lvlselect_zone_name[2]           = "...";
+lvlselect_zone_description[2, 1] = "...";
+lvlselect_zone_description[2, 2] = "...";
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

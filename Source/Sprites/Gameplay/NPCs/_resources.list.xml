@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="Collectible" type="GROUP"/>
+  <resource name="Checkpoint" type="GROUP"/>
+  <resource name="Monitors" type="GROUP"/>
+  <resource name="Springs" type="GROUP"/>
+  <resource name="Harmful" type="GROUP"/>
+  <resource name="Bridges" type="GROUP"/>
+  <resource name="Hangs" type="GROUP"/>
+  <resource name="Breakable Terrain" type="GROUP"/>
+  <resource name="Corkscrews" type="GROUP"/>
+  <resource name="Goal &amp; Results" type="GROUP"/>
+  <resource name="Animals" type="GROUP"/>
+  <resource name="Rail" type="GROUP"/>
+</resources>

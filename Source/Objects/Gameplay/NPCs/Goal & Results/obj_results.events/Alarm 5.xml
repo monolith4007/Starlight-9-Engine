@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="ALARM" id="5">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// End it.
+if (going_out == 0)
+{
+    if (go_off_2 &lt; 0)
+    {
+        go_off_2 += 20;
+        alarm[5]  = 1;
+    }
+}
+else
+{
+    if (!instance_exists(obj_fade_to))
+    {
+        // Create fade.
+        room_fade_to(stage_get_order());
+
+        // Save progress.
+        if (global.save_selected != 0)
+        {
+            save_create(global.save_selected);
+        }
+    }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

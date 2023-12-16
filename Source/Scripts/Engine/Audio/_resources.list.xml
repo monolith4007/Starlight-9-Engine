@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="audio_initialize" type="RESOURCE"/>
+  <resource name="audio_play" type="RESOURCE"/>
+  <resource name="audio_stop" type="RESOURCE"/>
+  <resource name="audio_is_playing" type="RESOURCE"/>
+  <resource name="audio_set_volume" type="RESOURCE"/>
+  <resource name="audio_set_pitch" type="RESOURCE"/>
+  <resource name="audio_get_pitch" type="RESOURCE"/>
+  <resource name="audio_unload" type="RESOURCE"/>
+  <resource name="music_play" type="RESOURCE"/>
+</resources>

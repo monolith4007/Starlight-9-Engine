@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="DRAW" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Draw title card.
+
+// Backdrop:
+draw_set_color(c_black);
+draw_set_alpha(tc_backdrop_alpha);
+draw_rectangle(view_xview[0], view_yview[0], view_xview[0] + view_wview[0], view_yview[0] + view_hview[0], false);
+draw_set_alpha(1);
+draw_set_color(c_white);
+
+// Banner:
+draw_sprite(spr_title_card_banner_s3, -1, floor(view_xview[0] + tc_banner_position_x), floor(view_yview[0] + tc_banner_position_y));
+
+// Zone Name:
+draw_set_font(global.font_title_card_s3);
+draw_text(view_xview[0] + tc_zone_position_x[0], view_yview[0] + tc_zone_position_y, string(STG.zone_name));
+draw_text(view_xview[0] + tc_zone_position_x[1], view_yview[0] + tc_zone_position_y, string("#ZONE"));
+
+// Zone Act:
+if (STG.zone_act &gt; 0)
+{
+    draw_sprite(spr_title_card_act_s3, STG.zone_act - 1, view_xview[0] + tc_act_position_x, view_yview[0] + tc_act_position_y);
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="CREATE" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Variables.
+event_inherited();  // Call parent.
+relative_x = x;     // Relative x position.
+relative_y = y;     // Relative y position.
+previous_x = x;     // Previous x position.
+previous_y = y;     // Previous y position.
+
+x_speed    = 0;     // Horizontal speed.
+y_speed    = 0;     // Vertical speed.
+xd_speed   = 0;     // Increases/Decreases horizontal speed while changing directions.
+yd_speed   = 0;     // Increases/Decreases vertial speed while changing directions.
+active     = false; // Is the platform active?
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

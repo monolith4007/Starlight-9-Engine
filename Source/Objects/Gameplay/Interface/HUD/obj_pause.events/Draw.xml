@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="DRAW" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Draw pause menu.
+
+// Draw snapshot.
+// On some machines it's possible for the background to not draw at all. This is a result of how alpha-blending works in GM8.
+// For this reason, we turn off alpha-blending before drawing the background, and then turn it back on afterwards.
+// The hidden YoYo_EnableAlphaBlend() function allows us to achieve this.
+YoYo_EnableAlphaBlend(false);
+if (background_exists(game_snapshot))
+{
+    draw_background(game_snapshot, view_xview[0], view_yview[0]);
+}
+YoYo_EnableAlphaBlend(true);
+
+// Draw a dark overlay.
+draw_set_color(c_black);
+draw_set_alpha(0.5);
+draw_rectangle(view_xview[0], view_yview[0], view_xview[0] + view_wview[0], view_yview[0] + view_hview[0], false);
+draw_set_color(c_white);
+draw_set_alpha(1);
+
+// Draw pause menu headings.
+draw_set_font(global.font_main);
+draw_set_halign(fa_center);
+draw_set_color(c_yellow)
+draw_text(view_xview[0] + (SCREEN_WIDTH / 2), view_yview[0] + 16, "----------------#- PAUSE -");
+draw_text(view_xview[0] + (SCREEN_WIDTH / 2), view_yview[0] + SCREEN_HEIGHT - 32, "----------------#" + string(option_description));
+draw_set_color(c_white);
+
+// Draw options.
+
+// Continue:
+if (option_selected == 0)
+{
+    option_description = "- Continue the Level -";
+    draw_set_color(c_yellow);
+}
+else
+{
+    draw_set_color(c_white);
+}
+draw_text(view_xview[0] + (SCREEN_WIDTH / 2), view_yview[0] + (SCREEN_HEIGHT / 2) - 16, "CONTINUE");
+
+// Restart:
+if (option_selected == 1)
+{
+    option_description = "- Restart the Level -";
+    draw_set_color(c_yellow);
+}
+else
+{
+    draw_set_color(c_white);
+}
+draw_text(view_xview[0] + (SCREEN_WIDTH / 2), view_yview[0] + (SCREEN_HEIGHT / 2), "RESTART");
+
+// Exit:
+if (option_selected == 2)
+{
+    option_description = "- Exit to the Title Screen -";
+    draw_set_color(c_yellow);
+}
+else
+{
+    draw_set_color(c_white);
+}
+draw_text(view_xview[0] + (SCREEN_WIDTH / 2), view_yview[0] + (SCREEN_HEIGHT / 2) + 16, "EXIT");
+
+// Reset drawing properties.
+draw_set_color(c_white);
+draw_set_halign(fa_left);
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="2">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// (De)activate instances.
+
+// Global/Large region: this is for controllers &amp; tiles since those are the most important.
+// We want to make sure that these are activated first for the game to run and to prevent objects getting stuck inside tiles.
+instance_deactivate_all(true);
+instance_activate_object(gm82core_object);
+instance_activate_object(ctrl_indestructible);
+instance_activate_object(obj_ring_magnetized);
+instance_activate_region(view_xview[0] - 64, view_yview[0] - 64, view_wview[0] + 128, view_hview[0] + 128, true);
+
+// Player region: this is for other objects that we want to spawn when the player goes off-screen.
+with (par_player)
+{
+    if (!in_view(id))
+    {
+        instance_activate_region(x - 64, y - 64, 128, 128, true);
+    }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="spr_hud" type="RESOURCE"/>
+  <resource name="spr_time_seperator" type="RESOURCE"/>
+  <resource name="spr_hud_rings" type="RESOURCE"/>
+  <resource name="spr_hud_lives" type="RESOURCE"/>
+  <resource name="spr_continues" type="RESOURCE"/>
+  <resource name="spr_game_over" type="RESOURCE"/>
+  <resource name="spr_time_over" type="RESOURCE"/>
+  <resource name="spr_hud_powerup_icon" type="RESOURCE"/>
+</resources>

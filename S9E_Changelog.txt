@@ -1,0 +1,256 @@
+[Framework Changes]
+
+Miscellaneous:
+• Renamed the framework to "Starlight 9 Engine".
+• Restructured all code using beautifier.io.
+• Rewritten nearly all scripts to simplify them and remove duplicate/unnecessary code.
+• Removed, descriptively renamed, and changed the scope of, many variables & constants.
+• Moved & renamed various resources & group folders.
+• Rewritten the room view setting code in the initialization object; this new method will now even work for non-consecutive room indexes (credit to TsukiruP).
+• Added icons for the controller objects (these were taken from the Rocket Engine, credit to SoniKast).
+• Rewritten instance deactivation to have a smaller activation region.
+• Fonts are now freed at the end of the game via the audio controller's Game End event.
+• Added the gm82core extension and deleted some math scripts that conflicted with its functions of the same name.
+    > gm82core's functions should be faster than the GML scripts as the former are written in C.
+    > Do note that gm82core has a hidden controller object ("gm82core_object") which must always be activated for the rest of the GM 8.2 extensions to work.
+    > You also cannot use game_restart with gm82core.
+
+Audio:
+• Changed the audio system to FMOD via the gm82snd sound extension (credit to those involved in the 8.2 Project, Grix & icuurd12b42) instead of OpenAL/Caster, and rewritten the audio scripts accordingly.
+    > This brings a new addition of setting looping points for music tracks via the music playback script, and also results in the framework booting up faster.
+    > Do note, however, that if you now want to change the volume of an actively playing sound, you will have to create a sound instance for it. This currently hasn't been done for any sound yet.
+    > Do also note that when adding sounds using the sound_add function in the audio_initialize script, they will automatically be preloaded even if you flag the argument as "false"/0 (due to how gm82snd works).
+• Added a new sound_table DS list that stores all sounds added in the audio_initialize script.
+• Added a new "audio_unload" script that frees all sounds in the sound table from memory at the end of the game.
+• Reworked the sound playing script to only require the index of the sound being passed to it as an argument, meaning the rest of the sound's properties are optional.
+• Zone music is now muted when the drowning jingle is playing instead of stopping altogether.
+• Removed the destroyed monitor object strangely checking if the BGM volume was 0 & if the life jingle was playing to set the BGM volume to 1 before playing the invincibility jingle.
+• All jingles now use the global music volume for playback (originally, the 1-up and Chaos Emerald jingles would use the global sound volume).
+• Removed the spike flag argument in the "player_state_hurt" script. This has been replaced with an "if" statement checking the harmful object in question to play the appropriate sound effect.
+
+Input:
+• Replaced JoyDLL with gm82joy (credit to those involved in the 8.2 Project & Evan Balster).
+    > Do note that joystick IDs start with 0 and not 1 in gm82joy.
+• The gamepad controller object now checks every 300 steps (5 seconds) if a controller has been (un)plugged instead of every 30 steps (0.5 seconds). This should give a slight performance boost.
+• The use of "joystick_direction" in the gamepad controller object has been replaced with "joystick_xpos"/"joystick_ypos", with the default deadzone being 0.5.
+• Removed the player's "input_???_released" variables, you should now check if an "input_???" variable is false instead.
+• Reworked the CPU player's input management to utilize DS queues for looking up, crouching & spindashing since the old timer method wouldn't properly reset itself (credit to VectorSatyr).
+
+Menus & Interface:
+• Added support for not drawing act numbers in the title card objects.
+• Disabling the title card or act number for a stage will now cause the results menu to display a unique "zone" text.
+• Removed the black outlines of the power-up bar sprites and drawn them through code instead.
+• Removed most of the fade effect objects since they all shared the same code with the exception of their destination room. Use the new "room_fade_to" script instead and specify your desired room.
+• Added Emerald Hill's parallax background (credit to the Flicky Engine developers).
+• The title card objects will now deactivate all instances upon being created, and will reactivate them once they've finished their routines.
+
+Zone Data (credit to AleksNB for these):
+• Stage information is now stored in a new "stage_initialization" script instead of room creation code.
+    > To set the data of a stage, use the new "stage_set_data" script and add a separate case for your stage in the "stage_initialization" script.
+• The culling controller, backgrounds and title cards are now created in the "stage_initialization" script.
+• The water controller object is now only created if the current level is configured to have any water in it.
+
+Player:
+• Combined both player objects into one. The user-controlled player is now referred to as "global.player_id[0]" and the CPU-controlled player is now referred to as "global.player_id[1]".
+    > There is now a new player spawner object to handle the creation of the user-controlled and CPU-controlled players. You should place this in your desired level instead of the player object.
+• Added the tile flag system & edge line/exception collision sensor from the Harinezumi framework (credit to AleksNB).
+    > To set the variables of a terrain object, use the new "tile_set_flags" script.
+    > One new change not present in Harinezumi is that disabling the angle change flag for a tile will now also completely prevent the player from rotating on it instead of just resetting their animation angle.
+• Removed the player's initialization variable as it's no longer necessary due to the new instance (de)activation method of the title card objects.
+• Removed the physics values scripts for each character and added a universal physics values script.
+• Added comments in the "player_collision_check" script outlining the necessary arguments for each collision sensor.
+• Removed the "player_get_gspeed" script and the "g_speed" variable.
+• Added the "roll_rebounce" variable from the Harinezumi framework for colliding with the top of badniks & monitors after leaving the ground whilst previously rolling (credit to AleksNB).
+• Added the ability to change the player's gravity angle (NOTE: it is currently incredibly buggy).
+• Added a launch sensor object (credit to SoniKast) which can be placed next to a ramp in case the normal launching method fails.
+• Removed the loop sensor objects since they were mostly useless.
+• The camera object's lag effect is now handled using an empty alarm 0 event instead of its original "cam_lag" variable. Simply set the camera's alarm 0 event to apply its lag effect.
+
+• Removed the "animation_repeat" variable and renamed the "animation_repeat_times" variable to "animation_loop_count".
+    > The "animation_data" and "animation_set" scripts (previously named "animation_add") have been rewritten to accommodate for this.
+    > To loop an animation indefinitely, set its loop count to -1.
+• Removed the "animation_flags_changed" variable since there was really no use for it and renamed the "animation_flags_finished" variable to "animation_finished".
+• Fixed a bug where the "linked"/"next" animation frame would not apply if you had set one due to the animation system re-initializing itself.
+• Added a universal walking animation speed instead of separate ones for each character.
+• Replaced all of Classic Sonic's sprites using his original Sonic 3 ones since S8E's had a slightly darker color palette.
+• Rewritten the rotation of Tails' tails when he's in the jumping state (credit to VectorSatyr).
+
+NPCs:
+• Added 2 optional arguments for the "create_effect" script (previously named "dummy_effect_create") to set the xscale and angle of the created effect.
+• Added a ring parent object to manage ring collection instead of having duplicate handling code for regular and magnetized rings.
+    > To compensate for the magnetized ring no longer being a child of the indestructible controller object, it is now always activated within the culling controller object.
+• Added a shield parent object.
+• The ring sound stereo effect is now handled by the game checking if the ring count is divisible by 2 or not.
+• Removed the Step event for all spring objects. They now have an Animation End event for resetting their animation frame, and only animate when the player collides with them.
+• Removed the monitor collision mask object.
+
+[Gameplay Changes]
+
+Miscellaneous:
+• Edited the framework's logo to be more symmetrical and feature an admittedly pretty bizzare looking '9' to accommodate for the name change.
+• Removed the text in the framework's splash screen mentioning that it was for Game Maker 8 since the project is mostly compatible with GameMaker: Studio.
+• Unmapped gamepad buttons by default to prevent any mapping shenanigans (you'll need to map them yourself in the options menu).
+• Fixed a bug where the options menu wouldn't recognize a button with id 0 for connected gamepads when rebinding inputs.
+    > E.g., for an Xbox One controller, id 0 corresponds to the "A" button.
+• Added increasing/decreasing music pitch depending on whether the user-controlled player's superspeed shoes are active or not.
+• Added a "time over" event that triggers when 10 in-game minutes have passed.
+    > This can be toggled in the options menu.
+
+Menus & Interface:
+• Added various gameplay settings in the options menu.
+• Fixed a bug where the options menu wouldn't display 92% when adjusting audio volumes.
+• Fixed an issue where the camera wouldn't center properly on the Data Select cursor.
+• Fixed some bugs in the Data Select & pause menus where it was still possible to cycle between options while the fade transition was present.
+• Added the title card from Sonic 1 & Sonic 2 (credit to Tpot for the latter).
+    > The main backdrop of the Sonic 2 title card will change its color depending on the who the user-controlled player is.
+• Fixed an issue where the colon in the game's timer was colored differently from the rest of the HUD.
+• Added a section for milliseconds in the game's timer.
+• Added a proper pause menu modelled after the options menu.
+• Added example Green Hill & Emerald Hill backgrounds (credit to the Flicky Engine developers).
+• Fixed a bug where the invincibility/speedshoe power-up bars would still display a portion of their meters when their respective timers had dropped to 0.
+• Sped up the countdown rate of the results menu from 10 points per frame to 100 points per frame.
+• Fixed a bug where the results tally would incorrectly total up the final score when skipping the countdown (credit to AleksNB).
+
+Player:
+• Reworked the default respawning method of the CPU-controlled player (when their character isn't Tails or Knuckles) so that instead of teleporting to the position of the user-controlled player, they will now leap up from below the screen and fall when above the user-controlled player.
+• The CPU-controlled player now respawns when they have been off-screen for 5 seconds instead of the instant they're off-screen.
+• Fixed a bug where the CPU-controlled player would not change to their "rolling" or "dropping" animations if its character was Tails or Knuckles respectively.
+• Changed some underwater physics values to be more accurate to the original games.
+• Fixed a bug where the player would sometimes slip off the corners of ramps.
+• Fixed a bug where the player would often fail to launch off of ramps.
+• Fixed a bug where the player would land on the ground 1 frame earlier than they should.
+• Rewritten ceiling attachment to be more accurate to the original games.
+• Reworked slope deceleration/acceleration to be more accurate to the original games.
+• Added the deceleration quirk of turning around faster to be more accurate to the original games.
+• Added a proper air horizontal speed cap to be more accurate to the original games.
+• Fixed a bug where if input locking was enabled, horizontal air movement would be executed instead of horizontal ground movement, causing the player to accelerate twice as fast.
+• Reworked input locking on horizontal springs and slopes when you don't have enough speed to be more accurate to the original games.
+• Removed input locking after changing from the "skid" state to the "normal" state since no such behaviour is seemingly present in the original games.
+• Fixed a bug where if input locking was enabled, friction in the "normal" and "rolling" states wouldn't take effect.
+• Improved the precision of wall collision checking to allow better snapping to walls.
+• Fixed an issue where landing on uneven terrain after getting hit would not reset the player's horizontal speed to 0.
+• The player will now revert to the "normal" state after previously being in the "spring" state.
+• Reworked the camera's lag effect and movement while the player is grounded to be more accurate to the original games.
+• Decreased the maximum distance the camera shifts down while the player is crouching from 104 pixels to 88 pixels, and raised the duration at which the camera waits to shift forward while the peelout is being charged from 6 frames to 16 frames to be more accurate to the original games.
+• Fixed a bug where the camera wouldn't move properly towards its bounds.
+• Added the level completion styles from Sonic 1/2 & Sonic 3; when the goalpost has finished spinning, the player will either move to the right of the screen or strike a pose respectively depending on your preference in the options menu.
+• Disabled the roll jump lock feature (though this can be re-enabled within the project).
+• Pressing the "action" key while in the "normal" or "spring" states and ungrounded will now change the player's state to the jumping one.
+• Fixed a bug where the CPU-controlled player could apply the camera lag effect if they released a spindash.
+• The pitch of the spindash sound effect now resets if it's no longer playing.
+• Removed the deceleration calculation within the skid state script to be more accurate to the original games.
+• Fixed a bug where skidding would not cancel out when the player's angle was between 45 and 315 degrees.
+• Fixed a bug where if the player got hit, and their X position was the same as that of the harmful object's, they would not rebound horizontally.
+• Reworked flashing after getting hit or finishing respawning to be more accurate to the original games.
+• Fixed a bug where the dropdash & sliding actions would not be executed when performed directly after pushing against a solid object.
+• Added grinding (credit to John-Kun).
+• Fixed some issues where dying underwater but not drowning would not launch the player in the air and play the incorrect death sound effect.
+• Fixed a bug where it was possible for the CPU-controlled player to drown underwater whilst respawning.
+• Fixed a bug where obtaining the Bubble shield wouldn't stop the drowning jingle if it was playing.
+• Fixed a bug where breathing in an air bubble would play its appropriate sound effect with a pitch of 0, effectively causing it not to play at all.
+• Fixed a bug where the CPU-controlled character could stop the drowning jingle whilst taking in some air.
+• Fixed a bug where the drowning counter would not spawn for both the user-controlled player and the CPU-controlled player if an instance of the counter already existed.
+• Fixed a bug where the drowning counter could be displayed behind terrain.
+• The CPU-controlled player can now only interact with certain NPCs like rings and badniks when on-screen.
+• Fixed a bug where if the CPU-controlled player was respawning while previously on a platform, their vertical movement would be locked.
+• Fixed a bug where the player's controls would not be locked when entering a tunnel whilst ungrounded.
+• Fixed a bug where touching the bottom of a collapsible piece of terrain would cause it to crumble.
+• Fixed a bug where touching a crumbled tile from any direction would reset the player's vertical speed.
+• Fixed collisions with non-diagonal vertical springs when the player's angle was 90 or 270 degrees (credit to AleksNB).
+• Fixed a bug where the CPU-controlled player would not be able to collide with the bottom side of monitors.
+• Knuckles can now rebound off of monitors whilst gliding.
+• Monitor rewards now affect both players instead of the user-controlled one, with the exception of the Eggman monitor.
+• Extended the duration of the invincibility sparkles & the superspeed sneakers from 15 seconds to 20 seconds.
+• Fixed a bug where Tails could destroy badniks from any side whilst he was flying upwards, instead of just the bottom side.
+• Added checks for more states to hang onto poles.
+• Fixed a bug where flying or gliding above the sign post wouldn't focus the camera on it.
+• Fixed a bug where if the camera was shifted horizontally due to the peelout being used, and the signpost entered the view, the camera would not reset its horizontal position.
+• The signpost now triggers when the user-controlled player jumps above it.
+• Fixed a bug where if you re-entered a level after triggering a game over, the player would spawn at the last triggered checkpoint.
+
+• You can now swap between players if the CPU-controlled player is present in-game (credit to TsukiruP). There is a dedicated swapping key to do this (the default for it is "C").
+    > Pressing the swap key whilst the CPU-controlled player is off-screen will force them to respawn (this idea was taken from Sonic Triple Trouble 16-bit).
+• Added Amy Rose & Modern Sonic as additional playable characters (credit to the Flicky Engine developers, SoniKast & PVic).
+    > These characters have their iconic abilities, i.e., Amy's Piko-Piko Hammer and Modern Sonic's boost.
+    > Amy still has the ability to roll and perform a spindash.
+    > The homing attack is now used by Modern Sonic, allowing Classic Sonic to use the Insta-Shield instead.
+    > Amy & Modern Sonic use Classic Sonic's respawning method if they're CPU-controlled.
+
+• Tails can now carry other players whilst flying except while underwater (credit to TsukiruP). If he is controlled by the CPU, press the "up" button whilst he's jumping to trigger his flight.
+• Added the ability for Tails to cancel his flight by pressing the "special" key, which switches his state to the jumping one. From there, he can take flight again by pressing the "action" key.
+• Fixed a bug where Tails could clip into upward-curving slopes when flying into one.
+
+• Fixed a bug where the shield action would not reset whenever Classic Sonic lost or changed shields.
+• Doubled the animation speed of the Insta-Shield to be more accurate to the original games.
+• Fixed a bug where the Insta-Shield would repeatedly grant Classic Sonic 6 invulnerability frames for every frame it was present, instead of just when it was created.
+• Fixed a bug where the Insta-Shield would grant invulnerability against spikes.
+• Reduced the number of frames at which the peelout is ready for release from 32 to 30 to be more accurate to the original games.
+• Added various release speeds for the peelout depending on how long it was charged for (this idea was taken from Sonic Mania).
+• Removed the dust effect when charging up the peelout.
+• Added various release speeds when performing a dropdash depending on Classic Sonic's angle and facing direction (credit to AleksNB).
+• Fixed a bug where the dropdash status would not reset when changing state.
+• Fixed a bug where Classic Sonic could perform a dropdash on the top of monitors.
+• Fixed a bug where the dropdash could be performed when attaching to a ceiling.
+• Fixed a bug where if Classic Sonic had a fully charged dropdash and jumped immediately as he landed, he would not be launched forward.
+• Added a new dropdash dust effect when a dropdash is performed (the effect's sprite is originally from the SonicForGMS framework).
+
+• Fixed some issues with the homing attack:
+    > Added new triggering conditions: Modern Sonic must now be facing the target and be above the bottom of the its hitbox before the reticle can spawn. If these conditions aren't met, the reticle will destroy itself.
+    > Fixed a bug where a homing dash could not be performed if terrain was in line of sight.
+    > Fixed a bug where the homing reticle could spawn between loops.
+    > Fixed a bug where the homing reticle would not spawn when standing in-between 2 NPCs that could be targeted (credit to Tpot).
+    > Fixed a bug where rebounding after a homing attack wouldn't execute when invincibility sparkles were present.
+
+• Capped Knuckles' horizontal speed to 24 whilst gliding to be more accurate to the original games.
+• Fixed an issue where the air drag effect was applied whilst gliding.
+• Fixed a bug where Knuckles could grab onto the very edges of quarter ellipses (credit to AleksNB).
+• Fixed a bug regarding Knuckles' horizontal speed when meeting a room's borders whilst gliding (credit to AleksNB).
+• Knuckles can now slide on tiles if his angle is less than 45 degrees or greater than 315 degrees.
+    > If his angle is within this range whilst sliding, he will begin walking/running.
+• Fixed an issue where releasing the "action" key whilst Knuckles was sliding would not cause him to get up.
+• Fixed an issue where Knuckles would not run when colliding with a horizontal spring whilst gliding or sliding.
+• Fixed a bug where Knuckles would animate weirdly whilst climbing when pressing the "up" & "down" keys simultaneously.
+• Fixed a bug where Knuckles would not be able to climb down to the floor below him (credit to AleksNB).
+
+• Fixed an issue where the "bored" animation(s) of each character not triggering at the same time.
+• Fixed a bug where Tails' "bored" animation would last little to no time at all.
+• Tails' "yawning" animation no longer loops indefinitely.
+• Extended Sonic & Knuckles' "bored" animations.
+• Knuckles' "bored" animation will no longer loop indefinitely, and will stop playing when it's finished.
+• Fixed a bug regarding the playback of the player's idle animation when meeting a room's borders whilst grounded.
+• Fixed the alignment of each frame of Knuckles' "walking" sprite.
+• Fixed a bug where Sonic & Knuckles' "running" animations would not animate when triggered on tile edges.
+• Knuckles' "balance" animation now temporarily stops animating in the frame that both of his feet are on the ground to be more accurate to the original games.
+• Fixed some bugs with Tails' tails where they would change their animation 1 frame earlier than Tails when he changed animations and sometimes be duplicated upon landing (credit to TsukiruP).
+• Fixed the positioning of Tails' tails while flying.
+• Fixed a bug where Tails' tails would rotate after jumping off a ceiling.
+• Fixed a bug where Tails' tails would rotate incorrectly whilst jumping underwater (credit to VectorSatyr).
+• Every character except Classic Sonic will now always face the direction of the cliff they're balancing on to be more accurate to the original games.
+• Fixed a bug where the "balancing" animation would sometimes animate slower than usual.
+• Fixed an issue where 1 frame of Classic Sonic's "peelout" sprite was 1 pixel lower than the rest.
+• Added Sonic MAX's trail effect when in the rolling & dropdash animations (credit to Tpot). The positioning of the trail has been adjusted to be better aligned to the aforementioned animations.
+• Rewritten the drawing/movement of invincibility sparkles using Sonic MAX's method (credit to Tpot).
+• Added the afterimage effect from the Harinezumi framework (credit to AleksNB).
+    > The effect spawns when the player's speedshoe sneakers are active.
+    > One difference from Harinezumi is that the afterimage is drawn using the bm_add blend mode, allowing it to appear brighter to counter its fading animation transparency.
+    > The afterimage now also displays Tails' tail animations unlike in Harinezumi.
+• The "skid" animation will now change into the "walk" animation when ungrounded.
+• Fixed a bug where it was possible for the "hurt", "death" and "drown" animations to be rotated.
+
+NPCs:
+• Fixed a bug where Motobugs could sometimes clip into terrain when off-screen.
+• Added the Crabmeat badnik (credit to AleksNB), the Chopper badnik and the Bubbles badnik.
+• Animals will now spawn upon the destruction of badniks.
+• Fixed collision with platforms for rings that are in motion (credit to AleksNB).
+• Magnetized rings are no longer destroyed if the player no longer has the electric shield, they will instead stop accelerating towards the player.
+• Slightly increased the hitbox of rings by 1 pixel on all sides.
+• Reduced the strength of yellow, non-diagonal vertical springs from 12 to 10 to be more accurate to the original games.
+• Fixed a bug where springs that were placed inside terrain could sometimes be visible.
+• Moved the position of the tunnel lock sensors in the first Engine Test Zone act to inside the tunnel instead of just outside the entrance.
+• Added Sonic 2's shield (the shield's sprite is a modified one from the SonicForGMS framework).
+• Shields will now automatically adjust their positions based on the player's animation angle (credit to VectorSatyr).
+• Fixed the vertical offset of each frame of the bubble shield's "bounce" sprite so that they're centered.
+• Fixed a bug you could repeatedly bounce on an upwards spring with the bubble shield.
+• The electric shield now changes its depth depending on how far it is into its animation.
+• Changed the direction of the electric shield sparks and Amy's hammer hearts to resemble an "X" instead of a "V" to be more accurate to the original games.
+• Fixed an issue with the collision mask of the S-tunnel in the first Engine Test Zone act.

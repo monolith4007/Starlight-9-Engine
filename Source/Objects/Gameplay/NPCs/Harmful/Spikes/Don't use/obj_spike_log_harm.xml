@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<object id="82">
+  <sprite>spr_spike_log_mask</sprite>
+  <solid>false</solid>
+  <visible>false</visible>
+  <depth>-1</depth>
+  <persistent>false</persistent>
+  <parent/>
+  <mask/>
+</object>

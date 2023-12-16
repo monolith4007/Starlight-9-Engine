@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="Slot &amp; Cursor" type="GROUP"/>
+  <resource name="Slot Data" type="GROUP"/>
+  <resource name="Robotnik" type="GROUP"/>
+  <resource name="Icons" type="GROUP"/>
+  <resource name="Miscellaneous" type="GROUP"/>
+</resources>

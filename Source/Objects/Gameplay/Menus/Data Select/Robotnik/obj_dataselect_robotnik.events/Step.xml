@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Everything.
+
+// Movement.
+if (active)
+{
+    x = obj_dataselect_cursor.x;
+}
+else
+{
+    x = approach(x, xstart, 8);
+}
+
+// Change animation.
+switch (state)
+{
+    case "IDLE":
+    {
+        if (!active)
+        {
+            sprite_index = spr_dataselect_robotnik_delete;
+            image_speed  = 0;
+        }
+        else
+        {
+            sprite_index = spr_dataselect_robotnik_full_spin;
+            image_speed  = 0.25;
+        }
+        break;
+    }
+    case "SPIN":
+    {
+        sprite_index = spr_dataselect_robotnik_spin
+        image_speed  = 0.25;
+        break;
+    }
+    case "SELECTION":
+    {
+        sprite_index = spr_dataselect_robotnik_selection;
+        image_speed  = 0.05;
+        break;
+    }
+}
+
+// Deactivate on delete slot.
+if (active &amp;&amp; obj_dataselect_cursor.datacursor_slot_index == 9)
+{
+    if (keyboard_check_pressed(global.key_action))
+    {
+        active     = false;
+        sign_index = 0;
+        state      = "IDLE";
+        obj_dataselect_cursor.datacursor_allow_movement = true;
+        exit;
+    }
+}
+
+// Trigger
+if (keyboard_check_pressed(global.key_action) &amp;&amp; obj_dataselect_cursor.datacursor_slot_index == 9 &amp;&amp; obj_dataselect_cursor.datacursor_direction == 0)
+{
+    if (!active)
+    {
+        active = true;
+        state  = "IDLE";
+    }
+    exit;
+}
+
+// Delete &amp; Deactivate.
+if (active &amp;&amp; obj_dataselect_cursor.datacursor_direction == 0 &amp;&amp; obj_dataselect_cursor.datacursor_slot_index != 0 &amp;&amp; obj_dataselect_cursor.datacursor_slot_index != 9)
+{
+    switch (state)
+    {
+        // Trigger selection.
+        case "IDLE":
+        {
+            if (keyboard_check_pressed(global.key_action))
+            {
+                with (obj_dataselect_slot)
+                {
+                    if (dataslot_index == global.save_selected)
+                    {
+                        if (dataslot_zone == 0)
+                        {
+                            with (other)
+                            {
+                                active      = false;
+                                sign_index  = 1;
+                                image_index = 0;
+                                state       = "SPIN";
+                                obj_dataselect_cursor.datacursor_allow_movement = true;
+                                audio_play(SFX._general_error, SFX.sfx_volume, 1, 0, 0);
+                                exit;
+                            }
+                        }
+                        else
+                        {
+                            with (other)
+                            {
+                                sign_index  = 0;
+                                state       = "SPIN";
+                                image_index = 0;
+                                obj_dataselect_cursor.datacursor_allow_movement = false;
+                                exit;
+                            }
+                        }
+                    }
+                }
+            }
+            break;
+        }
+
+        // Delete Slot.
+        case "SELECTION":
+        {
+            if (keyboard_check_pressed(global.key_left))
+            {
+                with (obj_dataselect_slot)
+                {
+                    if (dataslot_index == global.save_selected)
+                    {
+                        alarm[0] = 1;
+                    }
+                }
+                active     = false;
+                sign_index = 1;
+                state      = "SPIN";
+                obj_dataselect_cursor.datacursor_allow_movement = true;
+                audio_play(SFX._general_signpost, SFX.sfx_volume, 1, 0, 0);
+                exit;
+            }
+
+            // Backout.
+            if (keyboard_check_pressed(global.key_right) || keyboard_check_pressed(global.key_special))
+            {
+                sign_index = 1;
+                state      = "SPIN";
+                obj_dataselect_cursor.datacursor_allow_movement = true;
+                exit;
+            }
+            break;
+        }
+    }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

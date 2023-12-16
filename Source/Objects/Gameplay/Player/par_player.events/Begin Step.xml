@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="1">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Receive inputs.
+
+// Exit in the following states:
+if (state == STATE_DEATH || state == STATE_RESPAWN) exit;
+
+// Main player inputs.
+if (!cpu_flag)
+{
+    // Key held.
+    input_up              = keyboard_check(global.key_up);
+    input_down            = keyboard_check(global.key_down);
+    input_right           = keyboard_check(global.key_right);
+    input_left            = keyboard_check(global.key_left);
+    input_action          = keyboard_check(global.key_action);
+    input_special         = keyboard_check(global.key_special);
+    input_swap            = keyboard_check(global.key_swap);
+
+    // Key press.
+    input_up_pressed      = keyboard_check_pressed(global.key_up);
+    input_down_pressed    = keyboard_check_pressed(global.key_down);
+    input_right_pressed   = keyboard_check_pressed(global.key_right);
+    input_left_pressed    = keyboard_check_pressed(global.key_left);
+    input_action_pressed  = keyboard_check_pressed(global.key_action);
+    input_special_pressed = keyboard_check_pressed(global.key_special);
+    input_swap_pressed    = keyboard_check_pressed(global.key_swap);
+}
+else // CPU player inputs.
+{
+    // Set target to follow.
+    var follow_target;
+    follow_target = global.player_id[0];
+
+    // Check target coordinates and move accordingly:
+    if (instance_exists(follow_target))
+    {
+        // Move to the right.
+        if ((x &lt; follow_target.x - 16 || (follow_target.y &lt; y - 50 &amp;&amp; follow_target.ground &amp;&amp; follow_target.x_speed &gt; 0)) &amp;&amp;
+            (follow_target.y &gt;= y - 50 || !follow_target.ground || follow_target.x_speed &gt;= 0))
+        {
+            input_right = true;
+        }
+        else
+        {
+            input_right = false;
+        }
+
+        // Move to the left.
+        if ((x &gt; follow_target.x + 16 || (follow_target.y &lt; y - 50 &amp;&amp; follow_target.ground &amp;&amp; follow_target.x_speed &lt; 0)) &amp;&amp;
+            (follow_target.y &gt;= y - 50 || !follow_target.ground || follow_target.x_speed &lt;= 0))
+        {
+            input_left = true;
+        }
+        else
+        {
+            input_left = false;
+        }
+
+        // Toggle up &amp; down inputs (credit to VectorSatyr).
+        var up, down;
+        up   = ds_queue_dequeue(cpu_ip_up);
+        down = ds_queue_dequeue(cpu_ip_down);
+        ds_queue_enqueue(cpu_ip_up,   follow_target.input_up);
+        ds_queue_enqueue(cpu_ip_down, follow_target.input_down);
+
+        // Looking up/down:
+        input_up   = up;
+        input_down = down;
+
+        // Jump:
+        if ((ground || state == STATE_HANG) &amp;&amp; follow_target.y &lt; y - 50 &amp;&amp; !follow_target.ground)
+        {
+            input_action_pressed = true;
+        }
+        else
+        {
+            input_action_pressed = false;
+        }
+
+        if (state == STATE_JUMP)
+        {
+            input_action = true;
+        }
+        else
+        {
+            input_action = false;
+        }
+
+        // Spindash (credit to VectorSatyr again):
+        if (state == STATE_CROUCH || state == STATE_SPINDASH)
+        {
+            var action_press;
+            action_press = ds_queue_dequeue(cpu_ip_action_press);
+            ds_queue_enqueue(cpu_ip_action_press, follow_target.input_action_pressed);
+            input_action_pressed = action_press;
+
+            // Fix animation direction.
+            if (input_action_pressed &amp;&amp; follow_target.state == STATE_SPINDASH &amp;&amp; animation_direction != follow_target.animation_direction)
+            {
+                animation_direction = follow_target.animation_direction;
+            }
+        }
+
+        // Fly:
+        if (character_id == CHAR_TAILS &amp;&amp; state == STATE_JUMP &amp;&amp; follow_target.input_up_pressed)
+        {
+            // Execute a variable jump to prevent flying too high.
+            if (y_speed &lt; jump_release &amp;&amp; !jump_completed)
+            {
+                y_speed = jump_release;
+            }
+            input_action_pressed = true;
+        }
+
+        if (state == STATE_FLY)
+        {
+            if (follow_target.state == STATE_CARRY)
+            {
+                input_left           = follow_target.input_left;
+                input_right          = follow_target.input_right;
+                input_action_pressed = follow_target.input_action_pressed;
+            }
+        }
+
+        // Jump if climbing:
+        if (state == STATE_CLIMB &amp;&amp; !ledge_grabbing)
+        {
+            input_action_pressed = true;
+        }
+
+        // If the CPU is stuck pushing a wall, make them jump.
+        if (state == STATE_PUSH &amp;&amp; abs(follow_target.x - x) &gt; 64)
+        {
+            input_action_pressed = true;
+        }
+
+        // Respawn.
+        if (!in_view(id))
+        {
+            // Check if the CPU player has been off-screen for at least 300 frames and the results tally isn't present.
+            if (cpu_offscreen_timer &gt; 0)
+            {
+                if (!instance_exists(obj_results))
+                {
+                    cpu_offscreen_timer -= 1;
+                }
+            }
+            else
+            {
+                if (follow_target.state != STATE_CARRY)
+                {
+                    player_state_respawn(true);
+                    death_timer         = -5;
+                    cpu_offscreen_timer = 300;
+                }
+            }
+        }
+        else // Reset offscreen timer.
+        {
+            if (cpu_offscreen_timer &lt; 300)
+            {
+                cpu_offscreen_timer = 300;
+            }
+        }
+    }
+}
+
+// Lock inputs when the results are on-screen.
+if (instance_exists(obj_results) &amp;&amp; global.goal_style != 0)
+{
+    // Lock inputs.
+    input_up      = false;
+    input_down    = false;
+    input_left    = false;
+    input_action  = false;
+    input_special = false;
+    input_swap    = false;
+
+    input_action_pressed = false;
+
+    // Clear the CPU player's input queues.
+    ds_queue_clear(cpu_ip_up);
+    ds_queue_clear(cpu_ip_down);
+    ds_queue_clear(cpu_ip_action_press);
+
+    if (global.goal_style == 1)
+    {
+        input_right = true;
+    }
+    else
+    {
+        input_right = false;
+        if (ground)
+        {
+            x_speed = 0;
+            state   = STATE_GOAL;
+        }
+    }
+}
+
+// Cancel contradictory inputs.
+if (input_left &amp;&amp; input_right)
+{
+    input_left  = false;
+    input_right = false;
+}
+
+// Decrease the input lock timer:
+if (ground &amp;&amp; input_lock_timer &gt; 0)
+{
+    input_lock_timer -= 1;
+}
+</argument>
+      </arguments>
+    </action>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Modify physics.
+
+// Check if underwater:
+if (STG.zone_water_height != -1)
+{
+    if (y &lt; STG.zone_water_height &amp;&amp; underwater)
+    {
+        underwater = false;
+    }
+    if (y &gt; STG.zone_water_height &amp;&amp; !underwater)
+    {
+        underwater = true;
+    }
+}
+
+// Get/Set physics values.
+player_physics_values();
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

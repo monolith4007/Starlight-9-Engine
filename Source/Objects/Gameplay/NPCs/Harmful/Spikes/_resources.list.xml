@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="par_spike" type="RESOURCE"/>
+  <resource name="obj_spike_top" type="RESOURCE"/>
+  <resource name="obj_spike_bottom" type="RESOURCE"/>
+  <resource name="obj_spike_left" type="RESOURCE"/>
+  <resource name="obj_spike_right" type="RESOURCE"/>
+  <resource name="obj_spike_moving_trigger" type="RESOURCE"/>
+  <resource name="obj_spike_log" type="RESOURCE"/>
+  <resource name="Don't use" type="GROUP"/>
+</resources>

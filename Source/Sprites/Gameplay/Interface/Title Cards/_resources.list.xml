@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="Sonic 3" type="GROUP"/>
+  <resource name="Sonic 2" type="GROUP"/>
+  <resource name="Sonic 1" type="GROUP"/>
+</resources>

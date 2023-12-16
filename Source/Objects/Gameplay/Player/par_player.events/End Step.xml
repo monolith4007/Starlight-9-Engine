@@ -1,0 +1,1064 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="2">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Keep within boundaries.
+if (x &lt;= (obj_camera.bound_left + sprite_get_width(MASK_MAIN) / 2) &amp;&amp; x_speed &lt; 0)
+{
+    if (state != STATE_GLIDE)
+    {
+        x_speed = 0;
+    }
+    else
+    {
+        if (x_speed &lt; -glide_acceleration)
+        {
+            x_speed = -glide_acceleration;
+        }
+    }
+    x = obj_camera.bound_left + sprite_get_width(MASK_MAIN) / 2;
+    if (ground &amp;&amp; animation_index != "BORED_1" &amp;&amp; animation_index != "BORED_2")
+    {
+        animation_index = "IDLE";
+    }
+}
+else if (x &gt;= (obj_camera.bound_right - sprite_get_width(MASK_MAIN) / 2) &amp;&amp; x_speed &gt; 0)
+{
+    if (state != STATE_GLIDE)
+    {
+        x_speed = 0;
+    }
+    else
+    {
+        if (x_speed &gt; glide_acceleration)
+        {
+            x_speed = glide_acceleration;
+        }
+    }
+    x = obj_camera.bound_right - sprite_get_width(MASK_MAIN) / 2;
+    if (ground &amp;&amp; animation_index != "BORED_1" &amp;&amp; animation_index != "BORED_2")
+    {
+        animation_index = "IDLE";
+    }
+}
+</argument>
+      </arguments>
+    </action>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Animation management.
+
+// Check states to apply animations:
+switch (state)
+{
+    case STATE_DEFAULT:
+    {
+        if (ground)
+        {
+            // Idle:
+            if (x_speed == 0)
+            {
+                if (animation_timer &lt; 288)
+                {
+                    if (animation_index != "IDLE")
+                    {
+                        animation_index  = "IDLE";
+                    }
+                }
+                else
+                {
+                    if (animation_index != "BORED_1" &amp;&amp; animation_index != "BORED_2")
+                    {
+                        animation_index  = "BORED_1";
+                    }
+                }
+            }
+            else if (abs(x_speed) &lt; 6) // Walking.
+            {
+                if (animation_index != "WALK")
+                {
+                    animation_index  = "WALK";
+                }
+            }
+            else // Running/Peelout.
+            {
+                if (animation_index != "RUN" || animation_index != "PEELOUT")
+                {
+                    if (!peelout_flag)
+                    {
+                        animation_index = "RUN";
+                    }
+                    else
+                    {
+                        animation_index = "PEELOUT";
+                    }
+                }
+            }
+        }
+        else
+        {
+            // Switch to the walking animation while ungrounded if we had previously skid.
+            if ((animation_index == "SKID" || animation_index == "SKID_TURN") &amp;&amp; animation_finished)
+            {
+                animation_index = "WALK";
+            }
+        }
+        break;
+    }
+
+    // Skidding:
+    case STATE_SKID:
+    {
+        if (animation_index != "SKID" &amp;&amp; animation_index != "SKID_TURN")
+        {
+            animation_index  = "SKID";
+        }
+        break;
+    }
+
+    // Peelout:
+    case STATE_PEELOUT:
+    {
+        if (peelout_timer &lt; 15)
+        {
+            if (animation_index != "WALK")
+            {
+                animation_index  = "WALK";
+            }
+        }
+        else if (peelout_timer &lt; 30)
+        {
+            if (!underwater)
+            {
+                if (animation_index != "RUN")
+                {
+                    animation_index  = "RUN";
+                }
+            }
+            else
+            {
+                if (animation_index != "WALK")
+                {
+                    animation_index  = "WALK";
+                }
+            }
+        }
+        else
+        {
+            if (!underwater)
+            {
+                if (animation_index != "PEELOUT")
+                {
+                    animation_index  = "PEELOUT";
+                }
+            }
+            else
+            {
+                if (animation_index != "RUN")
+                {
+                    animation_index  = "RUN";
+                }
+            }
+        }
+        break;
+    }
+
+    // Looking up:
+    case STATE_LOOKUP:
+    {
+        if (animation_index != "LOOK_UP")
+        {
+            animation_index  = "LOOK_UP";
+        }
+        break;
+    }
+
+    // Crouch:
+    case STATE_CROUCH:
+    {
+        if (animation_index != "CROUCH")
+        {
+            animation_index  = "CROUCH";
+        }
+        break;
+    }
+
+    // Spindash:
+    case STATE_SPINDASH:
+    {
+        if (animation_index != "SPINDASH")
+        {
+            animation_index  = "SPINDASH";
+        }
+        break;
+    }
+
+    // Jumping/Rolling/Homing Attack/Grinding:
+    case STATE_JUMP:
+    case STATE_ROLL:
+    case STATE_HOMING:
+    case STATE_GRIND:
+    {
+        if (dropdash_state &lt; 2)
+        {
+            if (animation_index != "ROLL")
+            {
+                animation_index  = "ROLL";
+            }
+        }
+        else // Dropdash.
+        {
+            if (animation_index != "DROPDASH")
+            {
+                animation_index  = "DROPDASH";
+            }
+        }
+        break;
+    }
+
+    // Balancing:
+    case STATE_BALANCE:
+    {
+        if (character_id == CHAR_SONIC)
+        {
+            if (animation_direction == balance_direction)
+            {
+                if (animation_index != "BALANCE_1")
+                {
+                    animation_index  = "BALANCE_1";
+                }
+            }
+            else
+            {
+                if (animation_index != "BALANCE_2")
+                {
+                    animation_index  = "BALANCE_2";
+                }
+            }
+        }
+        else
+        {
+            if (animation_index != "BALANCE_1")
+            {
+                animation_index  = "BALANCE_1";
+            }
+        }
+        break;
+    }
+
+    // Spring:
+    case STATE_SPRING:
+    {
+        if (animation_index != "SPRING" &amp;&amp; animation_index != "CORKSCREW")
+        {
+            animation_index  = "SPRING";
+        }
+        break;
+    }
+
+    // Push:
+    case STATE_PUSH:
+    {
+        if (animation_index != "PUSH")
+        {
+            animation_index  = "PUSH";
+        }
+        break;
+    }
+
+    // Hurt:
+    case STATE_HURT:
+    {
+        if (animation_index != "HURT")
+        {
+            animation_index  = "HURT";
+        }
+        break;
+    }
+
+    // Breath:
+    case STATE_BREATH:
+    {
+        if (animation_index != "BREATHE")
+        {
+            animation_index  = "BREATHE";
+        }
+        break;
+    }
+
+    // Flying/Swimming:
+    case STATE_FLY:
+    {
+        if (!underwater)
+        {
+            // Check if we're not dropping:
+            if (tails_flight_timer &gt; 0)
+            {
+                // Get the ID of the second player:
+                var partner;
+                partner = instance_nth_nearest(x, y, par_player, 2);
+                if (partner != noone)
+                {
+                    if (partner.state == STATE_CARRY)
+                    {
+                        if (animation_index != "FLY_CARRY")
+                        {
+                            animation_index  = "FLY_CARRY";
+                        }
+                    }
+                    else
+                    {
+                        if (animation_index != "FLY")
+                        {
+                            animation_index  = "FLY";
+                        }
+                    }
+                }
+                else
+                {
+                    if (animation_index != "FLY")
+                    {
+                        animation_index  = "FLY";
+                    }
+                }
+            }
+            else
+            {
+                if (animation_index != "FLY_DROP")
+                {
+                    animation_index  = "FLY_DROP";
+                }
+            }
+        }
+        else
+        {
+            if (tails_flight_timer &gt; 0)
+            {
+                if (animation_index != "SWIM")
+                {
+                    animation_index  = "SWIM";
+                }
+            }
+            else
+            {
+                if (animation_index != "SWIM_DROP")
+                {
+                    animation_index  = "SWIM_DROP";
+                }
+            }
+        }
+        break;
+    }
+
+    // Gliding:
+    case STATE_GLIDE:
+    {
+        if (animation_index != "GLIDE")
+        {
+            animation_index  = "GLIDE";
+        }
+        break;
+    }
+
+    // Glide drop:
+    case STATE_GLIDE_DROP:
+    {
+        if (animation_index != "GLIDE_DROP" &amp;&amp; !ground)
+        {
+            animation_index  = "GLIDE_DROP";
+        }
+        break;
+    }
+
+    // Climbing:
+    case STATE_CLIMB:
+    {
+        if (!ledge_grabbing)
+        {
+            if (animation_index != "CLIMB")
+            {
+                animation_index  = "CLIMB";
+            }
+        }
+        else
+        {
+            if (animation_index != "CLIMB_LEDGE")
+            {
+                animation_index  = "CLIMB_LEDGE";
+            }
+        }
+        break;
+    }
+
+    // Sliding:
+    case STATE_SLIDE:
+    {
+        if (animation_index != "SLIDE")
+        {
+            animation_index  = "SLIDE";
+        }
+        break;
+    }
+
+    // Carry:
+    case STATE_CARRY:
+    {
+        if (animation_index != "HANG_CARRY")
+        {
+            animation_index  = "HANG_CARRY";
+        }
+        break;
+    }
+
+    // Respawning:
+    case STATE_RESPAWN:
+    {
+        switch (character_id)
+        {
+            case CHAR_TAILS:
+            {
+                if (animation_index != "FLY")
+                {
+                    animation_index  = "FLY";
+                }
+                break;
+            }
+            case CHAR_KNUCKLES:
+            {
+                if (animation_index != "GLIDE")
+                {
+                    animation_index  = "GLIDE";
+                }
+                break;
+            }
+            default: // Sonic &amp; Amy.
+            {
+                if (animation_index != "ROLL")
+                {
+                    animation_index  = "ROLL";
+                }
+            }
+        }
+        break;
+    }
+
+    // Death:
+    case STATE_DEATH:
+    {
+        if (!has_drowned)
+        {
+            animation_index = "DEATH";
+        }
+        else
+        {
+            animation_index = "DROWN";
+        }
+        break;
+    }
+
+    // Goal:
+    case STATE_GOAL:
+    {
+        if (global.goal_style == 2)
+        {
+            if (animation_index != "GOAL")
+            {
+                animation_index  = "GOAL";
+            }
+        }
+        break;
+    }
+}
+
+// Set animation for each hammer attack.
+switch (amy_hammer_attack)
+{
+    // Hammer punch:
+    case 1:
+    {
+        if (animation_index != "HAMMER_PUNCH")
+        {
+            animation_index  = "HAMMER_PUNCH";
+        }
+        break;
+    }
+
+    // Hammer spin:
+    case 2:
+    {
+        if (animation_index != "HAMMER_SPIN")
+        {
+            animation_index  = "HAMMER_SPIN";
+        }
+        break;
+    }
+
+    // Hammer air dash:
+    case 3:
+    {
+        if (animation_index != "HAMMER_AIR")
+        {
+            animation_index  = "HAMMER_AIR";
+        }
+        break;
+    }
+
+    // Hammer flip:
+    case 4:
+    {
+        if (animation_index != "HAMMER_FLIP" &amp;&amp; animation_index != "HAMMER_AIR")
+        {
+            animation_index  = "HAMMER_FLIP";
+        }
+        break;
+    }
+}
+
+// ########################################################################################################################## //
+
+// Modify animation speeds.
+
+// Idle:
+if (animation_index == "BORED_1")
+{
+    if (character_id == CHAR_SONIC)
+    {
+        if (animation_frame &lt; 3)
+        {
+            animation_speed = 0.10;
+        }
+        else
+        {
+            animation_speed = 0.05;
+        }
+    }
+    if (character_id == CHAR_MODERN)
+    {
+        if (animation_frame &lt; 4)
+        {
+            animation_speed = 0.15;
+        }
+        else
+        {
+            animation_speed = 0.04;
+        }
+    }
+}
+if (animation_index == "BORED_2")
+{
+    if (character_id == CHAR_SONIC)
+    {
+        if (animation_frame &lt; 7 || (animation_frame &gt;= 8 &amp;&amp; animation_frame &lt; 9))
+        {
+            animation_speed = 0.03;
+        }
+        else
+        {
+            animation_speed = 0.10;
+        }
+    }
+}
+
+// Walking and Running:
+if (state == STATE_DEFAULT &amp;&amp; ground &amp;&amp; x_speed != 0)
+{
+    if (animation_index == "WALK")
+    {
+        animation_speed = 0.075 + abs(x_speed) / 25;
+    }
+    else
+    {
+        animation_speed = 0.20 + abs(x_speed) / 25;
+    }
+}
+
+// Peelout:
+if (state == STATE_PEELOUT)
+{
+    animation_speed = 0.5 / (1 + underwater);
+}
+
+// Balancing:
+if (character_id == CHAR_KNUCKLES)
+{
+    if (animation_index == "BALANCE_1" || animation_index == "BALANCE_2")
+    {
+        if (animation_frame &gt;= 6 &amp;&amp; animation_frame &lt; 7)
+        {
+            animation_speed = 0.015;
+        }
+        else
+        {
+            animation_speed = 0.15;
+        }
+    }
+}
+
+// Jumping and Rolling:
+if (state == STATE_JUMP)
+{
+    if (character_id == CHAR_TAILS)
+    {
+        animation_speed           = 0.25;
+        animation_rendering_speed = 0.25;
+    }
+    else
+    {
+        if (dropdash_state &lt; 2 &amp;&amp; amy_hammer_attack == 0)
+        {
+            animation_speed = animation_rendering_speed;
+        }
+    }
+}
+if (state == STATE_ROLL)
+{
+    if (character_id == CHAR_TAILS)
+    {
+        animation_speed           = 0.25;
+        animation_rendering_speed = 0.25;
+    }
+    else
+    {
+        animation_speed           = 1 / max(5 - abs(x_speed), 1);
+        animation_rendering_speed = animation_speed;
+    }
+}
+
+// Limit the jumping/rolling animation speed:
+if (animation_index == "ROLL")
+{
+    if (animation_rendering_speed &gt; 1.5)
+    {
+        animation_rendering_speed = 1.5;
+    }
+    if (animation_speed &gt; 1.5)
+    {
+        animation_speed = 1.5;
+    }
+}
+
+// If we hit a wall, reset the rolling animation speed.
+if (!ground &amp;&amp; y_speed &gt;= 0 &amp;&amp; amy_hammer_attack == 0 &amp;&amp; ((player_collision_check(COL_RIGHT, MASK_BIG, x, y, angle) &amp;&amp; input_right) || (player_collision_check(COL_LEFT, MASK_BIG, x, y, angle) &amp;&amp; input_left)))
+{
+    if (state == STATE_JUMP || state == STATE_ROLL)
+    {
+        animation_speed           = 0.25;
+        animation_rendering_speed = 0.25;
+    }
+}
+
+// ########################################################################################################################## //
+
+// Set up the animation core system.
+animation_core();
+
+// Manage animation frame timer:
+switch (animation_index)
+{
+    case "IDLE":
+    {
+        if (animation_timer &lt; 288)
+        {
+            animation_timer += 1;
+        }
+        break;
+    }
+    case "BORED_1":
+    {
+        animation_timer = 288;
+        break;
+    }
+    case "BORED_2":
+    {
+        if (character_id == CHAR_KNUCKLES)
+        {
+            if (animation_finished)
+            {
+                animation_timer = 0;
+            }
+        }
+        else
+        {
+            animation_timer = 288;
+        }
+        break;
+    }
+    case "SKID":
+    case "SKID_TURN":
+    case "SLIDE":
+    {
+        animation_timer += 1;
+        break;
+    }
+    default:
+    {
+        animation_timer = 0;
+    }
+}
+
+// ########################################################################################################################## //
+
+// Set animation direction:
+if (state != STATE_SPINDASH &amp;&amp; state != STATE_LOOKUP   &amp;&amp; state != STATE_CROUCH  &amp;&amp;
+    state != STATE_ROLL     &amp;&amp; state != STATE_SKID     &amp;&amp; state != STATE_BALANCE &amp;&amp;
+    state != STATE_JUMP     &amp;&amp; state != STATE_CLIMB    &amp;&amp; state != STATE_HURT    &amp;&amp;
+    hang_move_dir == 0      &amp;&amp; state != STATE_PEELOUT  &amp;&amp; state != STATE_CARRY   &amp;&amp;
+    state != STATE_FLY      &amp;&amp; state != STATE_GOAL     &amp;&amp; state != STATE_RESPAWN &amp;&amp;
+    state != STATE_SLIDE    &amp;&amp; state != STATE_SPRING)
+{
+    // Change direction depending on input and speed:
+    if (input_left &amp;&amp; x_speed &lt;= 0)
+    {
+        animation_direction = -1;
+    }
+    if (input_right &amp;&amp; x_speed &gt;= 0)
+    {
+        animation_direction = 1;
+    }
+}
+
+// Rolling direction:
+if (state == STATE_ROLL)
+{
+    // Change direction depending on input and speed:
+    if (x_speed &gt; 0 &amp;&amp; input_right)
+    {
+        animation_direction = 1;
+    }
+    if (x_speed &lt; 0 &amp;&amp; input_left)
+    {
+        animation_direction = -1;
+    }
+}
+
+// Change direction in the air depending on input:
+if ((state == STATE_JUMP &amp;&amp; !jump_lock) || (state == STATE_DEFAULT &amp;&amp; !ground) || state == STATE_SPRING || state == STATE_FLY)
+{
+    if (input_right)
+    {
+        animation_direction = 1;
+    }
+    if (input_left)
+    {
+        animation_direction = -1;
+    }
+}
+
+// Balancing direction:
+if (state == STATE_BALANCE)
+{
+    if (character_id != CHAR_SONIC &amp;&amp; animation_direction != balance_direction)
+    {
+        animation_direction = balance_direction;
+    }
+}
+
+// Carry direction:
+if (state == STATE_CARRY)
+{
+    var partner;
+    partner = instance_nth_nearest(x, y, par_player, 2);
+    if (partner != noone)
+    {
+        animation_direction = partner.animation_direction;
+    }
+}
+
+// Respawn direction.
+if (state == STATE_RESPAWN)
+{
+    if (instance_exists(global.player_id[0]))
+    {
+        if (character_id == CHAR_TAILS || character_id == CHAR_KNUCKLES)
+        {
+            if (global.player_id[0].x &gt; x &amp;&amp; x &gt; xprevious)
+            {
+                animation_direction = 1;
+            }
+            if (global.player_id[0].x &lt; x &amp;&amp; x &lt; xprevious)
+            {
+                animation_direction = -1;
+            }
+        }
+    }
+}
+
+// ########################################################################################################################## //
+
+// Apply Tails' tail animations.
+if (character_id == CHAR_TAILS)
+{
+    animation_tail_setup();
+}
+
+// ########################################################################################################################## //
+</argument>
+      </arguments>
+    </action>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Sprite rotation.
+// This is used for rotating the player's sprite.
+
+// Change animation angle values:
+if (ground)
+{
+    if (!col_rotate_flag)
+    {
+        animation_angle_mod = 0;
+    }
+    else
+    {
+        var _angMod;
+        _angMod = animation_angle_mod;
+
+        if (angle &lt;= 180)
+        {
+            if (angle &lt; 36)
+            {
+                _angMod = 0;
+            }
+            else
+            {
+                _angMod = angle;
+            }
+        }
+        else
+        {
+            if (angle &gt; 324)
+            {
+                _angMod = 0;
+            }
+            else
+            {
+                _angMod = angle;
+            }
+        }
+
+        if (abs(angle_difference(animation_angle_mod, _angMod)) &lt; 45)
+        {
+            animation_angle_mod = approach_angle(animation_angle_mod, _angMod, max(abs(x_speed), 4));
+        }
+        else
+        {
+            animation_angle_mod = _angMod;
+        }
+    }
+}
+else
+{
+    animation_angle_mod = approach_angle(animation_angle_mod, 0, 4);
+}
+
+// Rotate:
+animation_angle  = animation_angle_mod;
+tails_tail_angle = animation_angle_mod;
+
+if (global.rotation_style == 0)
+{
+    animation_angle  = round(animation_angle  / 45) * 45;
+    tails_tail_angle = round(tails_tail_angle / 45) * 45;
+}
+
+// Set animation &amp; tail angle to zero if we're not using an animation that can be rotated:
+switch (animation_index)
+{
+    case "IDLE":
+    case "BORED_1":
+    case "BORED_2":
+    case "LOOK_UP":
+    case "CROUCH":
+    case "SPINDASH":
+    case "ROLL":
+    case "DROPDASH":
+    case "PUSH":
+    case "HURT":
+    case "DEATH":
+    case "DROWN":
+    case "BALANCE_1":
+    case "BALANCE_2":
+    case "FLY":
+    case "SWIM":
+    case "FLY_DROP":
+    case "SWIM_DROP":
+    case "GLIDE":
+    case "GLIDE_DROP":
+    case "SLIDE":
+    case "CLIMB":
+    case "CLIMB_LEDGE":
+    {
+        animation_angle = 0;
+        if (animation_index != "ROLL")
+        {
+            tails_tail_angle = 0;
+        }
+        break;
+    }
+}
+
+// Set the angle of Tails' tail (credit to VectorSatyr for this new method).
+if (animation_index == "ROLL" &amp;&amp; !ground)
+{
+    if (tails_tail_direction == 1)
+    {
+        tails_tail_angle = point_direction(0, 0, x_speed, y_speed);
+    }
+    else tails_tail_angle = point_direction(x_speed, y_speed, 0, 0);
+    
+    if (global.rotation_style == 0)
+    {
+        tails_tail_angle = round(tails_tail_angle / 45) * 45;
+    }
+}
+</argument>
+      </arguments>
+    </action>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Afterimage drawing.
+if (afterimage_draw)
+{
+    // Decrease timer and spawn afterimage.
+    if (afterimage_timer &gt; 0)
+    {
+        afterimage_timer -= 1;
+    }
+    else
+    {
+        if (instance_number(obj_afterimage) &lt; 3)
+        {
+            afterimage_timer = 6;
+            with (instance_create(floor(x), floor(y), obj_afterimage))
+            {
+                sprite_index = other.animation_sprite;
+                image_index  = floor(other.animation_frame);
+                image_xscale = other.animation_direction;
+                image_angle  = other.animation_angle;
+                image_alpha  = 0.9;
+                image_speed  = 0;
+                depth        = other.depth + 1;
+
+                // Tail parts.
+                tails_tail_sprite    = other.tails_tail_sprite;
+                tails_tail_frame     = other.tails_tail_frame;
+                tails_tail_x         = other.tails_tail_x;
+                tails_tail_y         = other.tails_tail_y;
+                tails_tail_angle     = other.tails_tail_angle;
+                tails_tail_direction = other.tails_tail_direction;
+            }
+        }
+    }
+}
+</argument>
+      </arguments>
+    </action>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Trail movement.
+// Credit to SuperBliz, VectorSatyr, and Tpot.
+if (global.use_trail)
+{
+    var _pos, _x, _y, trail_angle;
+
+    for (_pos = 0; _pos &lt; trail_length; _pos += 1)
+    {
+        // Retrieve values:
+        _x[1] = ds_list_find_value(vertex_x[1], _pos);
+        _x[2] = ds_list_find_value(vertex_x[2], _pos);
+        _y[1] = ds_list_find_value(vertex_y[1], _pos);
+        _y[2] = ds_list_find_value(vertex_y[2], _pos);
+
+        // Replace values with interpolated ones.
+        ds_list_replace(vertex_x[1], _pos, lerp(_x[1], _x[2], 0.02));
+        ds_list_replace(vertex_x[2], _pos, lerp(_x[2], _x[1], 0.02));
+        ds_list_replace(vertex_y[1], _pos, lerp(_y[1], _y[2], 0.02));
+        ds_list_replace(vertex_y[2], _pos, lerp(_y[2], _y[1], 0.02));
+    }
+
+    // Discard last segment:
+    ds_list_delete(vertex_x[1], 0);
+    ds_list_delete(vertex_x[2], 0);
+    ds_list_delete(vertex_y[1], 0);
+    ds_list_delete(vertex_y[2], 0);
+
+    // Make the trail positions smaller.
+    if ((animation_index == "ROLL" || animation_index == "DROPDASH") &amp;&amp; (x != xprevious || y != yprevious))
+    {
+        // Calculate angle from previous position to current position to add a new trail segment:
+        trail_angle = degtorad(point_direction(x, y, xprevious, yprevious) + 90);
+        ds_list_add(vertex_x[1], x - cos(trail_angle) * 12 - 1);
+        ds_list_add(vertex_x[2], x + cos(trail_angle) * 12 - 1);
+        ds_list_add(abs(vertex_y[1]), y + sin(trail_angle) * 10 - 6);
+        ds_list_add(abs(vertex_y[2]), y - sin(trail_angle) * 10 - 6);
+    }
+    else
+    {
+        // Retrieve last values:
+        _x[1] = ds_list_find_value(vertex_x[1], trail_length - 2);
+        _x[2] = ds_list_find_value(vertex_x[2], trail_length - 2);
+        _y[1] = ds_list_find_value(vertex_y[1], trail_length - 2);
+        _y[2] = ds_list_find_value(vertex_y[2], trail_length - 2);
+
+        // Update using last values.
+        ds_list_add(vertex_x[1], _x[1]);
+        ds_list_add(vertex_x[2], _x[2]);
+        ds_list_add(vertex_y[1], _y[1]);
+        ds_list_add(vertex_y[2], _y[2]);
+    }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

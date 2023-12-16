@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="config_save" type="RESOURCE"/>
+  <resource name="config_load" type="RESOURCE"/>
+</resources>

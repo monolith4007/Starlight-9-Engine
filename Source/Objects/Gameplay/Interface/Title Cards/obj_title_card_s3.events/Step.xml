@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Move Positions.
+
+// Banner:
+if (tc_state == 1)
+{
+    if (tc_banner_position_y != 0)
+    {
+        tc_banner_position_y = min(0, tc_banner_position_y + 10);
+    }
+    else
+    {
+        if (tc_banner_position_y &gt; 0)
+        {
+            tc_banner_position_y = 0;
+        }
+        tc_state = 2;
+    }
+}
+
+// Zone Name:
+if (tc_state == 2)
+{
+    if (tc_zone_position_x[0] != SCREEN_WIDTH - 16 - string_width(string(STG.zone_name)))
+    {
+        tc_zone_position_x[0]  = max(SCREEN_WIDTH - 16 - string_width(string(STG.zone_name)), tc_zone_position_x[0] - 10);
+    }
+
+    if (tc_zone_position_x[0] == max(SCREEN_WIDTH - 16 - string_width(string(STG.zone_name)), tc_zone_position_x[0] - 10))
+    {
+        if (tc_zone_position_x[1] != SCREEN_WIDTH - 16 - string_width(string("ZONE")))
+        {
+            tc_zone_position_x[1] = max(SCREEN_WIDTH - 16 - string_width(string("ZONE")), tc_zone_position_x[1] - 10);
+        }
+    }
+}
+
+// Act Number:
+if (tc_state == 2 &amp;&amp; tc_zone_position_x[1] == max(SCREEN_WIDTH - 16 - string_width(string("ZONE")), tc_zone_position_x[1] - 10))
+{
+    if (tc_act_position_x != SCREEN_WIDTH - 24 - sprite_get_width(spr_title_card_act_s3))
+    {
+        tc_act_position_x = max(SCREEN_WIDTH - 24 - sprite_get_width(spr_title_card_act_s3), tc_act_position_x - 10);
+    }
+    else
+    {
+        tc_state = 3;
+    }
+}
+
+// Count down:
+if (tc_state == 3)
+{
+    if (tc_stop_timer &gt; 0)
+    {
+        tc_stop_timer -= 1;
+    }
+    else
+    {
+        if (tc_backdrop_alpha != -2)
+        {
+            tc_backdrop_alpha -= 0.10;
+        }
+        else
+        {
+            tc_state = 4;
+        }
+    }
+}
+
+// Disappear:
+if (tc_state == 4)
+{
+    if (tc_banner_position_y != -sprite_get_height(spr_title_card_banner_s3))
+    {
+        tc_banner_position_y = max(-sprite_get_height(spr_title_card_banner_s3), tc_banner_position_y - 15);
+    }
+
+    if (tc_zone_position_x[0] != view_wview[0])
+    {
+        tc_zone_position_x[0] = max(-16 - string_width(string(STG.zone_name)), tc_zone_position_x[0] + 15);
+    }
+
+    if (tc_zone_position_x[1] != view_wview[0])
+    {
+        tc_zone_position_x[1] = max(-16 - string_width(string("ZONE")), tc_zone_position_x[1] + 15);
+    }
+
+    if (tc_act_position_x != view_wview[0])
+    {
+        tc_act_position_x = max(-24 - sprite_get_width(spr_title_card_act_s3), tc_act_position_x + 15);
+    }
+}
+
+// Reactivate instances:
+if (tc_backdrop_alpha &lt; 1)
+{
+    if (!tc_completed &amp;&amp; alarm[1] == -1)
+    {
+        instance_activate_all();
+        STG.add_time = true;
+        alarm[1]     = 60;
+    }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

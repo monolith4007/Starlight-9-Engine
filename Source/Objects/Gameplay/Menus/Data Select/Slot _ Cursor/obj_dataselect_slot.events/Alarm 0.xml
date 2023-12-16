@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="ALARM" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Reset slot.
+
+// Slot data.
+dataslot_zone      = 0;
+dataslot_character = 1;
+dataslot_cpu       = 2;
+dataslot_lives     = 3;
+dataslot_continues = 0;
+dataslot_emeralds  = 0;
+dataslot_completed = 0;
+
+// Player select.
+dataslot_combo = 0;
+
+// Save empty slot.
+save_delete(dataslot_index);
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

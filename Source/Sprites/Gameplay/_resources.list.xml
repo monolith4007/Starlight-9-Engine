@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="Player" type="GROUP"/>
+  <resource name="NPCs" type="GROUP"/>
+  <resource name="Interface" type="GROUP"/>
+  <resource name="Sensors" type="GROUP"/>
+  <resource name="Effects" type="GROUP"/>
+  <resource name="Water" type="GROUP"/>
+  <resource name="Template Tiles" type="GROUP"/>
+  <resource name="Menus" type="GROUP"/>
+</resources>

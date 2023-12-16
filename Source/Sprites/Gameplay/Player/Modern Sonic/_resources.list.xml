@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="spr_modern_idle" type="RESOURCE"/>
+  <resource name="spr_modern_lookup" type="RESOURCE"/>
+  <resource name="spr_modern_crouch" type="RESOURCE"/>
+  <resource name="spr_modern_walk" type="RESOURCE"/>
+  <resource name="spr_modern_run" type="RESOURCE"/>
+  <resource name="spr_modern_spring" type="RESOURCE"/>
+  <resource name="spr_modern_skid" type="RESOURCE"/>
+  <resource name="spr_modern_skid_turn" type="RESOURCE"/>
+  <resource name="spr_modern_push" type="RESOURCE"/>
+  <resource name="spr_modern_roll" type="RESOURCE"/>
+  <resource name="spr_modern_spindash" type="RESOURCE"/>
+  <resource name="spr_modern_breath" type="RESOURCE"/>
+  <resource name="spr_modern_hang" type="RESOURCE"/>
+  <resource name="spr_modern_hang_carry" type="RESOURCE"/>
+  <resource name="spr_modern_hang_move" type="RESOURCE"/>
+  <resource name="spr_modern_hang_shimmy" type="RESOURCE"/>
+  <resource name="spr_modern_corkscrew" type="RESOURCE"/>
+  <resource name="spr_modern_balance" type="RESOURCE"/>
+  <resource name="spr_modern_hurt" type="RESOURCE"/>
+  <resource name="spr_modern_die" type="RESOURCE"/>
+  <resource name="spr_modern_drown" type="RESOURCE"/>
+  <resource name="spr_modern_goal" type="RESOURCE"/>
+</resources>

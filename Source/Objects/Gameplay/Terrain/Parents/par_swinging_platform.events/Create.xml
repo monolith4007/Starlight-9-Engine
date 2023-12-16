@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="CREATE" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Variables.
+event_inherited();
+chain_size = sprite_get_height(chain_sprite);
+angle_val  = 270;
+angle_mov  = angle_val;
+_x         = x;
+_y         = y - (chain_size * chains);
+angle_spd  = swing_speed;
+x_previous = x;
+x_relative = x;
+y_relative = y;
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

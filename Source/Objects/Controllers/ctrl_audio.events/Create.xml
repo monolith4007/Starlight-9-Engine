@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="CREATE" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Init.
+audio_initialize();
+
+// Volumes.
+bgm_volume = 1;
+sfx_volume = 1;
+
+// Controller variables.
+music_id       = -1;
+max_bgm_volume = bgm_volume;
+max_sfx_volume = sfx_volume;
+zone_results   = false;
+fadeout_flag   = false;
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="ALARM" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Ring Bonus.
+if (bonus_rings &gt; 0)
+{
+    bonus_rings         -= 100;
+    bonus_total         += 100;
+    global.player_score += 100;
+    alarm[0]             = 1;
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

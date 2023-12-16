@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="DESTROY" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Create pieces.
+if (broken)
+{
+    var i, j;
+    for (i = 0; i &lt; pieces_hor; i += 1)
+    {
+        for (j = 0; j &lt; pieces_ver; j += 1)
+        {
+            if (j == 0)
+            {
+                pieces_xspd = pieces_dir * (i + 2);
+                pieces_yspd = -2;
+            }
+            if (j == 1 || j == 2)
+            {
+                pieces_xspd = pieces_dir * (i + 3);
+                pieces_yspd = 0;
+            }
+            if (j == 3)
+            {
+                pieces_xspd = pieces_dir * (i + 2);
+                pieces_yspd = 2;
+            }
+
+            with (instance_create(x + i * 16, y + j * 16, obj_breakable_wall_test_knuckles_piece))
+            {
+                hspeed  = other.pieces_xspd;
+                vspeed  = other.pieces_yspd;
+                gravity = 0.21875;
+            }
+        }
+    }
+    audio_play(SFX._general_crumble, SFX.sfx_volume, 1, 0, 0);
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="ALARM" id="2">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Return to the title screen.
+if (!instance_exists(obj_fade_to))
+{
+    if (global.save_selected != 0)
+    {
+        save_create(global.save_selected);
+    }
+    room_fade_to(rm_data_select);
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

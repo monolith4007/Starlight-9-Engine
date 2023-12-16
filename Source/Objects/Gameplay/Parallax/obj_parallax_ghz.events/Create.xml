@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="CREATE" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Variables.
+// Credit to the Flicky Engine developers for this background.
+mountain_bg = bg_green_hill_mountains_01;
+ocean_bg    = bg_green_hill_water_01;
+cloud_speed = 0;
+alarm[0]    = 4;
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

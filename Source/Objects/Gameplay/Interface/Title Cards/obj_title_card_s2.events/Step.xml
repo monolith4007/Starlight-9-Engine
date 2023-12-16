@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Move Positions.
+
+// Blue rectangle:
+if (tc_state == 1)
+{
+    if (tc_blue_y &lt; view_hview[0])
+    {
+        tc_blue_y = min(view_hview[0], tc_blue_y + 16);
+    }
+}
+else
+{
+    if (tc_yellow_x &lt; view_wview[0] / 2 &amp;&amp; tc_blue_y &gt;= -2)
+    {
+        tc_blue_y = max(-2, tc_blue_y - 32);
+    }
+}
+
+// Yellow rectangle:
+if (tc_state == 1)
+{
+    if (tc_blue_y &gt; view_hview[0] / 2 &amp;&amp; tc_yellow_x &lt; view_wview[0])
+    {
+        tc_yellow_x = min(view_wview[0], tc_yellow_x + 16);
+    }
+}
+else
+{
+    if (tc_red_x &lt; 110 &amp;&amp; tc_yellow_x &gt; -2)
+    {
+        tc_yellow_x = max(-2, tc_yellow_x - 32);
+    }
+}
+
+// Red rectangle:
+if (tc_state == 1)
+{
+    if (tc_yellow_x &gt; view_wview[0] - 120 &amp;&amp; tc_red_x &lt; 120)
+    {
+        tc_red_x = min(120, tc_red_x + 16);
+    }
+}
+else
+{
+    if (tc_red_x &gt; -2)
+    {
+        tc_red_x = max(-2, tc_red_x - 32);
+    }
+}
+
+// Text movement:
+if (tc_state == 1 &amp;&amp; tc_red_x == 120)
+{
+    if (tc_name_x &gt; view_wview[0] - 32)
+    {
+        tc_name_x = max(view_wview[0] - 32, tc_name_x - 16);
+    }
+    if (tc_zone_x &lt; view_wview[0] - 55)
+    {
+        tc_zone_x = min(view_wview[0] - 55, tc_zone_x + 16);
+    }
+}
+if (tc_state == 3)
+{
+    tc_name_x += 32;
+    tc_zone_x -= 32;
+}
+
+// Wait to change state.
+if (tc_state == 1 &amp;&amp; tc_zone_x == view_wview[0] - 55)
+{
+    if (tc_wait_timer[1] &gt; 0)
+    {
+        tc_wait_timer[1] -= 1;
+    }
+    else
+    {
+        tc_wait_timer[1] = 0;
+        tc_state         = 2;
+    }
+}
+if (tc_state == 2 &amp;&amp; tc_blue_y &lt;= -2)
+{
+    if (tc_wait_timer[2] &gt; 0)
+    {
+        tc_wait_timer[2] -= 1;
+    }
+    else
+    {
+        tc_wait_timer[2] = 0;
+        tc_state         = 3;
+    }
+}
+
+// Reactivate instances.
+if (tc_state == 2 &amp;&amp; tc_red_x == -2)
+{
+    if (!tc_completed &amp;&amp; alarm[1] == -1)
+    {
+        instance_activate_all();
+        STG.add_time = true;
+        alarm[1]     = 60;
+    }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

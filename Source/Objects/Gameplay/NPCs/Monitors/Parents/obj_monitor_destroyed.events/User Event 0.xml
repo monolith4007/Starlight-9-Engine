@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="OTHER" id="10">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Rewards.
+switch (icon)
+{
+    // Rings:
+    case 0:
+    {
+        global.player_rings += 10;
+        audio_play(SFX._general_ring, SFX.sfx_volume, 1, 0, 0);
+        break;
+    }
+
+    // Invincibility:
+    case 1:
+    {
+        with (par_player)
+        {
+            invincibility_type  = 2;
+            invincibility_timer = 1200;
+        }
+        audio_play(SFX._jingle_invincibility, SFX.bgm_volume, 1, 1, 0);
+        break;
+    }
+
+    // Superspeed sneakers:
+    case 2:
+    {
+        with (par_player)
+        {
+            superspeed_timer = 1200;
+            afterimage_draw  = true;
+        }
+        break;
+    }
+
+    // Eggman:
+    case 3:
+    {
+        with (global.player_id[0]) player_state_hurt(other);
+        break;
+    }
+
+    // Hyper state:
+    case 4:
+    {
+        // Null reward.
+        break;
+    }
+
+    // Normal Shield:
+    case 5:
+    {
+        with (par_player)
+        {
+            // Destroy any existing shields:
+            if (shield_index != 0)
+            {
+                with (shield_object) instance_destroy();
+            }
+
+            // Obtain the new shield:
+            shield_index         = SHIELD_NORMAL;
+            shield_object        = instance_create(x, y, obj_shield_normal);
+            shield_object.handle = id;
+        }
+        audio_play(SFX._shield_get_normal, SFX.sfx_volume, 1, 0, 0);
+        break;
+    }
+
+    // Fire Shield:
+    case 6:
+    {
+        with (par_player)
+        {
+            // Destroy any existing shields:
+            if (shield_index != 0)
+            {
+                with (shield_object) instance_destroy();
+            }
+
+            // Obtain the new shield:
+            shield_index         = SHIELD_FIRE;
+            shield_object        = instance_create(x, y, obj_shield_fire);
+            shield_object.handle = id;
+        }
+        audio_play(SFX._shield_get_flame, SFX.sfx_volume, 1, 0, 0);
+        break;
+    }
+
+    // Bubble Shield:
+    case 7:
+    {
+        with (par_player)
+        {
+            // Destroy any existing shields:
+            if (shield_index != 0)
+            {
+                with (shield_object) instance_destroy();
+            }
+
+            // Obtain the new shield:
+            shield_index         = SHIELD_BUBBLE;
+            shield_object        = instance_create(x, y, obj_shield_bubble);
+            shield_object.handle = id;
+        }
+        audio_play(SFX._shield_get_bubble, SFX.sfx_volume, 1, 0, 0);
+        break;
+    }
+
+    // Electric Shield:
+    case 8:
+    {
+        with (par_player)
+        {
+            // Destroy any existing shields:
+            if (shield_index != 0)
+            {
+                with (shield_object) instance_destroy();
+            }
+
+            // Obtain the new shield:
+            shield_index         = SHIELD_ELECTRIC;
+            shield_object        = instance_create(x, y, obj_shield_electric);
+            shield_object.handle = id;
+        }
+        audio_play(SFX._shield_get_electric, SFX.sfx_volume, 1, 0, 0);
+        break;
+    }
+
+    // Life:
+    default:
+    {
+        global.player_lives += 1;
+        audio_play(SFX._jingle_life, SFX.max_bgm_volume, 1, 0, 0);
+    }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

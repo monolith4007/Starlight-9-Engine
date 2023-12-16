@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="spr_layer_switch_low" type="RESOURCE"/>
+  <resource name="spr_layer_switch_high" type="RESOURCE"/>
+  <resource name="spr_layer_switch" type="RESOURCE"/>
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="spr_spring_diagonal_up_right_mask" type="RESOURCE"/>
+  <resource name="spr_spring_diagonal_up_left_mask" type="RESOURCE"/>
+  <resource name="spr_spring_diagonal_down_right_mask" type="RESOURCE"/>
+  <resource name="spr_spring_diagonal_down_left_mask" type="RESOURCE"/>
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="par_hang" type="RESOURCE"/>
+  <resource name="obj_hang_static" type="RESOURCE"/>
+  <resource name="obj_hang_shimmy" type="RESOURCE"/>
+  <resource name="obj_hang_distance" type="RESOURCE"/>
+</resources>

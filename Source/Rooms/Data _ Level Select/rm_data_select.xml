@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<room>
+  <caption/>
+  <size height="270" width="1030"/>
+  <grid>
+    <isometric>false</isometric>
+    <snap x="1" y="1"/>
+  </grid>
+  <speed>60</speed>
+  <persistent>false</persistent>
+  <creationCode/>
+  <backgroundColor>808080</backgroundColor>
+  <drawBackgroundColor>true</drawBackgroundColor>
+  <clearViewBackground>true</clearViewBackground>
+  <backgrounds>
+    <backgroundDef>
+      <visibleOnRoomStart>true</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>false</tileHorizontally>
+      <tileVertically>false</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+  </backgrounds>
+  <enableViews>false</enableViews>
+  <instances>
+    <instance>
+      <object>obj_dataselect_background</object>
+      <position x="-1" y="255"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance>
+      <object>obj_dataselect_slot_no_save</object>
+      <position x="8" y="11"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance>
+      <object>obj_dataselect_slot</object>
+      <position x="104" y="11"/>
+      <creationCode>dataslot_index = 1;
+</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance>
+      <object>obj_dataselect_slot</object>
+      <position x="208" y="11"/>
+      <creationCode>dataslot_index = 2;
+</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance>
+      <object>obj_dataselect_slot</object>
+      <position x="312" y="11"/>
+      <creationCode>dataslot_index = 3;
+</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance>
+      <object>obj_dataselect_slot</object>
+      <position x="416" y="11"/>
+      <creationCode>dataslot_index = 4;
+</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance>
+      <object>obj_dataselect_slot</object>
+      <position x="520" y="11"/>
+      <creationCode>dataslot_index = 5;
+</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance>
+      <object>obj_dataselect_slot</object>
+      <position x="624" y="11"/>
+      <creationCode>dataslot_index = 6;
+</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance>
+      <object>obj_dataselect_slot</object>
+      <position x="728" y="11"/>
+      <creationCode>dataslot_index = 7;
+</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance>
+      <object>obj_dataselect_slot</object>
+      <position x="832" y="11"/>
+      <creationCode>dataslot_index = 8;
+</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance>
+      <object>obj_dataselect_slot_delete</object>
+      <position x="942" y="11"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance>
+      <object>obj_dataselect_robotnik</object>
+      <position x="981" y="52"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance>
+      <object>obj_dataselect_cursor</object>
+      <position x="149" y="100"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance>
+      <object>obj_fade_in</object>
+      <position x="14" y="255"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+  </instances>
+  <tiles/>
+  <editorSettings remember="false"/>
+</room>
