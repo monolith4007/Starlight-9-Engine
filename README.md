@@ -46,6 +46,7 @@ For gamepad management:
 # Credits
 - Coding: Aleksander Norberg (A.NB/AleksNB), F4LK, Shiro/Violet, John-Kun, Noah N Copeland, TruePowerofTeamwork/Tpot, VectorSatyr, SoniKast, PVic, TsukiruP, AkumaXP (myself).
   > Additional credit to everyone else that helped with the development of S8E, Sonic MAX, SonicForGMS and any other Sonic Dash based frameworks.
+- Accuracy: Sonic Retro's Physics Guide.
 - Beta testing: somerandomusername, TsukiruP.
 - Modern Sonic sprites: Shinbaloonba (for the original sheet), thesped2334 (for the edited color palette).
 - GmkSplitter: Medo42.
