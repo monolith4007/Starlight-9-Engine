@@ -6,7 +6,7 @@ Miscellaneous:
 • Rewritten nearly all scripts to simplify them and remove duplicate/unnecessary code.
 • Removed, descriptively renamed, and changed the scope of, many variables & constants.
 • Moved & renamed various resources & group folders.
-• Rewritten the room view setting code in the initialization object; this new method will now even work for non-consecutive room indexes (credit to TsukiruP).
+• Room views are now set by code in the initialization object, and will work even for non-consecutive room indexes (credit to TsukiruP).
 • Added icons for the controller objects (these were taken from the Rocket Engine, credit to SoniKast).
 • Rewritten instance deactivation to have a smaller activation region.
 • Fonts are now freed at the end of the game via the audio controller's Game End event.
@@ -29,7 +29,7 @@ Audio:
 • Removed the spike flag argument in the "player_state_hurt" script. This has been replaced with an "if" statement checking the harmful object in question to play the appropriate sound effect.
 
 Input:
-• Replaced JoyDLL with gm82joy (credit to those involved in the 8.2 Project & Evan Balster).
+• Replaced the default joystick functions with gm82joy (credit to those involved in the 8.2 Project & Evan Balster).
     > Do note that joystick IDs start with 0 and not 1 in gm82joy.
 • The gamepad controller object now checks every 300 steps (5 seconds) if a controller has been (un)plugged instead of every 30 steps (0.5 seconds). This should give a slight performance boost.
 • The use of "joystick_direction" in the gamepad controller object has been replaced with "joystick_xpos"/"joystick_ypos", with the default deadzone being 0.5.
