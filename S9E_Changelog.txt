@@ -56,6 +56,7 @@ Player:
 • Added the tile flag system & edge line/exception collision sensor from the Harinezumi framework (credit to AleksNB).
     > To set the variables of a terrain object, use the new "tile_set_flags" script.
     > One new change not present in Harinezumi is that disabling the angle change flag for a tile will now also completely prevent the player from rotating on it instead of just resetting their animation angle.
+    > Furthermore, the "edge skip" flag fixes a bug where if the player landed on the very edges of quarter ellipses, they would be "pushed" off of it.
 • Removed the player's initialization variable as it's no longer necessary due to the new instance (de)activation method of the title card objects.
 • Removed the physics values scripts for each character and added a universal physics values script.
 • Added comments in the "player_collision_check" script outlining the necessary arguments for each collision sensor.
@@ -66,8 +67,8 @@ Player:
 • Removed the loop sensor objects since they were mostly useless.
 • The camera object's lag effect is now handled using an empty alarm 0 event instead of its original "cam_lag" variable. Simply set the camera's alarm 0 event to apply its lag effect.
 
+• Added new "animation_data" and "animation_set" scripts to add animations for characters.
 • Removed the "animation_repeat" variable and renamed the "animation_repeat_times" variable to "animation_loop_count".
-    > The "animation_data" and "animation_set" scripts (previously named "animation_add") have been rewritten to accommodate for this.
     > To loop an animation indefinitely, set its loop count to -1.
 • Removed the "animation_flags_changed" variable since there was really no use for it and renamed the "animation_flags_finished" variable to "animation_finished".
 • Fixed a bug where the "linked"/"next" animation frame would not apply if you had set one due to the animation system re-initializing itself.
@@ -94,7 +95,7 @@ Miscellaneous:
     > E.g., for an Xbox One controller, id 0 corresponds to the "A" button.
 • Added increasing/decreasing music pitch depending on whether the user-controlled player's superspeed shoes are active or not.
 • Added a "time over" event that triggers when 10 in-game minutes have passed.
-    > This can be toggled in the options menu.
+    > This can be toggled on/off in the options menu.
 
 Menus & Interface:
 • Added various gameplay settings in the options menu.
@@ -138,8 +139,10 @@ Player:
 • Pressing the "action" key while in the "normal" or "spring" states and ungrounded will now change the player's state to the jumping one.
 • Fixed a bug where the CPU-controlled player could apply the camera lag effect if they released a spindash.
 • The pitch of the spindash sound effect now resets if it's no longer playing.
+• Reduced the X-Speed threshold to begin skidding from 4.5 to 4 to be more accurate to the original games.
 • Removed the deceleration calculation within the skid state script to be more accurate to the original games.
 • Fixed a bug where skidding would not cancel out when the player's angle was between 45 and 315 degrees.
+• Fixed a bug where the player would jitter whilst balancing on tile edges (credit to AleksNB).
 • Fixed a bug where if the player got hit, and their X position was the same as that of the harmful object's, they would not rebound horizontally.
 • Reworked flashing after getting hit or finishing respawning to be more accurate to the original games.
 • Fixed a bug where the dropdash & sliding actions would not be executed when performed directly after pushing against a solid object.
@@ -221,9 +224,9 @@ Player:
 • Fixed the alignment of each frame of Knuckles' "walking" sprite.
 • Fixed a bug where Sonic & Knuckles' "running" animations would not animate when triggered on tile edges.
 • Knuckles' "balance" animation now temporarily stops animating in the frame that both of his feet are on the ground to be more accurate to the original games.
-• Fixed some bugs with Tails' tails where they would change their animation 1 frame earlier than Tails when he changed animations and sometimes be duplicated upon landing (credit to TsukiruP).
 • Fixed the positioning of Tails' tails while flying.
 • Fixed a bug where Tails' tails would rotate after jumping off a ceiling.
+• Fixed some bugs with Tails' tails where they would change their animation 1 frame earlier than Tails when he changed animations and sometimes be duplicated upon landing (credit to TsukiruP).
 • Fixed a bug where Tails' tails would rotate incorrectly whilst jumping underwater (credit to VectorSatyr).
 • Every character except Classic Sonic will now always face the direction of the cliff they're balancing on to be more accurate to the original games.
 • Fixed a bug where the "balancing" animation would sometimes animate slower than usual.

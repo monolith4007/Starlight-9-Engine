@@ -23,7 +23,7 @@ https://github.com/AkumaXP/Starlight-9-Engine/blob/main/S9E_Changelog.txt
 # Building
 - You can either download the .gm81 file from the "Releases" section, or you can use GmkSplitter to compile the "Source" folder from the main branch back into a .gm81 (https://github.com/Medo42/Gmk-Splitter).
 - You'll need Game Maker 8.1.141 Standard to load the project, and you'll also need to install the GM 8.2 extensions in the "Extensions" folder from the main branch (do NOT download the extensions from the "Releases" section of their respective GitHub pages as those builds are outdated).
-- You'll also need to include the "data" folder from the main branch in the same directory as the .gm81 file for audio to play and savestates to be read/written to.
+- You'll also need to include the "data" folder from the main branch in the same directory as the .gm81 file for audio to load/play and savestates to be read/written to.
 
 # GameMaker: Studio Compatibility
 S9E is mostly compatible with GameMaker: Studio, however, you'll need to make some changes with audio playback and gamepad management before importing the project.
@@ -44,11 +44,14 @@ For gamepad management:
 - You'll need to remove the gm82joy extension and use Studio's gamepad functions instead.
 
 # Credits
-- Coding: Aleksander Norberg (A.NB/AleksNB), F4LK, Shiro/Violet, John-Kun, Noah N Copeland, TruePowerofTeamwork/Tpot, VectorSatyr, SoniKast, PVic, TsukiruP, AkumaXP (myself).
+- Coding: Aleksander Norberg (A.NB/AleksNB), Damizean, RogueYoshi, Chaos Rush, Chasman86, Shiro/Violet, TruePowerofTeamwork/Tpot, Noah N Copeland, F4LK, John-Kun, VectorSatyr, SoniKast, PVic, TsukiruP, AkumaXP (myself).
   > Additional credit to everyone else that helped with the development of S8E, Sonic MAX, SonicForGMS and any other Sonic Dash based frameworks.
 - Accuracy: Sonic Retro's Physics Guide.
 - Beta testing: somerandomusername, TsukiruP.
+- Amy Rose sprites: ChelseaCatGirl, E-122-Psi, MotorRoach.
 - Modern Sonic sprites: Shinbaloonba (for the original sheet), thesped2334 (for the edited color palette).
+- Classic Sonic, Tails, Knuckles and other sprites: SEGA, Sonic Team.
+- Music: SEGA, Sonic Mania Team, the composer of the options menu theme.
 - GmkSplitter: Medo42.
 - Various Game Maker 8.2 extensions: 8.2 Project.
 - Game Maker 8.1: Mark Overmars, YoYo Games.
