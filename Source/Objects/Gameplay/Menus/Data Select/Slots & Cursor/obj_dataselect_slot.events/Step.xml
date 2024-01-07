@@ -43,129 +43,129 @@ if (dataslot_zone == 0 &amp;&amp; !obj_dataselect_robotnik.active &amp;&amp; !in
             audio_play(SFX._general_switch, SFX.sfx_volume, 1, 0, 0);
         }
     }
-}
 
-// Set character pair-ups.
-switch (dataslot_combo)
-{
-    // Classic Sonic &amp; Tails:
-    case 0:
+    // Set character pair-ups.
+    switch (dataslot_combo)
     {
-        dataslot_character = 1;
-        dataslot_cpu       = 2;
-        break;
-    }
+        // Classic Sonic &amp; Tails:
+        case 0:
+        {
+            dataslot_character = 1;
+            dataslot_cpu       = 2;
+            break;
+        }
 
-    // Classic Sonic &amp; Knuckles:
-    case 1:
-    {
-        dataslot_character = 1;
-        dataslot_cpu       = 3;
-        break;
-    }
+        // Classic Sonic &amp; Knuckles:
+        case 1:
+        {
+            dataslot_character = 1;
+            dataslot_cpu       = 3;
+            break;
+        }
 
-    // Classic Sonic &amp; Amy:
-    case 2:
-    {
-        dataslot_character = 1;
-        dataslot_cpu       = 4;
-        break;
-    }
+        // Classic Sonic &amp; Amy:
+        case 2:
+        {
+            dataslot_character = 1;
+            dataslot_cpu       = 4;
+            break;
+        }
 
-    // Classic Sonic &amp; Modern Sonic:
-    case 3:
-    {
-        dataslot_character = 1;
-        dataslot_cpu       = 5;
-        break;
-    }
+        // Classic Sonic &amp; Modern Sonic:
+        case 3:
+        {
+            dataslot_character = 1;
+            dataslot_cpu       = 5;
+            break;
+        }
 
-    // Tails &amp; Knuckles:
-    case 4:
-    {
-        dataslot_character = 2;
-        dataslot_cpu       = 3;
-        break;
-    }
+        // Tails &amp; Knuckles:
+        case 4:
+        {
+            dataslot_character = 2;
+            dataslot_cpu       = 3;
+            break;
+        }
 
-    // Tails &amp; Amy:
-    case 5:
-    {
-        dataslot_character = 2;
-        dataslot_cpu       = 4;
-        break;
-    }
+        // Tails &amp; Amy:
+        case 5:
+        {
+            dataslot_character = 2;
+            dataslot_cpu       = 4;
+            break;
+        }
 
-    // Tails &amp; Modern Sonic:
-    case 6:
-    {
-        dataslot_character = 2;
-        dataslot_cpu       = 5;
-        break;
-    }
+        // Tails &amp; Modern Sonic:
+        case 6:
+        {
+            dataslot_character = 2;
+            dataslot_cpu       = 5;
+            break;
+        }
 
-    // Knuckles &amp; Amy:
-    case 7:
-    {
-        dataslot_character = 3;
-        dataslot_cpu       = 4;
-        break;
-    }
+        // Knuckles &amp; Amy:
+        case 7:
+        {
+            dataslot_character = 3;
+            dataslot_cpu       = 4;
+            break;
+        }
 
-    // Knuckles &amp; Modern Sonic:
-    case 8:
-    {
-        dataslot_character = 3;
-        dataslot_cpu       = 5;
-        break;
-    }
+        // Knuckles &amp; Modern Sonic:
+        case 8:
+        {
+            dataslot_character = 3;
+            dataslot_cpu       = 5;
+            break;
+        }
 
-    // Amy &amp; Modern Sonic:
-    case 9:
-    {
-        dataslot_character = 4;
-        dataslot_cpu       = 5;
-        break;
-    }
+        // Amy &amp; Modern Sonic:
+        case 9:
+        {
+            dataslot_character = 4;
+            dataslot_cpu       = 5;
+            break;
+        }
 
-    // Classic Sonic only:
-    case 10:
-    {
-        dataslot_character = 1;
-        dataslot_cpu       = 0;
-        break;
-    }
+        // Classic Sonic only:
+        case 10:
+        {
+            dataslot_character = 1;
+            dataslot_cpu       = 0;
+            break;
+        }
 
-    // Tails only:
-    case 11:
-    {
-        dataslot_character = 2;
-        dataslot_cpu       = 0;
-        break;
-    }
+        // Tails only:
+        case 11:
+        {
+            dataslot_character = 2;
+            dataslot_cpu       = 0;
+            break;
+        }
 
-    // Knuckles only:
-    case 12:
-    {
-        dataslot_character = 3;
-        dataslot_cpu       = 0;
-        break;
-    }
+        // Knuckles only:
+        case 12:
+        {
+            dataslot_character = 3;
+            dataslot_cpu       = 0;
+            break;
+        }
 
-    // Amy only:
-    case 13:
-    {
-        dataslot_character = 4;
-        dataslot_cpu       = 0;
-        break;
-    }
+        // Amy only:
+        case 13:
+        {
+            dataslot_character = 4;
+            dataslot_cpu       = 0;
+            break;
+        }
 
-    // Modern Sonic only:
-    case 14:
-    {
-        dataslot_character = 5;
-        dataslot_cpu       = 0;
-        break;
+        // Modern Sonic only:
+        case 14:
+        {
+            dataslot_character = 5;
+            dataslot_cpu       = 0;
+            break;
+        }
     }
 }
 </argument>

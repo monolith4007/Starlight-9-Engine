@@ -15,7 +15,7 @@
       <arguments>
         <argument kind="STRING">/// Reset slot.
 
-// Slot data.
+// Slot data:
 dataslot_zone      = 0;
 dataslot_character = 1;
 dataslot_cpu       = 2;
@@ -25,10 +25,10 @@ dataslot_continues = 0;
 dataslot_emeralds  = 0;
 dataslot_completed = 0;
 
-// Player select.
+// Player combinations:
 dataslot_combo = 0;
 
-// Save empty slot.
+// Delete slot:
 save_delete(dataslot_index);
 </argument>
       </arguments>

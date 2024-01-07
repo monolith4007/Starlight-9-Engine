@@ -5,7 +5,7 @@ ring = player_collision_check(COL_MAIN_OBJECT, MASK_MAIN, x, y, par_ring);
 if (ring != noone)
 {
     // Continue if not hurt or recovering:
-    if (invincibility_type != 1 || (invincibility_type == 1 && invincibility_timer > -1 && invincibility_timer <= 90))
+    if (invincibility_type != 1 || (invincibility_timer > -1 && invincibility_timer <= 90))
     {
         // Collect ring:
         with (ring)

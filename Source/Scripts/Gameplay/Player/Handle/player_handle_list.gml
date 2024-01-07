@@ -7,7 +7,7 @@ player_handle_tunnels();
 player_handle_springs();
 player_handle_watersurface();
 
-if (!cpu_flag || (cpu_flag && in_view(id)))
+if (!cpu_flag || in_view(id))
 {
     player_handle_rings();
     player_handle_monitors();

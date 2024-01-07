@@ -97,7 +97,7 @@ switch (amy_hammer_attack)
     case 3:
     case 4:
     {
-        if ((!ground && animation_finished) || ground)
+        if (animation_finished || ground)
         {
             amy_hammer_attack = 0;
             if (state != STATE_DEFAULT)
