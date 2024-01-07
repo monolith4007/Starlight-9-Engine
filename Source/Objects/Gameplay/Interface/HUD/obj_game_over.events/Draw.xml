@@ -16,8 +16,8 @@
         <argument kind="STRING">/// Draw Game Over.
 draw_sprite(sprite_index, 0, view_xview[0] + view_wview[0] / 2 + game_x, view_yview[0] + view_hview[0] / 2);
 draw_sprite(sprite_index, 1, view_xview[0] + view_wview[0] / 2 + over_x, view_yview[0] + view_hview[0] / 2);
-game_x = approach(game_x, 0, 10);
-over_x = approach(over_x, 0, 10);
+game_x = min(game_x + 10, 0);
+over_x = max(over_x - 10, 0);
 </argument>
       </arguments>
     </action>

@@ -15,6 +15,7 @@
       <arguments>
         <argument kind="STRING">/// Variables.
 motion      = false;
+cancel      = false;
 image_speed = 0;
 </argument>
       </arguments>

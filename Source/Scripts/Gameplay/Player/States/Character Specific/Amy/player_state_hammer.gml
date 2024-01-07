@@ -1,6 +1,6 @@
 /// player_state_hammer()
 // Amy's hammer abilities.
-// Credit to SoniKast.
+// Credit to SoniKast & the Flicky Engine developers.
 switch (amy_hammer_attack)
 {
     // Trigger one of four attacks:
@@ -9,7 +9,7 @@ switch (amy_hammer_attack)
         // Hammer punch:
         if (((state == STATE_DEFAULT && ground) || state == STATE_LOOKUP) && input_special_pressed)
         {
-            if (angle < 45 || angle > 315)
+            if (angle_relative < 45 || angle_relative > 315)
             {
                 amy_hammer_attack = 1;
                 if (state != STATE_DEFAULT)
@@ -62,20 +62,19 @@ switch (amy_hammer_attack)
     // Hammer punch:
     case 1:
     {
-        // Lock horizontal movement.
+        // Stop horizontal speed.
         x_speed = 0;
         
         // Finish.
-        if (animation_finished || (angle >= 45 && angle <= 315))
+        if (animation_finished || (angle_relative >= 45 && angle_relative <= 315))
         {
             amy_hammer_attack = 0;
             audio_play(SFX._general_bump, SFX.sfx_volume, 1, 0, 0);
             
             // Create hearts.
-            var i;
+            var _heart, i;
             for (i = 0; i < 4; i += 1)
             {
-                var _heart;
                 _heart            = instance_create(floor(x + animation_direction * 18), floor(y), obj_amy_heart);
                 _heart._direction = i * 90 + 45;
             }

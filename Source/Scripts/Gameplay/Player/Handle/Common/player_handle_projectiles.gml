@@ -1,24 +1,46 @@
 /// player_handle_projectiles()
 // Handles collision with harmful projectiles such as those from the Crabmeat.
+// Credit to the Flicky Engine developers.
 var projectile;
-projectile = player_collision_check(COL_MAIN_OBJECT, x, y, par_projectile);
+projectile = instance_nearest(x, y, par_projectile);
 if (projectile != noone)
 {
     if (state != STATE_FLY && state != STATE_GLIDE)
     {
-        if (invincibility_type == 0)
+        // Get the active barrier:
+        var barrier;
+        if (shield_index != 0)
         {
-            // Deflect the projectile if possible:
-            if (shield_index != 0 || instance_exists(obj_shield_insta))
+            barrier = shield_object;
+        }
+        else if (instance_exists(obj_shield_insta))
+        {
+            barrier = instance_place(x, y, obj_shield_insta);
+        }
+        else if (instance_exists(obj_boost))
+        {
+            barrier = instance_place(x, y, obj_boost);
+        }
+        else barrier = noone;
+
+        // Deflect projectiles off an existing barrier.
+        if (barrier != noone)
+        {
+            with (barrier)
             {
-                var _speed, _angle;
-                _speed = sqrt(sqr(projectile.hspeed) + sqr(projectile.vspeed));
-                _angle = point_direction(x, y, projectile.x, projectile.y);
-                projectile.hspeed  =  dcos(_angle) * _speed;
-                projectile.vspeed  = -dsin(_angle) * _speed;
-                projectile.gravity =  0;
+                if (place_meeting(x, y, projectile))
+                {
+                    var _speed, _angle;
+                    _speed = sqrt(sqr(projectile.hspeed) + sqr(projectile.vspeed));
+                    _angle = point_direction(x, y, projectile.x, projectile.y);
+                    projectile.hspeed =  dcos(_angle) * _speed;
+                    projectile.vspeed = -dsin(_angle) * _speed;
+                }
             }
-            else // Otherwise, get hit.
+        }
+        else // Otherwise, get hit.
+        {
+            if (player_collision_check(COL_MAIN_OBJECT, MASK_MAIN, x, y, projectile))
             {
                 player_state_hurt(projectile);
             }
@@ -26,9 +48,18 @@ if (projectile != noone)
     }
     else // Deflect projectiles while flying/gliding.
     {
-        var _angle;
-        _angle = degtorad(round(wrap_angle(point_direction(x, y, projectile.x, projectile.y) - 90) / 22.5) * 24);
-        projectile.hspeed = sin(wrap_angle(_angle)) * 4;
-        projectile.vspeed = cos(wrap_angle(_angle)) * 4;
+        // Check if we're colliding with the projectile above us to deflect it:
+        if (player_collision_check(COL_TOP_OBJECT, MASK_BIG, x, y, angle, projectile))
+        {
+            var _speed, _angle;
+            _speed = sqrt(sqr(projectile.hspeed) + sqr(projectile.vspeed));
+            _angle = point_direction(x, y, projectile.x, projectile.y);
+            projectile.hspeed =  dcos(_angle) * _speed;
+            projectile.vspeed = -dsin(_angle) * _speed;
+        }
+        else if (player_collision_check(COL_MAIN_OBJECT, MASK_MAIN, x, y, projectile)) // Otherwise, get hit.
+        {
+            player_state_hurt(projectile);
+        }
     }
 }

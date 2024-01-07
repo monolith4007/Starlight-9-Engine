@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <constants>
   <constant name="GAME_NAME" value="&quot;Starlight 9 Engine&quot;"/>
-  <constant name="GAME_VERSION" value="&quot;V1.0&quot;"/>
+  <constant name="GAME_VERSION" value="&quot;V1.0.1&quot;"/>
   <constant name="SCREEN_WIDTH" value="480"/>
   <constant name="SCREEN_HEIGHT" value="270"/>
   <constant name="SFX" value="ctrl_audio"/>
@@ -36,7 +36,7 @@
   <constant name="STATE_JUMP" value="4"/>
   <constant name="STATE_ROLL" value="5"/>
   <constant name="STATE_SPINDASH" value="6"/>
-  <constant name="STATE_SKID" value="7"/>
+  <constant name="STATE_BRAKE" value="7"/>
   <constant name="STATE_HANG" value="8"/>
   <constant name="STATE_CORKSCREW" value="9"/>
   <constant name="STATE_CORKSCREW_ROLL" value="10"/>
@@ -65,9 +65,9 @@
   <constant name="SHIELD_FIRE" value="2"/>
   <constant name="SHIELD_BUBBLE" value="3"/>
   <constant name="SHIELD_ELECTRIC" value="4"/>
-  <constant name="CHAR_SONIC" value="1"/>
+  <constant name="CHAR_CLASSIC_SONIC" value="1"/>
   <constant name="CHAR_TAILS" value="2"/>
   <constant name="CHAR_KNUCKLES" value="3"/>
   <constant name="CHAR_AMY" value="4"/>
-  <constant name="CHAR_MODERN" value="5"/>
+  <constant name="CHAR_MODERN_SONIC" value="5"/>
 </constants>

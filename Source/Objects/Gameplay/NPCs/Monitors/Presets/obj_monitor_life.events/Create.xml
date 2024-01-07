@@ -13,13 +13,9 @@
       <not>false</not>
       <appliesTo>.self</appliesTo>
       <arguments>
-        <argument kind="STRING">/// Init. Monitor.
-
-// Call parent:
+        <argument kind="STRING">/// Set icon.
 event_inherited();
-
-// Set Icon:
-icon = global.character_index + 8;
+icon = global.character[0] + 8;
 </argument>
       </arguments>
     </action>

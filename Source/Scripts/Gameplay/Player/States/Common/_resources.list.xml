@@ -5,7 +5,7 @@
   <resource name="player_state_crouch" type="RESOURCE"/>
   <resource name="player_state_spindash" type="RESOURCE"/>
   <resource name="player_state_roll" type="RESOURCE"/>
-  <resource name="player_state_skid" type="RESOURCE"/>
+  <resource name="player_state_brake" type="RESOURCE"/>
   <resource name="player_state_balance" type="RESOURCE"/>
   <resource name="player_state_hurt" type="RESOURCE"/>
   <resource name="player_state_push" type="RESOURCE"/>

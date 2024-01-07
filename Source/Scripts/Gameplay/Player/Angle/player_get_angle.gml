@@ -7,7 +7,7 @@ maskTemp   = mask_index;
 mask_index = MASK_DOT;
 
 // Limit the given angle to 36 directions:
-angleInit = roundto_unbiased(argument2, 10);
+angleInit = floor(argument2 / 10 + 0.5) * 10; // Manually round instead of using banker's rounding (this fixes the failed ramp launch bug).
 
 // Set the starting position of each sensor:
 xPoint[0] = argument0 - dcos(angleInit) * 4;

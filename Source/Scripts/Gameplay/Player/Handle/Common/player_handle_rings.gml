@@ -1,7 +1,7 @@
 /// player_handle_rings()
-// Used to collect rings.
+// Handles ring collection.
 var ring;
-ring = player_collision_check(COL_MAIN_OBJECT, x, y, par_ring);
+ring = player_collision_check(COL_MAIN_OBJECT, MASK_MAIN, x, y, par_ring);
 if (ring != noone)
 {
     // Continue if not hurt or recovering:

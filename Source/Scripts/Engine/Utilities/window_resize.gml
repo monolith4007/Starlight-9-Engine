@@ -1,6 +1,6 @@
 /// window_resize()
 // Sets the window resolution.
-if (global.screen_scale != 4)
+if (global.screen_scale < 5)
 {
     if (window_get_fullscreen())
     {

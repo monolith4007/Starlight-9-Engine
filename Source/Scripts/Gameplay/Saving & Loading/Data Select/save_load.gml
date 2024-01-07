@@ -47,12 +47,12 @@ else // Load data.
     
     // Character (Main):
     charVal = file_text_read_real(dfile);
-    global.character_index = (dkey ^ charVal);
+    global.character[0] = (dkey ^ charVal);
     file_text_readln(dfile);
     
     // Character (CPU):
     cpuVal = file_text_read_real(dfile);
-    global.cpu_index = (dkey ^ cpuVal);
+    global.character[1] = (dkey ^ cpuVal);
     file_text_readln(dfile);
     
     // Game completion:

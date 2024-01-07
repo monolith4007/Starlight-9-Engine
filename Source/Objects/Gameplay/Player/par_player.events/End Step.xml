@@ -14,42 +14,42 @@
       <appliesTo>.self</appliesTo>
       <arguments>
         <argument kind="STRING">/// Keep within boundaries.
-if (x &lt;= (obj_camera.bound_left + sprite_get_width(MASK_MAIN) / 2) &amp;&amp; x_speed &lt; 0)
+var mask_radius;
+mask_radius = sprite_get_width(MASK_MAIN) div 2;
+if (x &lt;= obj_camera.bound_left + mask_radius)
 {
-    if (state != STATE_GLIDE)
+    x = obj_camera.bound_left + mask_radius;
+    if (x_speed &lt; 0)
     {
-        x_speed = 0;
-    }
-    else
-    {
-        if (x_speed &lt; -glide_acceleration)
+        if (state != STATE_GLIDE)
         {
-            x_speed = -glide_acceleration;
+            x_speed = 0;
         }
-    }
-    x = obj_camera.bound_left + sprite_get_width(MASK_MAIN) / 2;
-    if (ground &amp;&amp; animation_index != "BORED_1" &amp;&amp; animation_index != "BORED_2")
-    {
-        animation_index = "IDLE";
+        else
+        {
+            if (x_speed &lt; -glide_acceleration)
+            {
+                x_speed = -glide_acceleration;
+            }
+        }
     }
 }
-else if (x &gt;= (obj_camera.bound_right - sprite_get_width(MASK_MAIN) / 2) &amp;&amp; x_speed &gt; 0)
+else if (x &gt;= obj_camera.bound_right - mask_radius)
 {
-    if (state != STATE_GLIDE)
+    x = obj_camera.bound_right - mask_radius;
+    if (x_speed &gt; 0)
     {
-        x_speed = 0;
-    }
-    else
-    {
-        if (x_speed &gt; glide_acceleration)
+        if (state != STATE_GLIDE)
         {
-            x_speed = glide_acceleration;
+            x_speed = 0;
         }
-    }
-    x = obj_camera.bound_right - sprite_get_width(MASK_MAIN) / 2;
-    if (ground &amp;&amp; animation_index != "BORED_1" &amp;&amp; animation_index != "BORED_2")
-    {
-        animation_index = "IDLE";
+        else
+        {
+            if (x_speed &gt; glide_acceleration)
+            {
+                x_speed = glide_acceleration;
+            }
+        }
     }
 }
 </argument>
@@ -118,21 +118,21 @@ switch (state)
         }
         else
         {
-            // Switch to the walking animation while ungrounded if we had previously skid.
-            if ((animation_index == "SKID" || animation_index == "SKID_TURN") &amp;&amp; animation_finished)
+            // Switch to the walking animation while ungrounded if we were previously braking.
+            if (animation_index == "BRAKE" &amp;&amp; animation_finished)
             {
-                animation_index = "WALK";
+                animation_index  = "WALK";
             }
         }
         break;
     }
 
-    // Skidding:
-    case STATE_SKID:
+    // Braking:
+    case STATE_BRAKE:
     {
-        if (animation_index != "SKID" &amp;&amp; animation_index != "SKID_TURN")
+        if (animation_index != "BRAKE")
         {
-            animation_index  = "SKID";
+            animation_index  = "BRAKE";
         }
         break;
     }
@@ -240,28 +240,28 @@ switch (state)
     // Balancing:
     case STATE_BALANCE:
     {
-        if (character_id == CHAR_SONIC)
+        if (character_id == CHAR_CLASSIC_SONIC)
         {
             if (animation_direction == balance_direction)
             {
-                if (animation_index != "BALANCE_1")
+                if (animation_index != "BALANCE_IN")
                 {
-                    animation_index  = "BALANCE_1";
+                    animation_index  = "BALANCE_IN";
                 }
             }
             else
             {
-                if (animation_index != "BALANCE_2")
+                if (animation_index != "BALANCE_OUT")
                 {
-                    animation_index  = "BALANCE_2";
+                    animation_index  = "BALANCE_OUT";
                 }
             }
         }
         else
         {
-            if (animation_index != "BALANCE_1")
+            if (animation_index != "BALANCE_IN")
             {
-                animation_index  = "BALANCE_1";
+                animation_index  = "BALANCE_IN";
             }
         }
         break;
@@ -452,7 +452,7 @@ switch (state)
                 }
                 break;
             }
-            default: // Sonic &amp; Amy.
+            default: // Classic/Modern Sonic &amp; Amy.
             {
                 if (animation_index != "ROLL")
                 {
@@ -542,7 +542,7 @@ switch (amy_hammer_attack)
 // Idle:
 if (animation_index == "BORED_1")
 {
-    if (character_id == CHAR_SONIC)
+    if (character_id == CHAR_CLASSIC_SONIC)
     {
         if (animation_frame &lt; 3)
         {
@@ -553,7 +553,7 @@ if (animation_index == "BORED_1")
             animation_speed = 0.05;
         }
     }
-    if (character_id == CHAR_MODERN)
+    if (character_id == CHAR_MODERN_SONIC)
     {
         if (animation_frame &lt; 4)
         {
@@ -567,7 +567,7 @@ if (animation_index == "BORED_1")
 }
 if (animation_index == "BORED_2")
 {
-    if (character_id == CHAR_SONIC)
+    if (character_id == CHAR_CLASSIC_SONIC)
     {
         if (animation_frame &lt; 7 || (animation_frame &gt;= 8 &amp;&amp; animation_frame &lt; 9))
         {
@@ -602,7 +602,7 @@ if (state == STATE_PEELOUT)
 // Balancing:
 if (character_id == CHAR_KNUCKLES)
 {
-    if (animation_index == "BALANCE_1" || animation_index == "BALANCE_2")
+    if (animation_index == "BALANCE_IN")
     {
         if (animation_frame &gt;= 6 &amp;&amp; animation_frame &lt; 7)
         {
@@ -618,54 +618,21 @@ if (character_id == CHAR_KNUCKLES)
 // Jumping and Rolling:
 if (state == STATE_JUMP)
 {
-    if (character_id == CHAR_TAILS)
+    if (dropdash_state &lt; 2 &amp;&amp; amy_hammer_attack == 0)
     {
-        animation_speed           = 0.25;
-        animation_rendering_speed = 0.25;
-    }
-    else
-    {
-        if (dropdash_state &lt; 2 &amp;&amp; amy_hammer_attack == 0)
-        {
-            animation_speed = animation_rendering_speed;
-        }
+        animation_speed = animation_jump_speed;
     }
 }
 if (state == STATE_ROLL)
 {
-    if (character_id == CHAR_TAILS)
-    {
-        animation_speed           = 0.25;
-        animation_rendering_speed = 0.25;
-    }
-    else
-    {
-        animation_speed           = 1 / max(5 - abs(x_speed), 1);
-        animation_rendering_speed = animation_speed;
-    }
+    animation_speed      = 0.25 + abs(x_speed) / 12;
+    animation_jump_speed = animation_speed;
 }
 
-// Limit the jumping/rolling animation speed:
-if (animation_index == "ROLL")
+// Limit rolling animation speed when playing as Tails:
+if (character_id == CHAR_TAILS &amp;&amp; animation_index == "ROLL" &amp;&amp; animation_speed &gt; 0.5)
 {
-    if (animation_rendering_speed &gt; 1.5)
-    {
-        animation_rendering_speed = 1.5;
-    }
-    if (animation_speed &gt; 1.5)
-    {
-        animation_speed = 1.5;
-    }
-}
-
-// If we hit a wall, reset the rolling animation speed.
-if (!ground &amp;&amp; y_speed &gt;= 0 &amp;&amp; amy_hammer_attack == 0 &amp;&amp; ((player_collision_check(COL_RIGHT, MASK_BIG, x, y, angle) &amp;&amp; input_right) || (player_collision_check(COL_LEFT, MASK_BIG, x, y, angle) &amp;&amp; input_left)))
-{
-    if (state == STATE_JUMP || state == STATE_ROLL)
-    {
-        animation_speed           = 0.25;
-        animation_rendering_speed = 0.25;
-    }
+    animation_speed = 0.5;
 }
 
 // ########################################################################################################################## //
@@ -704,8 +671,7 @@ switch (animation_index)
         }
         break;
     }
-    case "SKID":
-    case "SKID_TURN":
+    case "BRAKE":
     case "SLIDE":
     {
         animation_timer += 1;
@@ -719,13 +685,10 @@ switch (animation_index)
 
 // ########################################################################################################################## //
 
-// Set animation direction:
-if (state != STATE_SPINDASH &amp;&amp; state != STATE_LOOKUP   &amp;&amp; state != STATE_CROUCH  &amp;&amp;
-    state != STATE_ROLL     &amp;&amp; state != STATE_SKID     &amp;&amp; state != STATE_BALANCE &amp;&amp;
-    state != STATE_JUMP     &amp;&amp; state != STATE_CLIMB    &amp;&amp; state != STATE_HURT    &amp;&amp;
-    hang_move_dir == 0      &amp;&amp; state != STATE_PEELOUT  &amp;&amp; state != STATE_CARRY   &amp;&amp;
-    state != STATE_FLY      &amp;&amp; state != STATE_GOAL     &amp;&amp; state != STATE_RESPAWN &amp;&amp;
-    state != STATE_SLIDE    &amp;&amp; state != STATE_SPRING)
+// Set animation direction.
+
+// General:
+if ((state == STATE_DEFAULT &amp;&amp; ground &amp;&amp; amy_hammer_attack == 0) || state == STATE_ROLL || (state == STATE_HANG &amp;&amp; hang_move_dir == 0) || state == STATE_CORKSCREW || state == STATE_CORKSCREW_ROLL || state == STATE_BREATH || state == STATE_GLIDE_DROP)
 {
     // Change direction depending on input and speed:
     if (input_left &amp;&amp; x_speed &lt;= 0)
@@ -738,21 +701,7 @@ if (state != STATE_SPINDASH &amp;&amp; state != STATE_LOOKUP   &amp;&amp; state 
     }
 }
 
-// Rolling direction:
-if (state == STATE_ROLL)
-{
-    // Change direction depending on input and speed:
-    if (x_speed &gt; 0 &amp;&amp; input_right)
-    {
-        animation_direction = 1;
-    }
-    if (x_speed &lt; 0 &amp;&amp; input_left)
-    {
-        animation_direction = -1;
-    }
-}
-
-// Change direction in the air depending on input:
+// Air direction:
 if ((state == STATE_JUMP &amp;&amp; !jump_lock) || (state == STATE_DEFAULT &amp;&amp; !ground) || state == STATE_SPRING || state == STATE_FLY)
 {
     if (input_right)
@@ -765,16 +714,16 @@ if ((state == STATE_JUMP &amp;&amp; !jump_lock) || (state == STATE_DEFAULT &amp;
     }
 }
 
-// Balancing direction:
+// Balancing:
 if (state == STATE_BALANCE)
 {
-    if (character_id != CHAR_SONIC &amp;&amp; animation_direction != balance_direction)
+    if (character_id != CHAR_CLASSIC_SONIC &amp;&amp; animation_direction != balance_direction)
     {
         animation_direction = balance_direction;
     }
 }
 
-// Carry direction:
+// Carrying:
 if (state == STATE_CARRY)
 {
     var partner;
@@ -785,21 +734,18 @@ if (state == STATE_CARRY)
     }
 }
 
-// Respawn direction.
+// Respawning:
 if (state == STATE_RESPAWN)
 {
-    if (instance_exists(global.player_id[0]))
+    if (character_id == CHAR_TAILS || character_id == CHAR_KNUCKLES)
     {
-        if (character_id == CHAR_TAILS || character_id == CHAR_KNUCKLES)
+        if (global.player_id[0].x &gt; x &amp;&amp; x &gt; xprevious)
         {
-            if (global.player_id[0].x &gt; x &amp;&amp; x &gt; xprevious)
-            {
-                animation_direction = 1;
-            }
-            if (global.player_id[0].x &lt; x &amp;&amp; x &lt; xprevious)
-            {
-                animation_direction = -1;
-            }
+            animation_direction = 1;
+        }
+        if (global.player_id[0].x &lt; x &amp;&amp; x &lt; xprevious)
+        {
+            animation_direction = -1;
         }
     }
 }
@@ -829,14 +775,13 @@ if (character_id == CHAR_TAILS)
       <appliesTo>.self</appliesTo>
       <arguments>
         <argument kind="STRING">/// Sprite rotation.
-// This is used for rotating the player's sprite.
 
 // Change animation angle values:
 if (ground)
 {
     if (!col_rotate_flag)
     {
-        animation_angle_mod = 0;
+        animation_angle_mod = global.gravity_angle;
     }
     else
     {
@@ -866,6 +811,7 @@ if (ground)
             }
         }
 
+        // NOTE: if you're using GameMaker: Studio, replace "approach_angle" with "rotate_towards" &amp; swap the first 2 arguments.
         if (abs(angle_difference(animation_angle_mod, _angMod)) &lt; 45)
         {
             animation_angle_mod = approach_angle(animation_angle_mod, _angMod, max(abs(x_speed), 4));
@@ -878,20 +824,31 @@ if (ground)
 }
 else
 {
-    animation_angle_mod = approach_angle(animation_angle_mod, 0, 4);
+    animation_angle_mod = approach_angle(animation_angle_mod, global.gravity_angle, 4);
 }
 
 // Rotate:
-animation_angle  = animation_angle_mod;
-tails_tail_angle = animation_angle_mod;
+animation_angle = animation_angle_mod;
 
-if (global.rotation_style == 0)
+// Set the angle of Tails' tail (credit to VectorSatyr for this new method).
+if (animation_index == "ROLL" &amp;&amp; !ground)
+{
+    if (tails_tail_direction == 1)
+    {
+        tails_tail_angle  = point_direction(0, 0, x_speed, y_speed);
+    }
+    else tails_tail_angle = point_direction(x_speed, y_speed, 0, 0);
+}
+else tails_tail_angle = animation_angle;
+
+// Round animation angles to 45 degrees if applicable:
+if (!global.smooth_rotation)
 {
     animation_angle  = round(animation_angle  / 45) * 45;
     tails_tail_angle = round(tails_tail_angle / 45) * 45;
 }
 
-// Set animation &amp; tail angle to zero if we're not using an animation that can be rotated:
+// Reset animation &amp; tail angle if we're not using an animation that can be rotated:
 switch (animation_index)
 {
     case "IDLE":
@@ -906,8 +863,8 @@ switch (animation_index)
     case "HURT":
     case "DEATH":
     case "DROWN":
-    case "BALANCE_1":
-    case "BALANCE_2":
+    case "BALANCE_IN":
+    case "BALANCE_OUT":
     case "FLY":
     case "SWIM":
     case "FLY_DROP":
@@ -918,27 +875,12 @@ switch (animation_index)
     case "CLIMB":
     case "CLIMB_LEDGE":
     {
-        animation_angle = 0;
+        animation_angle = global.gravity_angle;
         if (animation_index != "ROLL")
         {
-            tails_tail_angle = 0;
+            tails_tail_angle = global.gravity_angle;
         }
         break;
-    }
-}
-
-// Set the angle of Tails' tail (credit to VectorSatyr for this new method).
-if (animation_index == "ROLL" &amp;&amp; !ground)
-{
-    if (tails_tail_direction == 1)
-    {
-        tails_tail_angle = point_direction(0, 0, x_speed, y_speed);
-    }
-    else tails_tail_angle = point_direction(x_speed, y_speed, 0, 0);
-    
-    if (global.rotation_style == 0)
-    {
-        tails_tail_angle = round(tails_tail_angle / 45) * 45;
     }
 }
 </argument>

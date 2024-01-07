@@ -15,9 +15,6 @@
       <arguments>
         <argument kind="STRING">/// Variables.
 
-// Player ID:
-player_name = global.player_id[0].character_id;
-
 // HUD visibility:
 time_visibility = true;
 ring_visibility = true;

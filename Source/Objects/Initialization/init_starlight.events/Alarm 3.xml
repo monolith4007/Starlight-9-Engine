@@ -13,7 +13,7 @@
       <not>false</not>
       <appliesTo>.self</appliesTo>
       <arguments>
-        <argument kind="STRING">/// Go to the next room.
+        <argument kind="STRING">/// Go to the title screen.
 room_goto_next();
 </argument>
       </arguments>

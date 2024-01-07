@@ -38,7 +38,7 @@ if (sign_post_state == 0)
 // Character:
 if (sign_post_state == 1)
 {
-    image_index = global.character_index * 4;
+    image_index = global.character[0] * 4;
 }
 
 // End:

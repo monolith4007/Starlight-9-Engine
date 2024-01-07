@@ -4,12 +4,12 @@ var monitor;
 monitor = instance_nearest(x, y, par_monitor);
 if (monitor != noone)
 {
-    if (!cpu_flag)
+    if (!cpu_flag && y_speed >= 0)
     {
-        // Check if we collide with the top:
-        if (player_collision_check(COL_BOTTOM_OBJECT, MASK_BIG, x, y, angle, monitor) && y_speed >= 0)
+        // Check if we collide with the top of the monitor:
+        if (player_collision_check(COL_BOTTOM_OBJECT, MASK_BIG, x, y, angle, monitor))
         {
-            if ((state == STATE_JUMP && amy_hammer_attack == 0) || state == STATE_GLIDE || shield_action == 1 || state == STATE_HOMING || amy_hammer_attack == 2 || (amy_hammer_attack == 3 && animation_frame < 5))
+            if (state == STATE_JUMP || state == STATE_GLIDE || state == STATE_HOMING || shield_action == 1 || amy_hammer_attack == 2 || (amy_hammer_attack == 3 && animation_frame < 5))
             {
                 // Destroy monitor:
                 with (monitor) instance_destroy();
@@ -17,7 +17,7 @@ if (monitor != noone)
                 // Rebound:
                 if (state != STATE_HOMING)
                 {
-                    if (state != STATE_GLIDE || (state == STATE_GLIDE && y_speed > 0.5))
+                    if (state != STATE_GLIDE || (state == STATE_GLIDE && y_speed >= 0.5))
                     {
                         y_speed *= -1;
                         ground   = false;
@@ -47,16 +47,29 @@ if (monitor != noone)
             }
         }
 
-        // Check if we collide with the side:
+        // Check if we collide with the side of the monitor:
         if (player_collision_check(COL_LEFT_OBJECT, MASK_BIG, x, y, angle, monitor) || player_collision_check(COL_RIGHT_OBJECT, MASK_BIG, x, y, angle, monitor))
         {
-            if (state == STATE_ROLL || shield_action == 1 || state == STATE_GLIDE || state == STATE_SLIDE || state == STATE_HOMING || (amy_hammer_attack == 1 && animation_frame > 5) || boosting)
+            if (state == STATE_JUMP || state == STATE_ROLL || state == STATE_GLIDE || state == STATE_SLIDE || state == STATE_HOMING || shield_action == 1
+            || amy_hammer_attack == 2 || (amy_hammer_attack == 3 && animation_frame < 5) || (amy_hammer_attack == 1 && animation_frame > 5) || boosting)
             {
                 // Destroy monitor:
                 with (monitor) instance_destroy();
 
-                // Rebound (homing attack):
-                if (state == STATE_HOMING)
+                // Rebound:
+                if (state != STATE_HOMING)
+                {
+                    if (state != STATE_GLIDE || (state == STATE_GLIDE && y_speed >= 0.5))
+                    {
+                        y_speed *= -1;
+                        ground   = false;
+                        if (!roll_rebounce && amy_hammer_attack != 2 && amy_hammer_attack != 3)
+                        {
+                            jump_completed = false;
+                        }
+                    }
+                }
+                else
                 {
                     jump_action    = true;
                     ground         = false;
@@ -69,7 +82,7 @@ if (monitor != noone)
         }
     }
 
-    // Check if we collide with the bottom:
+    // Check if we collide with the bottom of the monitor:
     if (y_speed <= 0 && state != STATE_CLIMB)
     {
         if (state != STATE_CROUCH && state != STATE_SPINDASH)
@@ -81,7 +94,6 @@ if (monitor != noone)
                 {
                     monitor.bumped  = true;
                     monitor.y_speed = -2;
-                    if (y_speed < 0) y_speed = 0;
                 }
             }
             else

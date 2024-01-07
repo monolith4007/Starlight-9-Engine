@@ -19,9 +19,9 @@
 font_delete(global.font_main);
 font_delete(global.font_lives);
 font_delete(global.font_hud);
-font_delete(global.font_title_card_s3);
-font_delete(global.font_title_card_s2);
-font_delete(global.font_title_card_s1);
+font_delete(global.font_title_card[3]);
+font_delete(global.font_title_card[2]);
+font_delete(global.font_title_card[1]);
 font_delete(global.font_dataselect);
 
 // Audio:

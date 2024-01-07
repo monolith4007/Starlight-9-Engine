@@ -13,7 +13,7 @@
       <not>false</not>
       <appliesTo>.self</appliesTo>
       <arguments>
-        <argument kind="STRING">/// Init.
+        <argument kind="STRING">/// Initialize.
 
 // Set sprite:
 sprite_index = choose(spr_animal_cucky, spr_animal_flicky, spr_animal_pecky,

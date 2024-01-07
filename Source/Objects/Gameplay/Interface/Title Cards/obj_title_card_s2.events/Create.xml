@@ -14,7 +14,7 @@
       <appliesTo>.self</appliesTo>
       <arguments>
         <argument kind="STRING">/// Variables.
-// Credit to Tpot for the title card (originally taken from the Sonic MAX framework).
+// Credit to Tpot.
 
 // Wait to deactivate instances:
 alarm[0] = 1;

@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Character combinations.
+if (obj_dataselect_cursor.datacursor_slot_index == 0 &amp;&amp; obj_dataselect_cursor.datacursor_direction == 0 &amp;&amp; !instance_exists(obj_fade_to))
+{
+    if (keyboard_check_pressed(global.key_up))
+    {
+        if (dataslot_combo == 14)
+        {
+            dataslot_combo = 0;
+        }
+        else
+        {
+            dataslot_combo += 1;
+        }
+        audio_play(SFX._general_switch, SFX.sfx_volume, 1, 0, 0);
+    }
+    if (keyboard_check_pressed(global.key_down))
+    {
+        if (dataslot_combo == 0)
+        {
+            dataslot_combo = 14;
+        }
+        else
+        {
+            dataslot_combo -= 1;
+        }
+        audio_play(SFX._general_switch, SFX.sfx_volume, 1, 0, 0);
+    }
+}
+
+// Set character pair-ups.
+switch (dataslot_combo)
+{
+    // Classic Sonic &amp; Tails:
+    case 0:
+    {
+        dataslot_character = 1;
+        dataslot_cpu       = 2;
+        break;
+    }
+
+    // Classic Sonic &amp; Knuckles:
+    case 1:
+    {
+        dataslot_character = 1;
+        dataslot_cpu       = 3;
+        break;
+    }
+
+    // Classic Sonic &amp; Amy:
+    case 2:
+    {
+        dataslot_character = 1;
+        dataslot_cpu       = 4;
+        break;
+    }
+
+    // Classic Sonic &amp; Modern Sonic:
+    case 3:
+    {
+        dataslot_character = 1;
+        dataslot_cpu       = 5;
+        break;
+    }
+
+    // Tails &amp; Knuckles:
+    case 4:
+    {
+        dataslot_character = 2;
+        dataslot_cpu       = 3;
+        break;
+    }
+
+    // Tails &amp; Amy:
+    case 5:
+    {
+        dataslot_character = 2;
+        dataslot_cpu       = 4;
+        break;
+    }
+
+    // Tails &amp; Modern Sonic:
+    case 6:
+    {
+        dataslot_character = 2;
+        dataslot_cpu       = 5;
+        break;
+    }
+
+    // Knuckles &amp; Amy:
+    case 7:
+    {
+        dataslot_character = 3;
+        dataslot_cpu       = 4;
+        break;
+    }
+
+    // Knuckles &amp; Modern Sonic:
+    case 8:
+    {
+        dataslot_character = 3;
+        dataslot_cpu       = 5;
+        break;
+    }
+
+    // Amy &amp; Modern Sonic:
+    case 9:
+    {
+        dataslot_character = 4;
+        dataslot_cpu       = 5;
+        break;
+    }
+
+    // Classic Sonic only:
+    case 10:
+    {
+        dataslot_character = 1;
+        dataslot_cpu       = 0;
+        break;
+    }
+
+    // Tails only:
+    case 11:
+    {
+        dataslot_character = 2;
+        dataslot_cpu       = 0;
+        break;
+    }
+
+    // Knuckles only:
+    case 12:
+    {
+        dataslot_character = 3;
+        dataslot_cpu       = 0;
+        break;
+    }
+
+    // Amy only:
+    case 13:
+    {
+        dataslot_character = 4;
+        dataslot_cpu       = 0;
+        break;
+    }
+
+    // Modern Sonic:
+    case 14:
+    {
+        dataslot_character = 5;
+        dataslot_cpu       = 0;
+        break;
+    }
+}
+</argument>
+      </arguments>
+    </action>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Start a new game.
+
+// Check if cursor slot id is equal to this slot's id and that the cursor is not moving.
+if (obj_dataselect_cursor.datacursor_slot_index == dataslot_index &amp;&amp; obj_dataselect_cursor.datacursor_direction == 0)
+{
+    // Make sure to only run if robotnik is deactivated.
+    if (!obj_dataselect_robotnik.active)
+    {
+        // If we press Action or Start, start a new game, resume it or go to the level select.
+        if (keyboard_check_pressed(global.key_action) || keyboard_check_pressed(global.key_start))
+        {
+            if (!instance_exists(obj_fade_to))
+            {
+                // Set the first zone of the game. You can tweak it to change depending on the main character!
+                switch (dataslot_character)
+                {
+                    default: global.first_zone = rm_playground;
+                }
+
+                // Set global variables.
+                global.character[0]     = dataslot_character;
+                global.character[1]     = dataslot_cpu;
+                global.player_lives     = 3;
+                global.player_score     = 0;
+                global.player_continues = 0;
+                global.player_emeralds  = 0;
+                global.game_completed   = false;
+
+                // Create the fade out.
+                room_fade_to(global.first_zone);
+                obj_dataselect_cursor.datacursor_lock = true;
+            }
+        }
+    }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

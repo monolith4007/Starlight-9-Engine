@@ -6,18 +6,17 @@
 var partner;
 partner = instance_nth_nearest(x, y, par_player, 2);
 
-// When playing as Tails...
 if (character_id == CHAR_TAILS)
 {
-    if (partner != noone)
+    // Trigger carry whilst flying.
+    if (state == STATE_FLY && !underwater)
     {
-        // Trigger carry whilst flying.
-        if (state == STATE_FLY && !underwater)
+        if (partner != noone)
         {
             if (partner.state == STATE_JUMP && !partner.input_down)
             {
                 // Check if Tails is colliding with the partner below him:
-                if (partner.y >= y + 31 && player_collision_check(COL_BOTTOM_OBJECT, MASK_MAIN, x, y, 0, partner))
+                if (partner.y >= y + 31 && player_collision_check(COL_BOTTOM_OBJECT, MASK_MAIN, x, y, global.gravity_angle, partner))
                 {
                     with (partner)
                     {
@@ -30,7 +29,7 @@ if (character_id == CHAR_TAILS)
                 }
             }
 
-            // Carry the partner and lock their position to Tails:
+            // Carry the partner and lock their position:
             with (partner)
             {
                 if (state == STATE_CARRY)

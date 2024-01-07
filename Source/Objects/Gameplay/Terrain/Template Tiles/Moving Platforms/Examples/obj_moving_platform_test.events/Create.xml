@@ -13,7 +13,7 @@
       <not>false</not>
       <appliesTo>.self</appliesTo>
       <arguments>
-        <argument kind="STRING">/// Init.
+        <argument kind="STRING">/// Initialize.
 
 // Call the parent:
 event_inherited();
@@ -21,9 +21,6 @@ event_inherited();
 // X/Y Speed:
 x_spd = 1;
 y_spd = 0;
-
-// Character Y offset. Default set at 10, you might need to tweak this for other platforms.
-platform_offset = 10;
 </argument>
       </arguments>
     </action>

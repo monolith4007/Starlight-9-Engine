@@ -1,6 +1,10 @@
 /// player_state_swap()
 // Handles the swapping between the main player and the CPU player.
 // Credit to TsukiruP.
+
+// Exit if the results are on-screen:
+if (instance_exists(obj_results) && global.goal_style > 0) exit;
+
 if (global.player_id[0] == id && instance_exists(global.player_id[1]))
 {
     if (global.player_id[1].state != STATE_RESPAWN && global.player_id[1].state != STATE_DEATH && global.player_id[1].state != STATE_HURT && global.player_id[1].invincibility_type != 1)
@@ -18,14 +22,16 @@ if (global.player_id[0] == id && instance_exists(global.player_id[1]))
                 global.player_id[0] = cpu;
                 with (global.player_id[0])
                 {
-                    cpu_flag   = false;
-                    depth      = 0;
-                    swap_timer = 45;
+                    global.character[0] = character_id;
+                    cpu_flag            = false;
+                    depth               = 0;
+                    swap_timer          = 45;
                 }
 
                 global.player_id[1] = player;
                 with (global.player_id[1])
                 {
+                    global.character[1] = character_id;
                     cpu_flag = true;
                     depth    = 1;
                 }
@@ -43,26 +49,17 @@ if (global.player_id[0] == id && instance_exists(global.player_id[1]))
                     }
                 }
 
-                // Update HUD:
-                with (obj_hud)
-                {
-                    player_name = global.player_id[0].character_id;
-                }
-
                 // Update the life monitor's icon:
-                instance_activate_object(obj_monitor_life); // Temporarily activate all life monitors in case they were deactivated by the culling controller.
+                instance_activate_object(obj_monitor_life); // Temporarily activate all life monitors in case they were deactivated by the stage controller.
                 with (obj_monitor_life)
                 {
-                    icon = global.player_id[0].character_id + 8;
+                    icon = global.character[0] + 8;
                 }
             }
             else
             {
                 // Force the CPU to respawn when offscreen.
-                with (global.player_id[1])
-                {
-                    cpu_offscreen_timer = 0;
-                }
+                global.player_id[1].cpu_offscreen_timer = 0;
             }
         }
     }

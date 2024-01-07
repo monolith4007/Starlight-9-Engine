@@ -93,20 +93,12 @@ if (instance_exists(global.player_id[0]))
         {
             audio_set_pitch(music_id, audio_get_pitch(music_id) + 0.01);
         }
-        else if (audio_get_pitch(music_id) &gt; 1.15)
-        {
-            audio_set_pitch(music_id, 1.15);
-        }
     }
     else
     {
         if (audio_get_pitch(music_id) &gt; 1.00)
         {
             audio_set_pitch(music_id, audio_get_pitch(music_id) - 0.01);
-        }
-        else if (audio_get_pitch(music_id) &lt; 1.00)
-        {
-            audio_set_pitch(music_id, 1.00);
         }
     }
 }

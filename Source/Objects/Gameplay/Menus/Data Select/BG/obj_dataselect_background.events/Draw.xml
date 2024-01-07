@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="DRAW" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Draw title &amp; background.
+draw_background(bg_dataselect, view_xview[0], view_yview[0]);
+draw_sprite(spr_dataselect_title, 0, view_xview[0] + view_wview[0] / 2, view_yview[0] + view_hview[0] - 32);
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

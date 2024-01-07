@@ -23,10 +23,10 @@ if (tc_state == 1)
 }
 
 // Player-Colored Rectangle:
-switch (global.character_index)
+switch (global.character[0])
 {
-    case CHAR_SONIC:
-    case CHAR_MODERN:
+    case CHAR_CLASSIC_SONIC:
+    case CHAR_MODERN_SONIC:
     {
         draw_set_color(c_blue);
         break;
@@ -57,6 +57,7 @@ draw_rectangle(view_xview[0] + view_wview[0] - tc_yellow_x, view_yview[0] + view
 draw_sprite(spr_title_card_game_name_s2, 0, view_xview[0] + view_wview[0] - tc_yellow_x + 168, view_yview[0] + view_hview[0] - 56);
 
 // Red Rectangle:
+var tc_red_y;
 tc_red_y = 0;
 repeat (ceil(view_hview[0] / sprite_get_height(spr_title_card_banner_s2)))
 {
@@ -65,7 +66,7 @@ repeat (ceil(view_hview[0] / sprite_get_height(spr_title_card_banner_s2)))
 }
 
 // Set title card font.
-draw_set_font(global.font_title_card_s2);
+draw_set_font(global.font_title_card[2]);
 draw_set_color(c_white);
 draw_set_halign(fa_right);
 

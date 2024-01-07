@@ -9,13 +9,11 @@ if (state == STATE_ROLL)
             // Decelerate depending on input and direction:
             if (input_left && x_speed > 0)
             {
-                x_speed -= roll_deceleration;
-                if (x_speed <= 0) x_speed = -roll_deceleration;
+                x_speed = max(x_speed - roll_deceleration, 0);
             }
             if (input_right && x_speed < 0)
             {
-                x_speed += roll_deceleration;
-                if (x_speed >= 0) x_speed = roll_deceleration;
+                x_speed = min(x_speed + roll_deceleration, 0);
             }
         }
 

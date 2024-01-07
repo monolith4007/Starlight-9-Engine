@@ -13,12 +13,12 @@
       <not>false</not>
       <appliesTo>.self</appliesTo>
       <arguments>
-        <argument kind="STRING">/// Initialize audio, screen and gamepad controller.
+        <argument kind="STRING">/// Initialize global controllers &amp; load settings.
 instance_create(0, 0, ctrl_screen);
 instance_create(0, 0, ctrl_gamepad);
 instance_create(0, 0, ctrl_audio);
-s8e_step = 2;
 config_load();
+s8e_step = 2;
 </argument>
       </arguments>
     </action>

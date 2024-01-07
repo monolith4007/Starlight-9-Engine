@@ -1,7 +1,7 @@
 /// player_state_hurt(object)
 // The player's hurt state.
 
-// Exit in the following states:
+// Exit if already invulnerable in some way:
 if (state == STATE_HURT || state == STATE_DEATH || invincibility_type > 0) exit;
 
 if (global.player_rings > 0 || shield_index != 0 || cpu_flag)
@@ -39,7 +39,7 @@ if (global.player_rings > 0 || shield_index != 0 || cpu_flag)
     // Hurt sound:
     if (object_is_ancestor(argument0.object_index, par_spike))
     {
-        audio_play(SFX._player_hit_spike, SFX.sfx_volume, 1, 0, 0);
+        audio_play(SFX._player_hurt_spike, SFX.sfx_volume, 1, 0, 0);
     }
     else
     {

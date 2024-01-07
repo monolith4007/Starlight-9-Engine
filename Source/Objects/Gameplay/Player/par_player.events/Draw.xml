@@ -26,11 +26,11 @@ if (!debug_mode)
         // Set character trail color.
         switch (character_id)
         {
-            case CHAR_SONIC:    color = make_color_rgb(0,   0,   255); break;
-            case CHAR_TAILS:    color = make_color_rgb(255, 153, 51);  break;
-            case CHAR_KNUCKLES: color = make_color_rgb(255, 0,   0);   break;
-            case CHAR_AMY:      color = make_color_rgb(255, 51,  153); break;
-            case CHAR_MODERN:   color = make_color_rgb(0,   0,   96);  break;
+            case CHAR_CLASSIC_SONIC: color = make_color_rgb(0,   0,   255); break;
+            case CHAR_TAILS:         color = make_color_rgb(255, 153, 51);  break;
+            case CHAR_KNUCKLES:      color = make_color_rgb(255, 0,   0);   break;
+            case CHAR_AMY:           color = make_color_rgb(255, 51,  153); break;
+            case CHAR_MODERN_SONIC:  color = make_color_rgb(0,   0,   96);  break;
         }
 
         for (i = 0; i &lt; trail_length; i += 1)

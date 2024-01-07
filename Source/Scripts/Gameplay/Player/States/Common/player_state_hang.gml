@@ -2,12 +2,11 @@
 // The player's state when hanging on certain poles.
 if (state == STATE_HANG)
 {
-    // Handle animation & movement.
+    // Handle animations & movement.
     switch (hang_type)
     {
         case HANG_STATIC:
         {
-            x_speed         = 0;
             animation_index = "HANG";
             break;
         }
@@ -32,33 +31,32 @@ if (state == STATE_HANG)
         {
             if (hang_move_dir == 0)
             {
+                // Set animation:
+                animation_index = "HANG";
+                
+                // Get the nearest hang handles to the left/right of us:
                 var hang_right, hang_left;
                 hang_right = instance_place(x + hang_distance, y, par_hang);
                 hang_left  = instance_place(x - hang_distance, y, par_hang);
                 
                 if (hang_right != noone && input_right)
                 {
-                    with (hang_right)
+                    if (hang_right.type == HANG_DISTANCE)
                     {
-                        if (type == HANG_DISTANCE)
-                        {
-                            other.hang_move_dir = 1;
-                        }
+                        hang_move_dir = 1;
                     }
                 }
                 if (hang_left != noone && input_left)
                 {
-                    with (hang_left)
+                    if (hang_left.type == HANG_DISTANCE)
                     {
-                        if (type == HANG_DISTANCE)
-                        {
-                            other.hang_move_dir = -1;
-                        }
+                        hang_move_dir = -1;
                     }
                 }
             }
             else
             {
+                // Movement:
                 if (x < hang_x + hang_distance && hang_move_dir == 1)
                 {
                     animation_direction = 1;
@@ -73,14 +71,17 @@ if (state == STATE_HANG)
                 }
                 else
                 {
+                    // Stop moving:
                     hang_move_dir = 0;
                     hang_x        = x;
                     
+                    // Reset animation:
                     if (!place_meeting(x + hang_distance, y, par_hang) || !place_meeting(x - hang_distance, y, par_hang) || (!input_left && !input_right))
                     {
                         animation_index = "HANG";
                     }
                     
+                    // Lock X position:
                     var hang;
                     hang = instance_place(x, y, par_hang);
                     if (hang != noone) x = hang.x;
@@ -90,40 +91,24 @@ if (state == STATE_HANG)
         }
     }
 
-    // Stop vertical speed.
-    y_speed = 0;
-
-    // Fix y position:
-    if (hang_y != 0) y = hang_y;
-
     // Jump:
     if (input_action_pressed)
     {
         state          = STATE_JUMP;
         hang_timer     = 6;
         jump_completed = false;
-        if (input_down)
-        {
-            y_speed = 0;
-        }
-        else
-        {
-            y_speed = jump_strength;
-        }
-        jump_action = true;
+        y_speed        = jump_strength * (!input_down);
+        jump_action    = true;
         player_reset_trail();
-        audio_play(SFX._player_jump, SFX.sfx_volume, 1, 0, 0);
+        if (!input_down) audio_play(SFX._player_jump, SFX.sfx_volume, 1, 0, 0);
     }
 }
 
 // Reduce hang timer.
-if (hang_timer > 0)
-{
-    hang_timer -= 1;
-}
+if (hang_timer > 0) hang_timer -= 1;
 
-// Make sure the moving direction variable is false if not hanging onto anything.
-if (state != STATE_HANG)
+// Reset the moving direction if not hanging onto anything.
+if (state != STATE_HANG && hang_move_dir != 0)
 {
     hang_move_dir = 0;
 }

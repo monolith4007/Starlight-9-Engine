@@ -14,8 +14,8 @@
       <appliesTo>.self</appliesTo>
       <arguments>
         <argument kind="STRING">/// Draw splash screen.
-draw_sprite_ext(sprite_index, -1, x, y, 1, 1, 0, c_white, 1 - s8e_galpha);
-draw_sprite_ext(sprite_index,  0, x, y, 1, 1, 0, c_white, 1 - s8e_galpha);
+draw_sprite_ext(sprite_index, -1,        x, y, 1, 1, 0, c_white, 1 - s8e_galpha);
+draw_sprite_ext(sprite_index,  0,        x, y, 1, 1, 0, c_white, 1 - s8e_galpha);
 draw_sprite_ext(sprite_index, s8e_index, x, y, 1, 1, 0, c_white, s8e_alpha - s8e_galpha / 2);
 </argument>
       </arguments>

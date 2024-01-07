@@ -16,7 +16,7 @@
         <argument kind="STRING">/// Position, Scaling &amp; Angle.
 
 // Destroy if the target no longer exists or the main player isn't Modern Sonic.
-if (!instance_exists(target) || global.player_id[0].character_id != CHAR_MODERN)
+if (!instance_exists(target) || global.character[0] != CHAR_MODERN_SONIC)
 {
     instance_destroy();
     exit;

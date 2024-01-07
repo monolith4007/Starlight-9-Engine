@@ -13,7 +13,7 @@
       <not>false</not>
       <appliesTo>.self</appliesTo>
       <arguments>
-        <argument kind="STRING">/// Init.
+        <argument kind="STRING">/// Initialize.
 
 // Destroy if we already have 7 emeralds.
 if (global.player_emeralds &gt;= 7)

@@ -1,7 +1,7 @@
 /// player_handle_falling_tiles()
 // Handles collision with falling terrain.
 
-// Handle collision with collapsing terrain:
+// Handle collision with collapsible platforms:
 var collapse_id;
 collapse_id = player_collision_check(COL_BOTTOM_OBJECT, MASK_BIG, x, y, angle, par_collapsing_platform);
 if (collapse_id != noone && ground)

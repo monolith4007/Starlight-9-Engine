@@ -29,15 +29,15 @@ if ((ground || state == STATE_CORKSCREW || state == STATE_CORKSCREW_ROLL) && !pl
         player_set_angle(global.gravity_angle);
         player_reset_trail();
 
-        // Play sound effect:
+        // Play jump sound:
         audio_play(SFX._player_jump, SFX.sfx_volume, 1, 0, 0);
 
-        // Sprite rendering speed:
-        animation_rendering_speed = 1 / max(5 - abs(x_speed), 1);
+        // Set animation speed:
+        animation_jump_speed = 1 / max(5 - abs(x_speed), 1);
     }
 }
 
-// Complete jump:
+// Check if we've completed a jump:
 if (y_speed > 0)
 {
     if (!jump_completed)
@@ -49,11 +49,10 @@ if (y_speed > 0)
 // Switch to the jumping state when pressing the jump key whilst ungrounded:
 if (((state == STATE_DEFAULT && !ground) || state == STATE_SPRING) && input_action_pressed)
 {
-    state          = STATE_JUMP;
-    jump_action    = true;
-    jump_completed = true;
+    state       = STATE_JUMP;
+    jump_action = true;
     player_reset_trail();
-    animation_rendering_speed = 1 / max(5 - abs(x_speed), 1);
+    animation_jump_speed = 1 / max(5 - abs(x_speed), 1);
 }
 
 // Reset flags we previously changed after landing.

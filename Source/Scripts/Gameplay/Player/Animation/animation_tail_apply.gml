@@ -1,5 +1,5 @@
 /// animation_tail_apply(sprite, speed, x, y, angle, direction)
-// Script used to apply the animation of the tail part for Tails.
+// Applies a given animation for Tails' tails.
 if (argument[0] != noone)
 {
     tails_tail_sprite    = argument[0];

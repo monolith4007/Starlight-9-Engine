@@ -28,6 +28,7 @@ if (instance_exists(global.player_id[0]))
     }
     else y = floor(global.player_id[0].y + 5);
 }
+else instance_destroy();
 </argument>
       </arguments>
     </action>

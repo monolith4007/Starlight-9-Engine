@@ -19,7 +19,7 @@ ini_write_real("Gamepad",  "GMPAction",  global.gmp_action);
 ini_write_real("Gamepad",  "GMPSpecial", global.gmp_special);
 ini_write_real("Gamepad",  "GMPStart",   global.gmp_start);
 ini_write_real("Gamepad",  "GMPSwap",    global.gmp_swap);
-ini_write_real("Gameplay", "Rotation",   global.rotation_style);
+ini_write_real("Gameplay", "Rotation",   global.smooth_rotation);
 ini_write_real("Gameplay", "Trail",      global.use_trail);
 ini_write_real("Gameplay", "TimeOver",   global.limit_time);
 ini_write_real("Gameplay", "HUD",        global.display_hud);

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="CREATE" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Variables.
+
+// Focus view.
+view_object[0] = id;
+
+// Slot related.
+datacursor_slot_index = 1; // The slot we're currently hovering over.
+
+// Movement.
+datacursor_x              = x;     // Keeps track of the previous x position when we want to move.
+datacursor_direction      = 0;     // The direction we're moving towards.
+datacursor_allow_movement = true;  // Checks if we can allow the cursor to be moved.
+datacursor_lock           = false; // Makes sure to no longer have any behaviour if locked.
+
+// Sprite.
+datacursor_sprite = spr_dataselect_cursor; // The sprite we'll be using.
+image_speed       = 0.2;                   // This should be obvious.
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

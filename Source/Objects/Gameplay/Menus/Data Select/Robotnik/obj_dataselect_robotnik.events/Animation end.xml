@@ -20,13 +20,11 @@ if (state == "SPIN")
     {
         sign_index = 1;
         state      = "SELECTION";
-        exit;
     }
     else
     {
         sign_index = 0;
         state      = "IDLE";
-        exit;
     }
 }
 </argument>

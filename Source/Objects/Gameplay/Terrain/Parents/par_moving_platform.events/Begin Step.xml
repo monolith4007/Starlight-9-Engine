@@ -15,10 +15,6 @@
       <arguments>
         <argument kind="STRING">/// Movement &amp; Player position.
 
-// Set previous positions.
-previous_x = x;
-previous_y = y;
-
 // Set Horizontal/Vertical speed.
 if (x_spd &lt; xd_speed)
 {

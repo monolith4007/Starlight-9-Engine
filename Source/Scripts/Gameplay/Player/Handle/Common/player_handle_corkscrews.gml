@@ -3,7 +3,7 @@
 
 // Find nearest corkscrew:
 var cork_handle;
-cork_handle = player_collision_check(COL_MAIN_OBJECT, x, y, par_corkscrew);
+cork_handle = player_collision_check(COL_MAIN_OBJECT, MASK_MAIN, x, y, par_corkscrew);
 
 if (state == STATE_CORKSCREW || state == STATE_CORKSCREW_ROLL)
 {
@@ -58,10 +58,4 @@ else
             player_set_angle(global.gravity_angle);
         }
     }
-}
-
-// Cork animation.
-if (animation_index == "CORKSCREW")
-{
-    animation_frame += 0.05;
 }

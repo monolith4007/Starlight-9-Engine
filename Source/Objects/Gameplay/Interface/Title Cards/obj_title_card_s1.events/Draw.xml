@@ -26,7 +26,7 @@ draw_set_color(c_white);
 draw_sprite(spr_title_card_card_s1, 0, view_xview[0] + tc_card_x, view_yview[0] + (view_hview[0] / 2) - 12);
 
 // Set title card font.
-draw_set_font(global.font_title_card_s1);
+draw_set_font(global.font_title_card[1]);
 draw_set_color(c_white);
 draw_set_halign(fa_center);
 

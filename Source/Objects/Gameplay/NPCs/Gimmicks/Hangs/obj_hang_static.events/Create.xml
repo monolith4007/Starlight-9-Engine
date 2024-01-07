@@ -13,10 +13,9 @@
       <not>false</not>
       <appliesTo>.self</appliesTo>
       <arguments>
-        <argument kind="STRING">/// Init.
+        <argument kind="STRING">/// Initialize.
 event_inherited();
 type = HANG_STATIC;
-bbox = 14;
 </argument>
       </arguments>
     </action>

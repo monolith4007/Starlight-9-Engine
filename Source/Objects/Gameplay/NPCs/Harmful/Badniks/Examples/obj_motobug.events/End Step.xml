@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="2">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Movement.
+if (!in_view(id)) exit;
+
+// Horizontal:
+repeat (abs(x_speed))
+{
+    if (place_meeting(x + sign(x_speed), y, par_terrain) &amp;&amp; !place_meeting(x + sign(x_speed), y - 1, par_terrain))
+    {
+        y -= 1;
+    }
+    if (place_meeting(x + sign(x_speed), y + 2, par_terrain) &amp;&amp; !place_meeting(x + sign(x_speed), y + 1, par_terrain))
+    {
+        y += 1;
+    }
+
+    if (!place_meeting(x + sign(x_speed), y, par_terrain) &amp;&amp; !place_meeting(x + sign(x_speed), y, obj_badnik_block))
+    {
+        x += x_speed;
+    }
+    else
+    {
+        if (turn_timer == -1)
+        {
+            turn_timer = 60;
+        }
+    }
+}
+
+// Timer to change direction.
+if (turn_timer &gt; 0)
+{
+    turn_timer -= 1;
+    if (turn_timer &lt;= 0)
+    {
+        image_xscale *= -1;
+        x_speed      *= -1;
+        turn_timer    = -1;
+    }
+}
+
+// Vertical:
+repeat (abs(y_speed))
+{
+    if (place_meeting(x, y + sign(y_speed), par_solid) || (y_speed &gt;= 0 &amp;&amp; place_meeting(x, y + sign(y_speed), par_platform) &amp;&amp; !place_meeting(x, y, par_platform)))
+    {
+        y_speed = 0;
+    }
+    else
+    {
+        y += sign(y_speed);
+    }
+}
+
+if (!ground)
+{
+    y_speed = min(y_speed + 0.21875, 12);
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

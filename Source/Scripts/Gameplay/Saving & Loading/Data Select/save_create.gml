@@ -39,11 +39,11 @@ file_text_write_string(dfile, string(global.player_emeralds ^ dkey));
 file_text_writeln(dfile);
 
 // Character:
-file_text_write_string(dfile, string(global.character_index ^ dkey));
+file_text_write_string(dfile, string(global.character[0] ^ dkey));
 file_text_writeln(dfile);
 
 // CPU:
-file_text_write_string(dfile, string(global.cpu_index ^ dkey));
+file_text_write_string(dfile, string(global.character[1] ^ dkey));
 file_text_writeln(dfile);
 
 // Game completed:

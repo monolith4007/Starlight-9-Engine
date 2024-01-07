@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <resources>
   <resource name="ico_unknown" type="RESOURCE"/>
-  <resource name="ico_culling" type="RESOURCE"/>
   <resource name="ico_stage" type="RESOURCE"/>
   <resource name="ico_audio" type="RESOURCE"/>
   <resource name="ico_screen" type="RESOURCE"/>

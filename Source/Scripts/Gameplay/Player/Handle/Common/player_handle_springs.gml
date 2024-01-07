@@ -112,9 +112,9 @@ if (spring != noone)
         // Down:
         case "DOWN":
         {
-            if ((player_collision_check(COL_TOP_OBJECT,   MASK_BIG, x, y, angle, spring) && y_speed <= 0 && angle != 90 && angle != 270)
-            ||  (player_collision_check(COL_RIGHT_OBJECT, MASK_BIG, x, y, angle, spring) && x_speed >= 0 && angle == 90)
-            ||  (player_collision_check(COL_LEFT_OBJECT,  MASK_BIG, x, y, angle, spring) && x_speed <= 0 && angle == 270))
+            if ((player_collision_check(COL_TOP_OBJECT,   MASK_BIG, x, y, angle, spring) && y_speed <= 0 && (angle_relative <  45 || angle_relative > 315))
+            ||  (player_collision_check(COL_RIGHT_OBJECT, MASK_BIG, x, y, angle, spring) && x_speed >= 0 &&  angle_relative >= 45)
+            ||  (player_collision_check(COL_LEFT_OBJECT,  MASK_BIG, x, y, angle, spring) && x_speed <= 0 &&  angle_relative <= 315))
             {
                 // Animate spring:
                 spring.image_speed = 0.5;

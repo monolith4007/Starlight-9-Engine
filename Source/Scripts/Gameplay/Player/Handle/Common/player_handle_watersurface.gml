@@ -2,7 +2,7 @@
 // Used to change speeds after entering or exiting water.
 
 // Only run if there's water.
-if (STG.zone_water_height != -1)
+if (STG.zone_water_height > -1)
 {
     // Entering the water. 
     if (y > STG.zone_water_height && yprevious < STG.zone_water_height)

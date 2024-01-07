@@ -15,12 +15,6 @@
       <arguments>
         <argument kind="STRING">/// Selection.
 
-// Exit the level select screen.
-if (keyboard_check_pressed(global.key_special))
-{
-    room_fade_to(rm_data_select);
-}
-
 // Change stage / act index.
 if (keyboard_check_pressed(global.key_right))
 {
@@ -61,10 +55,10 @@ if (keyboard_check_pressed(global.key_left))
     }
 }
 
-// Play stage.
+// Go to selected stage.
 if (keyboard_check_pressed(global.key_action) || keyboard_check_pressed(global.key_start))
 {
-    room_fade_to(zonelist_levelselect(lvlselect_zone, lvlselect_act));
+    room_fade_to(level_zonelist(lvlselect_zone, lvlselect_act));
 }
 </argument>
       </arguments>

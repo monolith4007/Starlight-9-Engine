@@ -1,6 +1,6 @@
 /// audio_play(index, [volume], [pitch], [loop], [duplicate])
 // Plays the given sound effect with the given volume and pitch value.
-// If duplicate is 0, the sound will stop first if it's already playing.
+// If "duplicate" is 0, the sound will stop first if it's already playing.
 
 // Set up default argument variables:
 var index, volume, pitch, loop, duplicate, sound_id;

@@ -1,7 +1,7 @@
 # Starlight-9-Engine
 ![alt text](https://cdn.discordapp.com/attachments/1010298152106086540/1185522850229125211/Logo.png)
 
-Starlight 9 Engine (abbreviated as S9E) is a Sonic the Hedgehog framework/template for Game Maker 8.1 and a revival of the Starlight 8 Engine.
+Starlight 9 Engine (abbreviated as S9E) is a Sonic the Hedgehog framework/template for Game Maker 8.1 and a modification of the Starlight 8 Engine.
 Based on previous Sonic Dash frameworks, it is designed with simplicity in mind, whilst attempting to fix any issues these previous frameworks had, as well as remaining mostly accurate to the original Genesis Sonic games.
 
 # Features
@@ -14,11 +14,14 @@ Based on previous Sonic Dash frameworks, it is designed with simplicity in mind,
 - A selection of badniks and gimmicks from the original Genesis games.
 - Basic grinding.
 - Sonic 1's, 2's and 3's title cards.
-- Identical Data Select menu to Sonic 3's and a custom Level Select menu.
+- An identical Data Select menu to Sonic 3's, and custom title screen, options and level selection menus.
 
 # S8E => S9E Changes
 For the full list of changes between S8E and S9E, see the changelog:
 https://github.com/AkumaXP/Starlight-9-Engine/blob/main/S9E_Changelog.txt
+
+Alternatively, you can download V3.1 of S8E from here and view the differences between it and S9E:
+https://drive.google.com/file/d/1NCz-Uax4JcLz3-trludktemMbF2GelRi/view
 
 # Building
 - You can either download the .gm81 file from the "Releases" section, or you can use GmkSplitter to compile the "Source" folder from the main branch back into a .gm81 (https://github.com/Medo42/Gmk-Splitter).
@@ -48,11 +51,16 @@ For gamepad management:
   > Additional credit to everyone else that helped with the development of S8E, Sonic MAX, SonicForGMS and any other Sonic Dash based frameworks.
 - Accuracy: Sonic Retro's Physics Guide.
 - Beta testing: somerandomusername, TsukiruP.
+- S8E reupload: Sonic Help Zone.
 - Amy Rose sprites: ChelseaCatGirl, E-122-Psi, MotorRoach.
 - Modern Sonic sprites: Shinbaloonba (for the original sheet), thesped2334 (for the edited color palette).
 - Classic Sonic, Tails, Knuckles and other sprites: SEGA, Sonic Team.
+- Modified dropdash dust and basic shield sprites: VectorSatyr.
 - Music: SEGA, Sonic Mania Team, the composer of the options menu theme.
 - GmkSplitter: Medo42.
 - Various Game Maker 8.2 extensions: 8.2 Project.
 - Game Maker 8.1: Mark Overmars, YoYo Games.
 - Sonic the Hedgehog: SEGA, Sonic Team.
+
+# Usage Terms
+You're free to use S9E however you wish, just keep in mind to credit those who helped with its development.

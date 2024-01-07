@@ -145,12 +145,6 @@
       <locked>false</locked>
     </instance>
     <instance>
-      <object>obj_spring_right</object>
-      <position x="47" y="496"/>
-      <creationCode/>
-      <locked>false</locked>
-    </instance>
-    <instance>
       <object>obj_spring_up</object>
       <position x="3056" y="1344"/>
       <creationCode/>
@@ -1441,55 +1435,61 @@
       <locked>false</locked>
     </instance>
     <instance>
-      <object>obj_badnik_motobug</object>
+      <object>obj_motobug</object>
       <position x="1392" y="1136"/>
       <creationCode/>
       <locked>false</locked>
     </instance>
     <instance>
-      <object>obj_badnik_motobug</object>
+      <object>obj_motobug</object>
       <position x="2880" y="1104"/>
       <creationCode/>
       <locked>false</locked>
     </instance>
     <instance>
-      <object>obj_badnik_crabmeat</object>
+      <object>obj_crabmeat</object>
       <position x="336" y="400"/>
       <creationCode/>
       <locked>false</locked>
     </instance>
     <instance>
-      <object>obj_badnik_bubbles</object>
+      <object>obj_bubbles</object>
       <position x="528" y="400"/>
       <creationCode/>
       <locked>false</locked>
     </instance>
     <instance>
-      <object>obj_badnik_bubbles</object>
+      <object>obj_bubbles</object>
       <position x="576" y="384"/>
       <creationCode/>
       <locked>false</locked>
     </instance>
     <instance>
-      <object>obj_badnik_bubbles</object>
+      <object>obj_bubbles</object>
       <position x="624" y="368"/>
       <creationCode/>
       <locked>false</locked>
     </instance>
     <instance>
-      <object>obj_badnik_bubbles</object>
+      <object>obj_bubbles</object>
       <position x="672" y="352"/>
       <creationCode/>
       <locked>false</locked>
     </instance>
     <instance>
-      <object>obj_badnik_bubbles</object>
+      <object>obj_bubbles</object>
       <position x="720" y="336"/>
       <creationCode/>
       <locked>false</locked>
     </instance>
     <instance>
-      <object>obj_badnik_chopper</object>
+      <object>obj_collapsing_platform_test</object>
+      <position x="80" y="416"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance>
+      <object>obj_chopper</object>
       <position x="4320" y="1552"/>
       <creationCode/>
       <locked>false</locked>
@@ -1605,12 +1605,6 @@
     <instance>
       <object>obj_badnik_block</object>
       <position x="464" y="384"/>
-      <creationCode/>
-      <locked>false</locked>
-    </instance>
-    <instance>
-      <object>obj_collapsing_platform_test</object>
-      <position x="80" y="416"/>
       <creationCode/>
       <locked>false</locked>
     </instance>

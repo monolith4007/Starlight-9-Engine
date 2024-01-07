@@ -37,7 +37,7 @@ if (tc_state == 2)
 {
     if (tc_zone_position_x[0] != SCREEN_WIDTH - 16 - string_width(string(STG.zone_name)))
     {
-        tc_zone_position_x[0]  = max(SCREEN_WIDTH - 16 - string_width(string(STG.zone_name)), tc_zone_position_x[0] - 10);
+        tc_zone_position_x[0] = max(SCREEN_WIDTH - 16 - string_width(string(STG.zone_name)), tc_zone_position_x[0] - 10);
     }
 
     if (tc_zone_position_x[0] == max(SCREEN_WIDTH - 16 - string_width(string(STG.zone_name)), tc_zone_position_x[0] - 10))

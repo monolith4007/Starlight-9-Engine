@@ -1,9 +1,6 @@
 /// player_ringtoss()
 // Used to toss rings after getting hit.
 
-// Play ring toss sound:
-audio_play(SFX._player_ring_drop, SFX.sfx_volume, 1, 0, 0);
-
 // Create ring variables:
 var ring_total, ring_angle, ring_speed, ring;
 ring_total = min(global.player_rings, 32);
@@ -32,3 +29,6 @@ while (ring_total)
     }
 }
 global.player_rings = 0;
+
+// Play ring toss sound:
+audio_play(SFX._player_ring_drop, SFX.sfx_volume, 1, 0, 0);

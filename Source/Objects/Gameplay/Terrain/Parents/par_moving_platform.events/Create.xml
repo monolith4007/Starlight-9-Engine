@@ -17,8 +17,6 @@
 event_inherited();  // Call parent.
 relative_x = x;     // Relative x position.
 relative_y = y;     // Relative y position.
-previous_x = x;     // Previous x position.
-previous_y = y;     // Previous y position.
 
 x_speed    = 0;     // Horizontal speed.
 y_speed    = 0;     // Vertical speed.

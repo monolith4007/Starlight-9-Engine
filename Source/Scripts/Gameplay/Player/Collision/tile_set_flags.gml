@@ -5,11 +5,11 @@
 tile_collision_flag = argument0;
 
 // Rotation flag - sets whether the player can rotate on the calling tile or not.
-// If this is disabled, the values for the edge skip and edge exception flags are ignored.
+// If this is disabled, the edge skip and edge exception flags are ignored.
 tile_rotate_flag = argument1;
 
 // Launch flag - sets whether the player can launch off the calling tile or not (used for ramps).
-// If this is disabled, the values for the launch angle and launch direction flags are ignored.
+// If this is disabled, the launch angle and launch direction flags are ignored.
 tile_launch_flag = argument2;
 
 // Launch angle - the angle at which the player is launched off the tile.
@@ -22,8 +22,8 @@ tile_launch_angle = argument3;
 // If you don't want the player to launch in a specific direction, set it to 0.
 tile_launch_direction = argument4;
 
-// Ceiling movement flag - sets whether the player can adapt and move on the ceiling.
-// An example is when the player jumps and grabs onto quarter ellipses above them.
+// Ceiling movement flag - sets whether the player can attach to the ceiling they're colliding with.
+// This does not work for objects that are obstacles.
 tile_ceiling_movement = argument5;
 
 // Edge skip flag - sets whether the edge sensor collision check should be skipped or not, which is used to receive a new angle value.
@@ -32,5 +32,5 @@ tile_ceiling_movement = argument5;
 // Because of this, you should only turn it on for such types of terrain.
 tile_edge_skip = argument6;
 
-// Edge exception flag - enabling this prevents the player from colliding with terrain at angles of 90 and 270 degrees.
+// Edge exception flag - enabling this prevents the player from colliding with terrain at relative angles of 90 & 270 degrees.
 tile_edge_exception = argument7;

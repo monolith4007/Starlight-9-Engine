@@ -1,5 +1,5 @@
 /// player_handle_list()
-// Stores all of the object handling scripts for the player.
+// Stores all of the player's NPC handling scripts.
 player_handle_launch_sensor();
 player_handle_falling_tiles();
 player_handle_layers();

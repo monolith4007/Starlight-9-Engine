@@ -27,9 +27,6 @@ if (launch_sensor != noone)
                 y_speed = -dsin(angle_relative) * x_speed;
                 x_speed =  dcos(angle_relative) * x_speed;
                 ground  =  false;
-
-                // Set new angles again just to make sure nothing changes:
-                player_set_angle(sign(x_speed) * launch_sensor.launch_angle);
             }
         }
     }

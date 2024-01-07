@@ -13,7 +13,7 @@
       <not>false</not>
       <appliesTo>.self</appliesTo>
       <arguments>
-        <argument kind="STRING">/// Magnetization.
+        <argument kind="STRING">/// Movement.
 
 // Find nearest player:
 var player;
@@ -31,6 +31,7 @@ if (player != noone)
     // If the player no longer has the electric shield, stop accelerating and create a dropped ring.
     if (player.shield_index != SHIELD_ELECTRIC)
     {
+        cancel = true;
         instance_destroy();
     }
 

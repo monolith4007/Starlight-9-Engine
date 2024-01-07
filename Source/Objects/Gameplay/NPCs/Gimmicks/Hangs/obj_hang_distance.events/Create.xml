@@ -13,10 +13,9 @@
       <not>false</not>
       <appliesTo>.self</appliesTo>
       <arguments>
-        <argument kind="STRING">/// Init.
+        <argument kind="STRING">/// Initialize.
 event_inherited();
 type     = HANG_DISTANCE;
-bbox     = 14;
 distance = 32;
 </argument>
       </arguments>

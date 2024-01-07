@@ -18,7 +18,7 @@ if (bubble_pop &amp;&amp; other.shield_index != SHIELD_BUBBLE &amp;&amp; other.s
 {
     other.drown_timer = 1800;
     other.state       = STATE_BREATH;
-    audio_play(SFX._player_air, SFX.sfx_volume, 1, 0, 0);
+    audio_play(SFX._player_breathe_air, SFX.sfx_volume, 1, 0, 0);
     instance_destroy();
 }
 </argument>

@@ -13,7 +13,9 @@
       <not>false</not>
       <appliesTo>.self</appliesTo>
       <arguments>
-        <argument kind="STRING">/// Check if another instance of this object exists on either side.
+        <argument kind="STRING">/// Toggle handle type.
+
+// Check if another 'hang' exists on either side:
 if (!place_meeting(x - 1, y, par_hang) &amp;&amp; place_meeting(x + 1, y, par_hang))
 {
     left   = true;

@@ -16,7 +16,7 @@
         <argument kind="STRING">/// Check if a gamepad is connected.
 // We do this every so often in case we plug one in/out mid-game.
 gmp_exists = joystick_exists(0);
-alarm[0]   = 300;
+alarm[0]   = 600;
 </argument>
       </arguments>
     </action>

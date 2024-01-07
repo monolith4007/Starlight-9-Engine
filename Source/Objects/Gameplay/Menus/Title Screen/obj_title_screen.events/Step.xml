@@ -13,9 +13,28 @@
       <not>false</not>
       <appliesTo>.self</appliesTo>
       <arguments>
-        <argument kind="STRING">/// Move the logo up and down.
+        <argument kind="STRING">/// Movement &amp; animation.
+
+// Move the emblem up and down.
 title_y += 4;
-y        = (SCREEN_HEIGHT / 2) + lengthdir_y(8, title_y);
+y        = (SCREEN_HEIGHT / 2) + lengthdir_y(4, title_y);
+
+// Move the view horizontally for the parallax effect.
+view_xview[0] += 8;
+
+// Handle variable animation speed (credit to VectorSatyr).
+if (image_index &lt; 1)
+{
+    image_speed = 0.03;
+}
+else if (image_index &lt; 9)
+{
+    image_speed = 1;
+}
+else
+{
+    image_speed = 0.15;
+}
 </argument>
       </arguments>
     </action>
@@ -32,49 +51,47 @@ y        = (SCREEN_HEIGHT / 2) + lengthdir_y(8, title_y);
       <appliesTo>.self</appliesTo>
       <arguments>
         <argument kind="STRING">/// Change menu option.
-
-// Run only if we can interact with the title menu.
-if (title_menu_active)
+if (title_active)
 {
     // Change options.
     if (keyboard_check_pressed(global.key_right))
     {
-        if (title_menu_option &lt; 2)
+        if (title_option &lt; 2)
         {
-            title_menu_option += 1;
+            title_option += 1;
         }
         else
         {
-            title_menu_option = 0;
+            title_option = 0;
         }
         audio_play(SFX._general_switch, SFX.sfx_volume, 1, 0, 0);
     }
     if (keyboard_check_pressed(global.key_left))
     {
-        if (title_menu_option &gt; 0)
+        if (title_option &gt; 0)
         {
-            title_menu_option -= 1;
+            title_option -= 1;
         }
         else
         {
-            title_menu_option = 2;
+            title_option = 2;
         }
         audio_play(SFX._general_switch, SFX.sfx_volume, 1, 0, 0);
     }
 
-    // String.
-    switch (title_menu_option)
+    // Set option string.
+    switch (title_option)
     {
-        case 0: title_menu_string = "START"; break;
-        case 1: title_menu_string = "OPTIONS"; break;
-        case 2: title_menu_string = "EXIT"; break;
+        case 0: title_string = "START";   break;
+        case 1: title_string = "OPTIONS"; break;
+        case 2: title_string = "EXIT";    break;
     }
 
     // Choose an option.
     if (keyboard_check_pressed(global.key_action) || keyboard_check_pressed(global.key_start))
     {
-        title_menu_active = false;
-        switch (title_menu_option)
+        title_active = false; // Disable menu control.
+        switch (title_option)
         {
             case 0:
             {

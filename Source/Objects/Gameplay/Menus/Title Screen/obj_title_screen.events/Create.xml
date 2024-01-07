@@ -14,14 +14,14 @@
       <appliesTo>.self</appliesTo>
       <arguments>
         <argument kind="STRING">/// Variables.
-title_y           = 0;
-title_menu_option = 0;
-title_menu_active = false;
-title_menu_string = "START";
-alarm[0]          = 15;
+title_y      = 0;
+title_option = 0;
+title_active = false;
+title_string = "START";
+alarm[0]     = 15;
 
 // Move logo to the center of the screen.
-x = SCREEN_WIDTH / 2;
+x = SCREEN_WIDTH  / 2;
 y = SCREEN_HEIGHT / 2;
 </argument>
       </arguments>

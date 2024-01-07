@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <resources>
   <resource name="Examples" type="GROUP"/>
-  <resource filename="Misc_" name="Misc." type="GROUP"/>
   <resource name="Projectiles" type="GROUP"/>
+  <resource filename="Misc_" name="Misc." type="GROUP"/>
 </resources>

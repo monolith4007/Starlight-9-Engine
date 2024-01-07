@@ -4,17 +4,12 @@ var badnik;
 badnik = instance_nearest(x, y, par_badnik);
 if (badnik != noone)
 {
-    // Main collision:
-    if (player_collision_check(COL_MAIN_OBJECT, x, y, badnik))
+    // General collision:
+    if (player_collision_check(COL_MAIN_OBJECT, MASK_MAIN, x, y, badnik))
     {
-        if ((state == STATE_JUMP && amy_hammer_attack == 0) || state == STATE_ROLL || state == STATE_SPINDASH || state == STATE_GLIDE || state == STATE_SLIDE || state == STATE_HOMING
+        if (state == STATE_JUMP || state == STATE_ROLL || state == STATE_SPINDASH || state == STATE_GLIDE || state == STATE_SLIDE || state == STATE_HOMING
         || invincibility_type == 2 || amy_hammer_attack == 2 || (amy_hammer_attack == 3 && animation_frame < 5) || (amy_hammer_attack == 1 && animation_frame > 5) || boosting)
         {
-            // Destroy the badnik:
-            player_add_score(badnik.x, badnik.y);
-            boost_amount += 20;
-            with (badnik) instance_destroy();
-
             // Regular rebound:
             if (state != STATE_HOMING)
             {
@@ -59,8 +54,15 @@ if (badnik != noone)
                 y_speed        = -6;
                 jump_completed = false;
             }
+
+            // Increase score & boost meter:
+            player_add_score(badnik.x, badnik.y);
+            boost_amount += 20;
+
+            // Destroy the badnik:
+            with (badnik) instance_destroy();
         }
-        else
+        else // Get hit.
         {
             if (invincibility_timer <= 0)
             {
@@ -69,16 +71,20 @@ if (badnik != noone)
         }
     }
 
-    // Top collision (flying):
-    if (player_collision_check(COL_TOP_OBJECT, MASK_BIG, x, y, angle, badnik) && state == STATE_FLY && invincibility_type != 2)
+    // Check separately for collision whilst flying:
+    if (state == STATE_FLY && invincibility_type < 2)
     {
-        if (y_speed < 0)
+        // Check if the blades of Tails' tails have hit the badnik:
+        if (player_collision_check(COL_TOP_OBJECT, MASK_BIG, x, y, angle, badnik))
         {
+            // Rebound if moving upwards:
+            if (y_speed < 0) y_speed -= sign(y_speed);
+            
+            // Destroy the badnik:
             player_add_score(badnik.x, badnik.y);
             with (badnik) instance_destroy();
-            y_speed -= sign(y_speed); // Rebound.
         }
-        else
+        else if (player_collision_check(COL_MAIN_OBJECT, MASK_MAIN, x, y, badnik)) // Otherwise, get hit.
         {
             if (invincibility_timer <= 0)
             {

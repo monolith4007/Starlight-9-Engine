@@ -2,11 +2,8 @@
 // Knuckles' climbing ability.
 if (state == STATE_CLIMB)
 {
-    // Keep our horizontal speed at 0.
-    x_speed = 0;
-
-    // If the x position doesn't match the position given in the variable climb_ox, stop climbing. We do the same if we ground or our angle changes.
-    if (x != climb_ox || ground || angle != 0)
+    // If we ground or our angle changes, stop climbing.
+    if (ground || angle != global.gravity_angle)
     {
         if (ground)
         {
@@ -16,7 +13,6 @@ if (state == STATE_CLIMB)
         {
             state = STATE_GLIDE_DROP;
         }
-        climb_ox = 0;
     }
 
     // If we're not grabbing onto anything, or we're grabbing onto an obstacle, fall.
@@ -105,7 +101,7 @@ if (state == STATE_CLIMB)
     }
 }
 
-// Reset ledge climb flag when not climbing.
+// Reset ledge grab flag when not climbing.
 if (state != STATE_CLIMB && ledge_grabbing)
 {
     ledge_grabbing = false;

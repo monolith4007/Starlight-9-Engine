@@ -13,7 +13,7 @@ if (state == STATE_HURT)
 }
 else if (state != STATE_FLY)
 {
-    y_acceleration = y_accel_common;
+    y_acceleration = 0.21875;
 }
 jump_strength = -6.5 + (character_id == CHAR_KNUCKLES) * 0.5;
 jump_release  = -4;
@@ -21,10 +21,10 @@ jump_release  = -4;
 // Rolling:
 roll_deceleration = 0.125;
 roll_friction     = 0.0234375;
-roll_decel_up     = 0.078125;
-roll_decel_down   = 0.3125;
+roll_fric_up      = 0.078125;
+roll_fric_down    = 0.3125;
 
-// Superspeed modification:
+// Superspeed modification.
 if (superspeed_timer > 0)
 {
     x_speed_top    *= 2;
@@ -32,7 +32,7 @@ if (superspeed_timer > 0)
     roll_friction  *= 2;
 }
 
-// Underwater modification:
+// Underwater modification.
 if (underwater)
 {
     // Horizontal:

@@ -39,16 +39,31 @@ global.player_lives     = 3; // Amount of lives the player has.
 global.player_emeralds  = 0; // Amount of chaos emeralds the player has collected.
 
 // Level:
-global.player_id[0]    = noone; // The main player.
-global.player_id[1]    = noone; // The CPU player.
-global.character_index = 0;     // The character index of the main player.
-global.cpu_index       = 0;     // The character index of the CPU player.
-global.limit_time      = true;  // Toggles the 'time over' event when 10 in-game minutes have passed.
-global.gravity_angle   = 0;     // The angle at which the player's gravity acts towards.
-global.checkpoint_x    = -1;    // Horizontal position the player(s) should respawn at.
-global.checkpoint_y    = -1;    // Vertical position the player(s) should respawn at.
-global.checkpoint_t    = 0;     // The value the game timer should be set to after respawning.
-global.goal_style      = 1;     // The player's method of completing the level (0 = None, 1 = The player moves to the right of the screen, 2 = The player strikes a pose).
+global.player_id[0]  = noone; // The ID of the main player.
+global.player_id[1]  = noone; // The ID of the CPU player.
+global.character[0]  = 0;     // The character of the main player.
+global.character[1]  = 0;     // The character of the CPU player.
+global.limit_time    = true;  // Triggers the 'time over' event when 10 in-game minutes have passed.
+global.gravity_angle = 0;     // The angle at which the player's gravity acts towards.
+global.checkpoint_x  = -1;    // Horizontal position the player(s) should respawn at.
+global.checkpoint_y  = -1;    // Vertical position the player(s) should respawn at.
+global.checkpoint_t  = 0;     // The value the game timer should be set to after respawning.
+global.goal_style    = 1;     // The player's method of completing the level (0 = None, 1 = The player moves to the right of the screen, 2 = The player strikes a pose).
+
+// Stage names:
+/*global.stage_names = ds_map_create();
+ds_map_add(global.stage_names, rm_playground,   "PLAYGROUND");
+ds_map_add(global.stage_names, rm_playground_2, "PLAYGROUND");
+
+// Stage acts:
+global.stage_acts = ds_map_create();
+ds_map_add(global.stage_names, rm_playground,   1);
+ds_map_add(global.stage_names, rm_playground_2, 2);
+
+// Stage list:
+global.stage_list = ds_list_create();
+ds_list_add(global.stage_list, rm_playground);
+ds_list_add(global.stage_list, rm_playground_2);*/
 
 // Data select:
 global.zone_id        = 0;             // ID of the current zone.
@@ -57,20 +72,20 @@ global.first_zone     = rm_playground; // The first zone in the game. See the co
 global.previous_room  = -1;            // Stores the previous room.
 
 // Rendering:
-global.screen_scale   = 1;     // The screen scale value.
-global.use_vsync      = false; // Sets whether VSync should be used or not.
-global.rotation_style = 0;     // The method of visually rotating the player (0 for classic, 1 for smooth).
-global.use_trail      = true;  // Sets whether the trail effect should be used for the player or not.
-global.display_hud    = true;  // Sets whether the HUD should be visible or not.
+global.screen_scale    = 1;     // The screen scale value.
+global.use_vsync       = false; // Sets whether VSync should be used or not.
+global.smooth_rotation = false; // Sets whether the player's visual rotation should be smooth like Sonic Mania or not like the original Genesis games.
+global.use_trail       = false; // Sets whether the trail effect should be used for the player or not.
+global.display_hud     = true;  // Sets whether the HUD should be visible or not.
 
 // Fonts:
 global.font_main          = font_add_sprite(spr_font_main,          ord("!"), true,  1);
 global.font_lives         = font_add_sprite(spr_font_lives,         ord("0"), false, 0);
 global.font_hud           = font_add_sprite(spr_font_numbers,       ord("0"), false, 0);
 global.font_dataselect    = font_add_sprite(spr_font_dataselect,    ord("0"), false, 0);
-global.font_title_card_s3 = font_add_sprite(spr_font_title_card_s3, ord("A"), true,  0);
-global.font_title_card_s2 = font_add_sprite(spr_font_title_card_s2, ord("A"), true,  0);
-global.font_title_card_s1 = font_add_sprite(spr_font_title_card_s1, ord("A"), true,  2);
+global.font_title_card[3] = font_add_sprite(spr_font_title_card_s3, ord("A"), true,  0);
+global.font_title_card[2] = font_add_sprite(spr_font_title_card_s2, ord("A"), true,  0);
+global.font_title_card[1] = font_add_sprite(spr_font_title_card_s1, ord("A"), true,  2);
 
 // Create the save directory if missing.
 if (!directory_exists(working_directory + "\data\save"))
@@ -84,7 +99,7 @@ save_reload_all();
 // Set each room view automatically (credit to TsukiruP).
 var room_id;
 room_id = room_first;
-while (room_id != -1)
+while (room_id &gt; -1)
 {
     room_set_view_enabled(room_id, true);
     room_set_view(room_id, 0, true, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, -1, -1, noone);

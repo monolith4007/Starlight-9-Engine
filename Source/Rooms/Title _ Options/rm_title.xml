@@ -4,13 +4,13 @@
   <size height="270" width="480"/>
   <grid>
     <isometric>false</isometric>
-    <snap x="32" y="32"/>
+    <snap x="16" y="16"/>
   </grid>
   <speed>60</speed>
   <persistent>false</persistent>
   <creationCode/>
-  <backgroundColor>000000</backgroundColor>
-  <drawBackgroundColor>true</drawBackgroundColor>
+  <backgroundColor>0000FF</backgroundColor>
+  <drawBackgroundColor>false</drawBackgroundColor>
   <clearViewBackground>true</clearViewBackground>
   <backgrounds>
     <backgroundDef>
@@ -96,6 +96,12 @@
   </backgrounds>
   <enableViews>false</enableViews>
   <instances>
+    <instance>
+      <object>obj_parallax_ghz</object>
+      <position x="16" y="0"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
     <instance>
       <object>obj_title_screen</object>
       <position x="240" y="135"/>

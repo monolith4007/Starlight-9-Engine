@@ -16,7 +16,7 @@
         <argument kind="STRING">/// Variables.
 type     = HANG_STATIC; // Hang type (STATIC, SHIMMY or DISTANCE).
 distance = 0;           // Distance to next grab handle. Only used if type equals DISTANCE.
-bbox     = 14;          // Used to position the player's y position. Usually 14.
+offset   = 14;          // Used to adjust the player's Y position. Default is 14.
 left     = false;       // Is it the most left handle?
 right    = false;       // Is it the most right handle?
 middle   = false;       // Is it a middle handle?

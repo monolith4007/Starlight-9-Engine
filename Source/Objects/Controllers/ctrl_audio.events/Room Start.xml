@@ -54,7 +54,7 @@ switch (room)
     case rm_playground:
     case rm_playground_2:
     {
-        music_play(SFX._music_test);
+        music_play(SFX._music_test, 14.400, 173.10);
         break;
     }
 }

@@ -4,12 +4,12 @@ switch (room)
 {
     case rm_playground:
     {
-        stage_set_data("ENGINE TEST", 1, -1, -1, room_height, obj_parallax_ghz);
+        stage_set_data("ENGINE TEST", 1, 2, -1, room_height, obj_parallax_ghz);
         break;
     }
     case rm_playground_2:
     {
-        stage_set_data("ENGINE TEST", 2, -1, -1, room_height, obj_parallax_ehz);
+        stage_set_data("ENGINE TEST", 2, 3, -1, room_height, obj_parallax_ehz);
         global.game_completed = true; // Enable the game completion flag.
         break;
     }
@@ -20,14 +20,12 @@ switch (room)
 }
 
 // Create stage elements:
-instance_create(0, 0, ctrl_culling);
 instance_create(0, 0, obj_hud);
-
-if (zone_background != -1)
+if (zone_background > -1)
 {
     instance_create(0, 0, zone_background);
 }
-if (zone_water_height != -1)
+if (zone_water_height > -1)
 {
     instance_create(0, 0, obj_water);
 }

@@ -17,17 +17,17 @@
 if (cam_handle == global.player_id[0])
 {
     // Get shifting direction:
-    var shift_direction;
-    shift_direction = (cam_handle.state == STATE_CROUCH) - (cam_handle.state == STATE_LOOKUP);
+    var shift_dir;
+    shift_dir = (cam_handle.state == STATE_CROUCH) - (cam_handle.state == STATE_LOOKUP);
 
-    // Change look timer:
-    if (shift_direction != 0)
+    // Increment look timer:
+    if (shift_dir != 0)
     {
-        cam_look_timer = clamp(cam_look_timer + shift_direction, -120, 120);
+        cam_look_timer = clamp(cam_look_timer + shift_dir, -120, 120);
     }
 
     // Reset look timer:
-    if (sign(cam_look_timer) != shift_direction)
+    if (sign(cam_look_timer) != shift_dir)
     {
         cam_look_timer = 0;
     }
@@ -41,7 +41,7 @@ if (cam_handle == global.player_id[0])
     {
         cam_y_shift = min(cam_y_shift + 2, 88);
     }
-    else // Shift the camera back to the center.
+    else if (cam_y_shift != 0) // Shift the camera back to the center.
     {
         cam_y_shift = max(abs(cam_y_shift) - 2, 0) * sign(cam_y_shift);
     }
@@ -49,9 +49,9 @@ if (cam_handle == global.player_id[0])
     // Shift the camera horizontally if the player is using the peelout move.
     if ((cam_handle.state == STATE_PEELOUT &amp;&amp; cam_handle.peelout_timer &gt; 15) || cam_handle.peelout_flag)
     {
-        cam_x_shift = approach(cam_x_shift, cam_handle.animation_direction * 64, 2);
+        cam_x_shift = min(abs(cam_x_shift) + 2, 64) * cam_handle.animation_direction;
     }
-    else
+    else if (cam_x_shift != 0)
     {
         cam_x_shift = max(abs(cam_x_shift) - 2, 0) * sign(cam_x_shift);
     }
@@ -78,7 +78,7 @@ else if (cam_handle != noone)
       <appliesTo>.self</appliesTo>
       <arguments>
         <argument kind="STRING">/// Camera movement.
-var border_left, border_right, border_top, border_bottom, speed_cap, view_xhalf, view_yhalf;
+var border_left, border_right, border_top, border_bottom, view_xhalf, view_yhalf;
 
 // Update borders.
 border_left   = cam_x - 8;
@@ -89,19 +89,16 @@ border_bottom = cam_y + 32;
 // Player camera handling:
 if (cam_handle == global.player_id[0])
 {
-    // Set speed cap:
-    speed_cap = 16;
-
     // Move the camera horizontally.
     if (alarm[0] == -1)
     {
         if (cam_handle.x &lt; border_left)
         {
-            cam_x -= min(border_left - cam_handle.x, speed_cap);
+            cam_x -= min(border_left - cam_handle.x, 16);
         }
         else if (cam_handle.x &gt; border_right)
         {
-            cam_x += min(cam_handle.x - border_right, speed_cap);
+            cam_x += min(cam_handle.x - border_right, 16);
         }
     }
 
@@ -113,49 +110,41 @@ if (cam_handle == global.player_id[0])
         {
             if (cam_handle.y &lt; border_top)
             {
-                cam_y -= min(border_top - cam_handle.y, speed_cap);
+                cam_y -= min(border_top - cam_handle.y, 16);
             }
             else if (cam_handle.y &gt; border_bottom)
             {
-                cam_y += min(cam_handle.y - border_bottom, speed_cap);
+                cam_y += min(cam_handle.y - border_bottom, 16);
             }
         }
         else // While grounded.
         {
-            if (cam_handle.y &lt; cam_y)
+            if (cam_handle.y != cam_y)
             {
-                cam_y -= min(cam_y - cam_handle.y, speed_cap);
-            }
-            else if (cam_handle.y &gt; cam_y)
-            {
-                cam_y += min(cam_handle.y - cam_y, speed_cap);
+                if (abs(cam_handle.y - cam_handle.yprevious) &lt;= 6)
+                {
+                    cam_y += clamp(cam_handle.y - cam_y, -6, 6);
+                }
+                else
+                {
+                    cam_y += clamp(cam_handle.y - cam_y, -16, 16);
+                }
             }
         }
     }
 }
 else if (cam_handle != noone) // General camera handling.
 {
-    // Set speed cap:
-    speed_cap = 6;
-
-    // Horizontal movement:
-    if (cam_handle.x &lt; cam_x)
+    // Move the camera horizontally.
+    if (cam_handle.x != cam_x)
     {
-        cam_x -= min(cam_x - cam_handle.x, speed_cap);
-    }
-    else if (cam_handle.x &gt; cam_x)
-    {
-        cam_x += min(cam_handle.x - cam_x, speed_cap);
+        cam_x += clamp(cam_handle.x - cam_x, -6, 6);
     }
 
-    // Vertical movement:
-    if (cam_handle.y &lt; cam_y)
+    // Move the camera vertically.
+    if (cam_handle.y != cam_y)
     {
-        cam_y -= min(cam_y - cam_handle.y, speed_cap);
-    }
-    else if (cam_handle.y &gt; cam_y)
-    {
-        cam_y += min(cam_handle.y - cam_y, speed_cap);
+        cam_y += clamp(cam_handle.y - cam_y, -6, 6);
     }
 }
 
@@ -165,7 +154,7 @@ view_yhalf = SCREEN_HEIGHT / 2;
 x = clamp(x, bound_left + view_xhalf, bound_right - view_xhalf);
 y = clamp(y, bound_top + view_yhalf, bound_bottom - view_yhalf);
 
-// Set position, floor the camera values to prevent jittering.
+// Set position; floor the camera values to prevent jittering.
 x = floor(cam_x + cam_x_shift);
 y = floor(cam_y + cam_y_shift);
 </argument>

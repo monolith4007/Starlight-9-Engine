@@ -9,14 +9,14 @@ if (ground)
     // Moving platforms:
     if (platform_id != noone)
     {
-        x += platform_id.x - platform_id.previous_x;
-        y  = platform_id.y - platform_id.sprite_yoffset - platform_id.platform_offset;
+        x += platform_id.x - platform_id.xprevious;
+        y += platform_id.y - platform_id.yprevious;
     }
 
     // Swinging platforms:
     if (swing_id != noone)
     {
-        x += swing_id.x - swing_id.x_previous;
-        y  = swing_id.y - swing_id.sprite_yoffset - swing_id.platform_offset;
+        x += swing_id.x - swing_id.xprevious;
+        y += swing_id.y - swing_id.yprevious;
     }
 }

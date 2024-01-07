@@ -6,7 +6,7 @@
   <resource name="spr_knuckles_walk" type="RESOURCE"/>
   <resource name="spr_knuckles_run" type="RESOURCE"/>
   <resource name="spr_knuckles_spring" type="RESOURCE"/>
-  <resource name="spr_knuckles_skid" type="RESOURCE"/>
+  <resource name="spr_knuckles_brake" type="RESOURCE"/>
   <resource name="spr_knuckles_push" type="RESOURCE"/>
   <resource name="spr_knuckles_roll" type="RESOURCE"/>
   <resource name="spr_knuckles_spindash" type="RESOURCE"/>

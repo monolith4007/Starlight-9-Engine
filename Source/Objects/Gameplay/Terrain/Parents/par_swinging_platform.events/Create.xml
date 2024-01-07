@@ -21,7 +21,6 @@ angle_mov  = angle_val;
 _x         = x;
 _y         = y - (chain_size * chains);
 angle_spd  = swing_speed;
-x_previous = x;
 x_relative = x;
 y_relative = y;
 </argument>

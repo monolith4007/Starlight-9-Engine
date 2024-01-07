@@ -26,7 +26,7 @@ draw_set_color(c_white);
 draw_sprite(spr_title_card_banner_s3, -1, floor(view_xview[0] + tc_banner_position_x), floor(view_yview[0] + tc_banner_position_y));
 
 // Zone Name:
-draw_set_font(global.font_title_card_s3);
+draw_set_font(global.font_title_card[3]);
 draw_text(view_xview[0] + tc_zone_position_x[0], view_yview[0] + tc_zone_position_y, string(STG.zone_name));
 draw_text(view_xview[0] + tc_zone_position_x[1], view_yview[0] + tc_zone_position_y, string("#ZONE"));
 

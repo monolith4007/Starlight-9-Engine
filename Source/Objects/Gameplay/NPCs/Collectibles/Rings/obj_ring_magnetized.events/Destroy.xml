@@ -13,13 +13,16 @@
       <not>false</not>
       <appliesTo>.self</appliesTo>
       <arguments>
-        <argument kind="STRING">/// Create a dropped ring.
-with (instance_create(x, y, obj_ring))
+        <argument kind="STRING">/// Create a dropped ring if applicable.
+if (cancel)
 {
-    lifespan = 256;
-    y_speed  = other.vspeed / 2;
-    x_speed  = other.hspeed / 2;
-    motion   = true;
+    with (instance_create(x, y, obj_ring))
+    {
+        lifespan = 256;
+        y_speed  = other.vspeed / 2;
+        x_speed  = other.hspeed / 2;
+        motion   = true;
+    }
 }
 </argument>
       </arguments>

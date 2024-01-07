@@ -4,15 +4,15 @@ var maskTemp, colTest;
 switch (argument[0])
 {
     // Main sensor.
-    // Usage: player_collision_check(COL_MAIN, x, y);
+    // Usage: player_collision_check(COL_MAIN, mask, x, y);
     case COL_MAIN:
     {
         // Store current mask and switch it.
         maskTemp   = mask_index;
-        mask_index = MASK_MAIN;
+        mask_index = argument[1];
 
         // Test collision:
-        colTest = player_collision(floor(argument[1]), floor(argument[2]), collision_layer);
+        colTest = player_collision(floor(argument[2]), floor(argument[3]), collision_layer);
 
         // Restore previous mask.
         mask_index = maskTemp;
@@ -48,15 +48,15 @@ switch (argument[0])
     // ########################################################################################################################## //
 
     // Main sensor (object).
-    // Usage: player_collision_check(COL_MAIN_OBJECT, x, y, object);
+    // Usage: player_collision_check(COL_MAIN_OBJECT, mask, x, y, object);
     case COL_MAIN_OBJECT:
     {
         // Store current mask and switch it.
         maskTemp   = mask_index;
-        mask_index = MASK_MAIN;
+        mask_index = argument[1];
 
         // Test collision:
-        colTest = instance_place(floor(argument[1]), floor(argument[2]), argument[3]);
+        colTest = instance_place(floor(argument[2]), floor(argument[3]), argument[4]);
 
         // Restore previous mask.
         mask_index = maskTemp;

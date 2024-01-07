@@ -19,7 +19,7 @@
 x_allow        = true;     // Allows horizontal movement.
 x_speed        = 0;        // The current horizontal speed.
 x_speed_top    = 6;        // Horizontal top speed while on flat ground.
-x_speed_max    = 16;       // Fastest the player can move.
+x_speed_max    = 16;       // Fastest the player can move horizontally.
 x_acceleration = 0.046875; // Horizontal acceleration on ground.
 x_deceleration = 0.5;      // Horizontal deceleration on ground.
 x_speed_limit  = false;    // Limits the horizontal speed.
@@ -27,9 +27,8 @@ x_speed_limit  = false;    // Limits the horizontal speed.
 // Vertical movement:
 y_allow        = true;    // Allows vertical movement.
 y_speed        = 0;       // The current vertical speed.
-y_speed_max    = 16;      // Fastest the player can fall.
+y_speed_max    = 16;      // Fastest the player can move vertically.
 y_acceleration = 0.21875; // Force of gravity applied to the player.
-y_accel_common = 0.21875; // Stores the default gravity value in case we change it.
 y_speed_limit  = false;   // Limits the vertical speed.
 
 // Collision:
@@ -39,7 +38,7 @@ col_launch_direction = 1;     // Checks if the player is facing in the same dire
 col_rotate_flag      = false; // Checks if the player can rotate on the tile they're moving on.
 col_edge_skip        = false; // Skips the edge sensor collision check to prevent collision issues with certain tiles after landing on them (such as quarter ellipes).
 col_edge_exception   = false; // Prevents the player from horizontally colliding with certain tiles at angles of 90 and 270 degrees.
-col_ceiling_movement = false; // Checks if the player can move on ceilings.
+col_ceiling_movement = false; // Checks if the player can attach to ceilings.
 
 // Terrain:
 ground           = false; // Checks if the player is on the ground.
@@ -52,7 +51,7 @@ disable_wallstop = false; // Flag for whether the player can horizontally collid
 // Flags:
 state               = STATE_DEFAULT; // The player's current state.
 input_lock_timer    = 0;             // Locks the player's inputs (used for slopes &amp; springs).
-tunnel_lock         = false;         // Locks the player when inside a tunnel.
+tunnel_lock         = false;         // Locks the player's state to the rolling one when inside a tunnel.
 jump_action         = false;         // Allows the player to perform any special actions while jumping.
 score_multiplier    = 0;             // Score multiplier when defeating badniks.
 shield_index        = 0;             // The player's current shield.
@@ -78,13 +77,13 @@ jump_completed = false; // Checks if the player has completed their jump.
 jump_lock      = false; // Disables horizontal input when jumping after rolling.
 
 // Spindash:
-spindash_strength = 0; // Current strength of the spindash.
+spindash_charge = 0; // Current charge of the spindash.
 
 // Rolling:
 roll_deceleration = 0.125;     // Rolling deceleration.
 roll_friction     = 0.0234375; // Friction while rolling.
-roll_decel_up     = 0.078125;  // Deceleration while rolling up slopes.
-roll_decel_down   = 0.3125;    // Deceleration while rolling down slopes.
+roll_fric_up      = 0.078125;  // Friction while rolling up slopes.
+roll_fric_down    = 0.3125;    // Friction while rolling down slopes.
 roll_rebounce     = false;     // Checks if the player should fully rebound off a badnik/monitor when falling after rolling.
 
 // Balancing:
@@ -96,7 +95,6 @@ hang_type     = 0; // Grab type, see the hang scripts for more information.
 hang_distance = 0; // How far we can travel.
 hang_move_dir = 0; // Checks which direction we're moving towards if the hang type is DISTANCE.
 hang_x        = 0; // Our horizontal hanging position.
-hang_y        = 0; // Our vertical hanging position.
 
 // Pushing:
 push_timer     = 0; // Used to trigger pushing state.
@@ -125,9 +123,9 @@ cpu_offscreen_timer = 300; // Keeps track of how long the CPU has been offscreen
       <not>false</not>
       <appliesTo>.self</appliesTo>
       <arguments>
-        <argument kind="STRING">/// Character specific variables.
+        <argument kind="STRING">/// Character-specific variables.
 
-// Sonic:
+// Classic Sonic:
 dropdash_state = 0;     // Current dropdash state (0 = Null, 1 = Charging, 2 = Ready).
 dropdash_timer = 20;    // The time it takes to charge the dropdash.
 peelout_flag   = false; // Used to keep Sonic in his figure 8 animation after performing it.
@@ -147,15 +145,14 @@ tails_tail_direction = 1;     // Direction of the tail.
 glide_top_speed    = 24;       // Fastest Knuckles can move horizontally while gliding.
 glide_acceleration = 0.015625; // Knuckles' horizontal acceleration while gliding.
 glide_gravity      = 0.125;    // The gravity used while gliding.
-glide_crouch_timer = 15;       // How long knuckles stays in his crouched state (after a drop)
-glide_turn_speed   = 0;        // Special variable that stores Knuckles' speed when performing a glide turn.
-glide_turn_angle   = 0;        // Special variable that stores Knuckles' angle when performing a glide turn.
-climb_ox           = 0;        // Variable that stores Knuckles' X position when grabbing onto a wall. If his X position is different to this variable, he stops climbing.
+glide_crouch_timer = 15;       // How long Knuckles stays in his crouched state after a drop.
+glide_turn_speed   = 0;        // Stores Knuckles' speed when performing a glide turn.
+glide_turn_angle   = 0;        // Stores Knuckles' angle when performing a glide turn.
 climb_speed        = 1;        // How fast Knuckles can climb up a wall.
-ledge_grabbing     = false;    // Checks if Knuckles climbing a ledge.
+ledge_grabbing     = false;    // Checks if Knuckles is climbing a ledge.
 
 // Amy:
-amy_hammer_attack = 0; // Sets Amy's hammer attack (0 = No attack, 1 = Hammer punch, 2 = Hammer spin, 3 = Hammer air dash, 4 = Hammer flip).
+amy_hammer_attack = 0; // Stores Amy's hammer attack (0 = No attack, 1 = Hammer punch, 2 = Hammer spin, 3 = Hammer air dash, 4 = Hammer flip).
 
 // Modern Sonic:
 homing_mode     = 0;     // Set the homing mode (0 = Normal, 1 = Utopia like - Modern Sonic doesn't come to a full stop after homing into a badnik or spring).
@@ -195,16 +192,19 @@ input_action_pressed  = false;
 input_special_pressed = false;
 input_swap_pressed    = false;
 
-// Create the CPU player's input queues.
-cpu_ip_up           = ds_queue_create();
-cpu_ip_down         = ds_queue_create();
-cpu_ip_action_press = ds_queue_create();
-
-repeat (16) // The CPU player retrieves the main player's inputs from 16 frames into the past.
+// Initialize input queues for the CPU player.
+if (global.character[1] &gt; 0) // To prevent any miscalculations for the number of players, check if the second character index is occupied.
 {
-    ds_queue_enqueue(cpu_ip_up,           false);
-    ds_queue_enqueue(cpu_ip_down,         false);
-    ds_queue_enqueue(cpu_ip_action_press, false);
+    cpu_ip_up      = ds_queue_create();
+    cpu_ip_down    = ds_queue_create();
+    cpu_ip_a_press = ds_queue_create();
+
+    repeat (16) // The CPU player retrieves the main player's inputs from 16 frames ago.
+    {
+        ds_queue_enqueue(cpu_ip_up,      false);
+        ds_queue_enqueue(cpu_ip_down,    false);
+        ds_queue_enqueue(cpu_ip_a_press, false);
+    }
 }
 </argument>
       </arguments>
@@ -222,27 +222,25 @@ repeat (16) // The CPU player retrieves the main player's inputs from 16 frames 
       <appliesTo>.self</appliesTo>
       <arguments>
         <argument kind="STRING">/// Animation variables.
-animation_sprite          = spr_sonic_idle;
-animation_index           = "";
-animation_previous        = "";
-animation_speed           = 0;
-animation_rendering_speed = 0;
-animation_start           = 0;
-animation_frame           = 0;
-animation_end             = 0;
-animation_loop            = 0;
-animation_loop_count      = 0;
-animation_next            = "";
-animation_next_frame      = 0;
-animation_finished        = false;
-animation_direction       = 1;
-animation_color           = c_white;
-animation_angle           = 0;
-animation_angle_mod       = 0;
-animation_alpha           = 1;
-// animation_x               = x;
-// animation_y               = y;
-animation_timer           = 0;
+animation_sprite     = MASK_MAIN;
+animation_index      = "IDLE";
+animation_previous   = "";
+animation_speed      = 0;
+animation_jump_speed = 0;
+animation_start      = 0;
+animation_frame      = 0;
+animation_end        = 0;
+animation_loop       = 0;
+animation_loop_count = 0;
+animation_next       = "";
+animation_next_frame = 0;
+animation_finished   = false;
+animation_direction  = 1;
+animation_color      = c_white;
+animation_angle      = 0;
+animation_angle_mod  = 0;
+animation_alpha      = 1;
+animation_timer      = 0;
 </argument>
       </arguments>
     </action>

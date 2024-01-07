@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="OTHER" id="5">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/// Clean-up.
+
+// CPU input queues:
+if (global.character[1] &gt; 0)
+{
+    ds_queue_destroy(cpu_ip_up);
+    ds_queue_destroy(cpu_ip_down);
+    ds_queue_destroy(cpu_ip_a_press);
+}
+
+// Trail:
+if (global.use_trail)
+{
+    ds_list_destroy(vertex_x[1]);
+    ds_list_destroy(vertex_x[2]);
+    ds_list_destroy(vertex_y[1]);
+    ds_list_destroy(vertex_y[2]);
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

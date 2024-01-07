@@ -14,51 +14,46 @@
       <appliesTo>.self</appliesTo>
       <arguments>
         <argument kind="STRING">/// Bridge logic.
-var player_count, player_handle, tension_point, distance_from_center, left_gradient, right_gradient, left, right, current_height, i, j;
+var player_count, player_handle, tension_point, distance_from_center, left_gradient, right_gradient, left, right, current_height, player_count, player_handle, i, j;
 
 // Set all the heights of the logs to 0:
 for (i = 0; i &lt; num_logs; i += 1) heights[i] = 0;
 
-// Find out the logs height depending on the player objects:
-if (instance_exists(par_player))
+// Get number of player instances and run through them all:
+player_count = instance_number(par_player);
+for (i = 0; i &lt; player_count; i += 1)
 {
-    // Get number of player instances and run through them all:
-    var player_count, player_handle;
-    player_count = instance_number(par_player);
-    for (i = 0; i &lt; player_count; i += 1)
+    // Grab player instance handle and check if it's on the bridge:
+    player_handle = instance_find(par_player, i);
+
+    if (player_handle == noone) continue;
+    if (!collision_rectangle(x, y - 2, x + bridge_width, y + max_tension, player_handle, true, true) || !player_handle.ground)
     {
-        // Grab object instance handle and check if it's on the bridge:
-        player_handle = instance_find(par_player, i);
+        continue;
+    }
 
-        if (player_handle == noone) continue;
-        if (!collision_rectangle(x, y - 2, x + bridge_width, y + max_tension, player_handle, true, true) || !player_handle.ground)
-        {
-            continue;
-        }
+    // Find tension point and calculate left and right and their gradients:
+    tension_point  = clamp(floor((player_handle.x - x) / 16), 0, num_logs - 1);
+    left_gradient  = safe_division(pi * 0.5, tension_point);
+    right_gradient = safe_division(pi * 0.5, num_logs - tension_point);
+    left           = 0;
+    right          = pi;
 
-        // Find tension point and calculate left and right and their gradients:
-        tension_point  = clamp(floor((player_handle.x - x) / 16), 0, num_logs - 1);
-        left_gradient  = safe_division(pi * 0.5, tension_point);
-        right_gradient = safe_division(pi * 0.5, num_logs - tension_point);
-        left           = 0;
-        right          = pi;
+    // Calculate distance from center:
+    distance_from_center = max_tension * (1 - (abs(floor(player_handle.x - x - half_width) / half_width)));
 
-        // Calculate distance from center:
-        distance_from_center = max_tension * (1 - (abs(floor(player_handle.x - x - half_width) / half_width)));
-
-        // Reposition all bridge logs:
-        for (j = 0; j &lt;= tension_point; j += 1)
-        {
-            current_height = sin(left) * distance_from_center;
-            if (heights[j] &lt; current_height) heights[j] = current_height;
-            left += left_gradient;
-        }
-        for (j = num_logs - 1; j &gt; tension_point; j -= 1)
-        {
-            current_height = sin(right) * distance_from_center;
-            if (heights[j] &lt; current_height) heights[j] = current_height;
-            right -= right_gradient;
-        }
+    // Reposition all bridge logs:
+    for (j = 0; j &lt;= tension_point; j += 1)
+    {
+        current_height = sin(left) * distance_from_center;
+        if (heights[j] &lt; current_height) heights[j] = current_height;
+        left += left_gradient;
+    }
+    for (j = num_logs - 1; j &gt; tension_point; j -= 1)
+    {
+        current_height = sin(right) * distance_from_center;
+        if (heights[j] &lt; current_height) heights[j] = current_height;
+        right -= right_gradient;
     }
 }
 

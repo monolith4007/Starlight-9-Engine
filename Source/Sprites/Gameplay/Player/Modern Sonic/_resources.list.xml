@@ -6,8 +6,7 @@
   <resource name="spr_modern_walk" type="RESOURCE"/>
   <resource name="spr_modern_run" type="RESOURCE"/>
   <resource name="spr_modern_spring" type="RESOURCE"/>
-  <resource name="spr_modern_skid" type="RESOURCE"/>
-  <resource name="spr_modern_skid_turn" type="RESOURCE"/>
+  <resource name="spr_modern_brake" type="RESOURCE"/>
   <resource name="spr_modern_push" type="RESOURCE"/>
   <resource name="spr_modern_roll" type="RESOURCE"/>
   <resource name="spr_modern_spindash" type="RESOURCE"/>

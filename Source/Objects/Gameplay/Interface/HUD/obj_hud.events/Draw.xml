@@ -14,138 +14,137 @@
       <appliesTo>.self</appliesTo>
       <arguments>
         <argument kind="STRING">/// Draw HUD.
-if (global.display_hud)
+if (!global.display_hud) exit; // Abort if the HUD has been disabled.
+
+// Set Time/Ring visibility.
+if (((STG.game_time div 8) mod 2 &amp;&amp; STG.game_time &gt; 540000) || !STG.add_time || STG.game_time &lt;= 540000 || STG.game_time &gt;= 600000)
 {
-    // Set Time/Ring visibility.
-    if (((STG.game_time div 8) mod 2 &amp;&amp; STG.game_time &gt; 540000) || !STG.add_time || STG.game_time &lt;= 540000 || STG.game_time &gt;= 600000)
+    time_visibility = true;
+}
+else time_visibility = false;
+
+if (((STG.game_time div 8) mod 2 &amp;&amp; global.player_rings == 0) || !STG.add_time || global.player_rings &gt; 0 || STG.game_time &gt;= 600000)
+{
+    ring_visibility = true;
+}
+else ring_visibility = false;
+
+// Set font.
+draw_set_font(global.font_hud);
+draw_set_color(c_white);
+
+// Score text:
+draw_sprite(spr_hud, 0, view_xview[0] + 16, view_yview[0] + 9);
+draw_set_halign(fa_right);
+draw_text(view_xview[0] + 111, view_yview[0] + 9, global.player_score);
+
+// Time:
+draw_set_halign(fa_left);
+if (time_visibility)
+{
+    // Seperator:
+    draw_sprite(spr_hud, 1, view_xview[0] + 16, view_yview[0] + 25);
+    draw_sprite(spr_time_seperator, 0, view_xview[0] + 66 + (8 * STG.game_time &gt;= 600000), view_yview[0] + 25);
+    draw_sprite(spr_time_seperator, 0, view_xview[0] + 90 + (8 * STG.game_time &gt;= 600000), view_yview[0] + 25);
+
+    // Text:
+    var mins, secs, msecs;
+    mins  = floor(STG.game_time / 60000);
+    secs  = floor(STG.game_time / 1000) mod 60;
+    msecs = floor(STG.game_time / 10) mod 100;
+    draw_text(view_xview[0] + 55, view_yview[0] + 25, string(mins) + " " + string_place_number(secs, 2, 0) + " " + string_place_number(msecs, 2, 0));
+}
+
+// Rings:
+if (ring_visibility)
+{
+    draw_sprite(spr_hud, 2, view_xview[0] + 16, view_yview[0] + 41);
+}
+draw_set_halign(fa_right);
+draw_text(view_xview[0] + 87, view_yview[0] + 41, global.player_rings);
+draw_set_halign(fa_left);
+
+// Lives:
+draw_sprite(spr_hud_lives, global.character[0] - 1, view_xview[0] + 16, view_yview[0] + view_hview[0] - 24);
+draw_set_halign(fa_right);
+draw_set_font(global.font_lives);
+draw_text(view_xview[0] + 64, view_yview[0] + view_hview[0] - 15, global.player_lives);
+
+// Reset font properties.
+draw_set_font(global.font_hud);
+draw_set_halign(fa_left);
+
+// Shift invincibility bar horizontally.
+if (global.player_id[0].invincibility_type == 2)
+{
+    if (powerup_bar_x[0] &lt; 28)
     {
-        time_visibility = true;
+        powerup_bar_x[0] += floor(28 - powerup_bar_x[0]) * 0.10;
     }
-    else time_visibility = false;
 
-    if (((STG.game_time div 8) mod 2 &amp;&amp; global.player_rings == 0) || !STG.add_time || global.player_rings &gt; 0 || STG.game_time &gt;= 600000)
+    // Shift superspeed bar down.
+    if (powerup_bar_x[0] &gt; -53)
     {
-        ring_visibility = true;
-    }
-    else ring_visibility = false;
-
-    // Set font.
-    draw_set_font(global.font_hud);
-    draw_set_color(c_white);
-
-    // Score text:
-    draw_sprite(spr_hud, 0, view_xview[0] + 16, view_yview[0] + 9);
-    draw_set_halign(fa_right);
-    draw_text(view_xview[0] + 111, view_yview[0] + 9, global.player_score);
-
-    // Time:
-    draw_set_halign(fa_left);
-    if (time_visibility)
-    {
-        // Seperator:
-        draw_sprite(spr_hud, 1, view_xview[0] + 16, view_yview[0] + 25);
-        draw_sprite(spr_time_seperator, 0, view_xview[0] + 66 + (8 * STG.game_time &gt;= 600000), view_yview[0] + 25);
-        draw_sprite(spr_time_seperator, 0, view_xview[0] + 90 + (8 * STG.game_time &gt;= 600000), view_yview[0] + 25);
-
-        // Text:
-        draw_text(view_xview[0] + 55, view_yview[0] + 25, string(floor(STG.game_time / 60000)) + " " + string_place_number(floor(STG.game_time / 1000) mod 60, 2, 0) + " " + string_place_number(floor(STG.game_time / 10) mod 100, 2, 0));
-    }
-
-    // Rings:
-    if (ring_visibility)
-    {
-        draw_sprite(spr_hud, 2, view_xview[0] + 16, view_yview[0] + 41);
-    }
-    draw_set_halign(fa_right);
-    draw_text(view_xview[0] + 87, view_yview[0] + 41, global.player_rings);
-    draw_set_halign(fa_left);
-
-    // Lives:
-    draw_sprite(spr_hud_lives, player_name - 1, view_xview[0] + 16, view_yview[0] + view_hview[0] - 24);
-    draw_set_halign(fa_right);
-    draw_set_font(global.font_lives);
-    draw_text(view_xview[0] + 64, view_yview[0] + view_hview[0] - 15, global.player_lives);
-
-    // Reset font.
-    draw_set_font(global.font_hud);
-    draw_set_halign(fa_left);
-
-    // Powerup bars.
-    if (instance_exists(global.player_id[0]))
-    {
-        // Shift invincibility bar horizontally.
-        if (global.player_id[0].invincibility_type == 2)
-        {
-            if (powerup_bar_x[0] &lt; 28)
-            {
-                powerup_bar_x[0] += floor(28 - powerup_bar_x[0]) * 0.10;
-            }
-
-            // Shift superspeed bar down.
-            if (powerup_bar_x[0] &gt; -53)
-            {
-                powerup_bar_y[1] += floor(75 - powerup_bar_y[1]) * 0.25;
-            }
-        }
-        else
-        {
-            if (powerup_bar_x[0] &gt; -53)
-            {
-                powerup_bar_x[0] += floor(-53 - powerup_bar_x[0]) * 0.15;
-            }
-
-            // Shift superspeed bar up.
-            if (powerup_bar_y[1] &gt; 57)
-            {
-                powerup_bar_y[1] += floor(57 - powerup_bar_y[1]) * 0.15;
-            }
-        }
-
-        // Shift superspeed bar horizontally.
-        if (global.player_id[0].superspeed_timer &gt; 0)
-        {
-            if (powerup_bar_x[1] &lt; 28)
-            {
-                powerup_bar_x[1] += floor(28 - powerup_bar_x[1]) * 0.10;
-            }
-        }
-        else
-        {
-            if (powerup_bar_x[1] &gt; -53)
-            {
-                powerup_bar_x[1] += floor(-53 - powerup_bar_x[1]) * 0.15;
-            }
-        }
-
-        // Draw powerup bar outlines:
-        draw_set_color(make_color_rgb(32, 32, 32));
-        draw_rectangle(floor(view_xview[0] + powerup_bar_x[0] + 8), floor(view_yview[0] + powerup_bar_y[0]), floor(view_xview[0] + powerup_bar_x[0] + 8) + 44, floor(view_yview[0] + powerup_bar_y[0] + 17), true);
-        draw_rectangle(floor(view_xview[0] + powerup_bar_x[1] + 8), floor(view_yview[0] + powerup_bar_y[1]), floor(view_xview[0] + powerup_bar_x[1] + 8) + 44, floor(view_yview[0] + powerup_bar_y[1] + 17), true);
-
-        // Draw invincibility bar meter:
-        draw_set_color(c_blue);
-        draw_rectangle(floor(view_xview[0] + powerup_bar_x[0] + 8), floor(view_yview[0] + powerup_bar_y[0] + 1), floor(view_xview[0] + powerup_bar_x[0] + 8) + ((global.player_id[0].invincibility_timer / 900) * 32.5), floor(view_yview[0] + powerup_bar_y[0] + 16), false);
-
-        // Draw superspeed bar meter:
-        draw_set_color(c_red);
-        draw_rectangle(floor(view_xview[0] + powerup_bar_x[1] + 8), floor(view_yview[0] + powerup_bar_y[1] + 1), floor(view_xview[0] + powerup_bar_x[1] + 8) + ((global.player_id[0].superspeed_timer     / 900) * 32.5), floor(view_yview[0] + powerup_bar_y[1] + 16), false);
-
-        // Draw powerup icons:
-        draw_sprite(spr_hud_powerup_icon, 0, floor(view_xview[0] + powerup_bar_x[0] - 11), floor(view_yview[0] + powerup_bar_y[0]));
-        draw_sprite(spr_hud_powerup_icon, 1, floor(view_xview[0] + powerup_bar_x[1] - 11), floor(view_yview[0] + powerup_bar_y[1]));
-
-        // Draw boosting bar icon, meter &amp; outline:
-        if (player_name == CHAR_MODERN)
-        {
-            draw_set_color(make_color_rgb(32, 32, 32));
-            draw_rectangle(view_xview[0] + view_wview[0] - 53, view_yview[0] + 9, view_xview[0] + view_wview[0] - 9, view_yview[0] + 26, true); // Outline.
-            draw_set_color(make_color_rgb(24, 107, 239));
-            draw_rectangle(view_xview[0] + view_wview[0] - 53, view_yview[0] + 10, view_xview[0] + view_wview[0] - 53 + ((global.player_id[0].boost_amount / 90) * 32.5), view_yview[0] + 25, false); // Meter.
-            draw_sprite(spr_hud_powerup_icon, 2, view_xview[0] + view_wview[0] - 72, view_yview[0] + 9);
-        }
-        draw_set_color(c_white);
+        powerup_bar_y[1] += floor(75 - powerup_bar_y[1]) * 0.25;
     }
 }
+else
+{
+    if (powerup_bar_x[0] &gt; -53)
+    {
+        powerup_bar_x[0] += floor(-53 - powerup_bar_x[0]) * 0.15;
+    }
+
+    // Shift superspeed bar up.
+    if (powerup_bar_y[1] &gt; 57)
+    {
+        powerup_bar_y[1] += floor(57 - powerup_bar_y[1]) * 0.15;
+    }
+}
+
+// Shift superspeed bar horizontally.
+if (global.player_id[0].superspeed_timer &gt; 0)
+{
+    if (powerup_bar_x[1] &lt; 28)
+    {
+        powerup_bar_x[1] += floor(28 - powerup_bar_x[1]) * 0.10;
+    }
+}
+else
+{
+    if (powerup_bar_x[1] &gt; -53)
+    {
+        powerup_bar_x[1] += floor(-53 - powerup_bar_x[1]) * 0.15;
+    }
+}
+
+// Draw powerup bar outlines:
+draw_set_color(make_color_rgb(32, 32, 32));
+draw_rectangle(floor(view_xview[0] + powerup_bar_x[0] + 8), floor(view_yview[0] + powerup_bar_y[0]), floor(view_xview[0] + powerup_bar_x[0] + 8) + 44, floor(view_yview[0] + powerup_bar_y[0] + 17), true);
+draw_rectangle(floor(view_xview[0] + powerup_bar_x[1] + 8), floor(view_yview[0] + powerup_bar_y[1]), floor(view_xview[0] + powerup_bar_x[1] + 8) + 44, floor(view_yview[0] + powerup_bar_y[1] + 17), true);
+
+// Draw invincibility bar meter:
+draw_set_color(c_blue);
+draw_rectangle(floor(view_xview[0] + powerup_bar_x[0] + 8), floor(view_yview[0] + powerup_bar_y[0] + 1), floor(view_xview[0] + powerup_bar_x[0] + 8) + ((global.player_id[0].invincibility_timer / 900) * 32.5), floor(view_yview[0] + powerup_bar_y[0] + 16), false);
+
+// Draw superspeed bar meter:
+draw_set_color(c_red);
+draw_rectangle(floor(view_xview[0] + powerup_bar_x[1] + 8), floor(view_yview[0] + powerup_bar_y[1] + 1), floor(view_xview[0] + powerup_bar_x[1] + 8) + ((global.player_id[0].superspeed_timer     / 900) * 32.5), floor(view_yview[0] + powerup_bar_y[1] + 16), false);
+
+// Draw powerup icons:
+draw_sprite(spr_hud_powerup_icon, 0, floor(view_xview[0] + powerup_bar_x[0] - 11), floor(view_yview[0] + powerup_bar_y[0]));
+draw_sprite(spr_hud_powerup_icon, 1, floor(view_xview[0] + powerup_bar_x[1] - 11), floor(view_yview[0] + powerup_bar_y[1]));
+
+// Draw boosting bar icon, meter &amp; outline:
+if (global.character[0] == CHAR_MODERN_SONIC)
+{
+    draw_set_color(make_color_rgb(32, 32, 32));
+    draw_rectangle(view_xview[0] + view_wview[0] - 53, view_yview[0] + 9, view_xview[0] + view_wview[0] - 9, view_yview[0] + 26, true); // Outline.
+    draw_set_color(make_color_rgb(24, 107, 239));
+    draw_rectangle(view_xview[0] + view_wview[0] - 53, view_yview[0] + 10, view_xview[0] + view_wview[0] - 53 + ((global.player_id[0].boost_amount / 90) * 32.5), view_yview[0] + 25, false); // Meter.
+    draw_sprite(spr_hud_powerup_icon, 2, view_xview[0] + view_wview[0] - 72, view_yview[0] + 9);
+}
+draw_set_color(c_white);
 </argument>
       </arguments>
     </action>

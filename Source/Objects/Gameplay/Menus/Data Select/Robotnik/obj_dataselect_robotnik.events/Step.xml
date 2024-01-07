@@ -20,9 +20,9 @@ if (active)
 {
     x = obj_dataselect_cursor.x;
 }
-else
+else if (x != xstart)
 {
-    x = approach(x, xstart, 8);
+    x = min(x + 8, xstart);
 }
 
 // Change animation.
@@ -44,7 +44,7 @@ switch (state)
     }
     case "SPIN":
     {
-        sprite_index = spr_dataselect_robotnik_spin
+        sprite_index = spr_dataselect_robotnik_spin;
         image_speed  = 0.25;
         break;
     }
@@ -65,7 +65,6 @@ if (active &amp;&amp; obj_dataselect_cursor.datacursor_slot_index == 9)
         sign_index = 0;
         state      = "IDLE";
         obj_dataselect_cursor.datacursor_allow_movement = true;
-        exit;
     }
 }
 
@@ -77,7 +76,6 @@ if (keyboard_check_pressed(global.key_action) &amp;&amp; obj_dataselect_cursor.d
         active = true;
         state  = "IDLE";
     }
-    exit;
 }
 
 // Delete &amp; Deactivate.
@@ -104,7 +102,6 @@ if (active &amp;&amp; obj_dataselect_cursor.datacursor_direction == 0 &amp;&amp;
                                 state       = "SPIN";
                                 obj_dataselect_cursor.datacursor_allow_movement = true;
                                 audio_play(SFX._general_error, SFX.sfx_volume, 1, 0, 0);
-                                exit;
                             }
                         }
                         else
@@ -115,7 +112,6 @@ if (active &amp;&amp; obj_dataselect_cursor.datacursor_direction == 0 &amp;&amp;
                                 state       = "SPIN";
                                 image_index = 0;
                                 obj_dataselect_cursor.datacursor_allow_movement = false;
-                                exit;
                             }
                         }
                     }
@@ -141,16 +137,14 @@ if (active &amp;&amp; obj_dataselect_cursor.datacursor_direction == 0 &amp;&amp;
                 state      = "SPIN";
                 obj_dataselect_cursor.datacursor_allow_movement = true;
                 audio_play(SFX._general_signpost, SFX.sfx_volume, 1, 0, 0);
-                exit;
             }
 
-            // Backout.
+            // Back out.
             if (keyboard_check_pressed(global.key_right) || keyboard_check_pressed(global.key_special))
             {
                 sign_index = 1;
                 state      = "SPIN";
                 obj_dataselect_cursor.datacursor_allow_movement = true;
-                exit;
             }
             break;
         }

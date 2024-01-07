@@ -26,7 +26,7 @@ if (instance_exists(global.player_id[0]))
         STG.add_time = false;
 
         // Get the main player's name.
-        player_name = global.player_id[0].character_id;
+        player_name = global.character[0];
     }
 }
 </argument>
@@ -46,7 +46,7 @@ if (instance_exists(global.player_id[0]))
       <arguments>
         <argument kind="STRING">/// Everything.
 
-// Set camera position.
+// Lock camera position.
 if (in_view(id) || sign_post_activated)
 {
     with (obj_camera)

@@ -20,7 +20,7 @@ if (instance_exists(global.player_id[0]))
     x = floor(global.player_id[0].x);
     y = floor(global.player_id[0].y);
     
-    // Destroy volatile objects.
+    // Destroy NPCs.
     var _badnik, _monitor;
 
     // Badniks:
@@ -32,7 +32,7 @@ if (instance_exists(global.player_id[0]))
         // Player rebound:
         with (global.player_id[0])
         {
-            if (y_speed &gt; 0)
+            if (y_speed &gt;= 0)
             {
                 y_speed       *= -1;
                 ground         = false;
@@ -50,7 +50,7 @@ if (instance_exists(global.player_id[0]))
         // Player rebound:
         with (global.player_id[0])
         {
-            if (y_speed &gt; 0)
+            if (y_speed &gt;= 0)
             {
                 y_speed       *= -1;
                 ground         = false;

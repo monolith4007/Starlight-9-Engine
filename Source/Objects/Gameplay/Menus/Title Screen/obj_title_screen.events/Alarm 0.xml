@@ -14,7 +14,7 @@
       <appliesTo>.self</appliesTo>
       <arguments>
         <argument kind="STRING">/// Activate menu control.
-title_menu_active = true;
+title_active = true;
 </argument>
       </arguments>
     </action>

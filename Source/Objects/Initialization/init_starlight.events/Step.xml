@@ -23,8 +23,8 @@ if (s8e_step == 0)
     else
     {
         s8e_alpha = 1;
-        s8e_step = 1;
-        alarm[0] = 60;
+        s8e_step  = 1;
+        alarm[0]  = 60;
     }
 }
 if (s8e_step == 2)
@@ -36,8 +36,8 @@ if (s8e_step == 2)
     else
     {
         s8e_alpha = -1;
-        s8e_step = 3;
-        alarm[1] = 30;
+        s8e_step  = 3;
+        alarm[1]  = 30;
     }
 }
 if (s8e_step == 4)
@@ -49,15 +49,12 @@ if (s8e_step == 4)
     else
     {
         s8e_alpha = 1;
-        s8e_step = 1;
-        alarm[2] = 60;
+        s8e_step  = 1;
+        alarm[2]  = 60;
     }
 }
 
-if (s8e_done)
-{
-    s8e_galpha += 0.045;
-}
+if (s8e_done) s8e_galpha += 0.045;
 </argument>
       </arguments>
     </action>

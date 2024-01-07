@@ -16,13 +16,14 @@
         <argument kind="STRING">/// Variables.
 option_selected    = 0;  // Option we're currently highlighting.
 option_description = ""; // Description of a highlighted option.
-option_delay       = 30;
-option_bind        = 0;
-key_bind_check     = 0;
-gmp_bind_check     = -1;
-bind_status        = 1;
-bind_key           = "";
+map_delay          = 15; // Prevents an immediate map of another input after mapping an initial one.
+map_source         = 0;  // Which input source we're mapping (0 = None, 1 = Keyboard, 2 = Gamepad).
+map_order          = 1;  // Holds the order at which inputs are mapped.
+map_string         = ""; // The name of the input we're mapping.
+volume_delay       = 5;
 option_ended       = false;
+image_timer        = 200;
+image_speed        = 0;
 </argument>
       </arguments>
     </action>

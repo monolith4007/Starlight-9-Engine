@@ -18,7 +18,6 @@ chains           = 6;                  // How many chains.
 chain_sprite     = spr_test_chain;     // Sprite of each chain.
 chain_sprite_top = spr_test_chain_top; // Sprite of the top chain / chain handle.
 swing_speed      = 3;                  // How fast the platform swings.
-platform_offset  = 10;                 // Character Offset. Usually 10 but might need tweaks for other platforms.
 
 // Call Parent:
 event_inherited();

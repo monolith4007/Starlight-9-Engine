@@ -33,7 +33,7 @@ if (ground)
         // Set collision flags if we can collide with the platform.
         if (_platform.tile_collision_flag)
         {
-            if ((!platform_check && angle == 0) || platform_check)
+            if ((!platform_check && angle == global.gravity_angle) || platform_check)
             {
                 if (collision_point(x, argument1, _platform, true, false))
                 {

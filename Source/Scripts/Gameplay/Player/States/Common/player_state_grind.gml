@@ -6,11 +6,11 @@ if (player_collision_check(COL_BOTTOM_OBJECT, MASK_BIG, x, y, angle, obj_rail))
     // Create grind effect:
     if (state != STATE_GRIND)
     {
-        player_reset_trail();
-        audio_play(SFX._player_grind, SFX.sfx_volume, 1, 0, 0);
         var spark;
         spark        = instance_create(x, y, obj_grind_spark);
         spark.handle = id;
+        player_reset_trail();
+        audio_play(SFX._player_grind, SFX.sfx_volume, 1, 0, 0);
     }
     
     // Set speed and change state.
@@ -24,6 +24,6 @@ else
 {
     if (state == STATE_GRIND)
     {
-        state  = STATE_ROLL;
+        state  = STATE_JUMP;
     }
 }

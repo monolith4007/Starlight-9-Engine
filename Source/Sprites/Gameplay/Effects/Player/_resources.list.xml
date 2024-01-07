@@ -3,7 +3,7 @@
   <resource name="spr_spindash_dust" type="RESOURCE"/>
   <resource name="spr_dropdash_dust" type="RESOURCE"/>
   <resource name="spr_electric_spark" type="RESOURCE"/>
-  <resource name="spr_skid_dust" type="RESOURCE"/>
+  <resource name="spr_brake_dust" type="RESOURCE"/>
   <resource name="spr_homing_reticle" type="RESOURCE"/>
   <resource name="spr_player_pointer" type="RESOURCE"/>
   <resource name="spr_amy_heart" type="RESOURCE"/>

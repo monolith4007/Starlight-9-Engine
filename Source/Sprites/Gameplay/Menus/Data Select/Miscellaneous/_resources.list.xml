@@ -2,4 +2,5 @@
 <resources>
   <resource name="spr_dataselect_arrow" type="RESOURCE"/>
   <resource name="spr_font_dataselect" type="RESOURCE"/>
+  <resource name="spr_dataselect_title" type="RESOURCE"/>
 </resources>

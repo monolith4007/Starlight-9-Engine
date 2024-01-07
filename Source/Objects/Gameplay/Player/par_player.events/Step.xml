@@ -57,21 +57,21 @@ if (state == STATE_DEATH &amp;&amp; death_timer != -1)
         // Play death/drown sound.
         if (!has_drowned)
         {
-            audio_play(SFX._player_die, SFX.sfx_volume, 1, 0, 0);
+            audio_play(SFX._player_hurt, SFX.sfx_volume, 1, 0, 0);
         }
         else
         {
-            audio_play(SFX._player_drowned, SFX.sfx_volume, 1, 0, 0);
+            audio_play(SFX._player_drown, SFX.sfx_volume, 1, 0, 0);
         }
 
         // Stop flight sounds.
-        if (audio_is_playing(SFX._player_flying))
+        if (audio_is_playing(SFX._player_fly))
         {
-            audio_stop(SFX._player_flying);
+            audio_stop(SFX._player_fly);
         }
-        if (audio_is_playing(SFX._player_flying_drop))
+        if (audio_is_playing(SFX._player_fly_drop))
         {
-            audio_stop(SFX._player_flying_drop);
+            audio_stop(SFX._player_fly_drop);
         }
     }
 
@@ -85,6 +85,22 @@ if (state == STATE_DEATH &amp;&amp; death_timer != -1)
         y_speed += 0.0625;
     }
     y += y_speed;
+
+    // Drowning bubbles.
+    if (has_drowned)
+    {
+        var bubble;
+        if (breath_timer &gt; 0)
+        {
+            breath_timer -= 1;
+            if (random(4) &gt;= 2)
+            {
+                bubble              = instance_create(x + irandom_range(-7, 8), y - 6, obj_water_air_bubble);
+                bubble.bubble_index = choose(0, 1, 2, 1, 3);
+                bubble.depth        = -999996;
+            }
+        }
+    }
 
     // Decrease death timer.
     if (death_timer &gt; 0)
@@ -185,18 +201,18 @@ if (x_speed_limit)
     x_speed = clamp(x_speed, -x_speed_max, x_speed_max);
 }
 
-// Calculate movement steps &amp; samples:
+// Calculate horizontal steps &amp; samples:
 var x_steps, x_samples;
-x_steps   = 1 + floor(abs(x_speed) / 13);
+x_steps   = 1 + floor(abs(x_speed) / 13); // 13 is the horizontal radius of the "main" mask.
 x_samples = x_speed / x_steps;
 
-// Move horizontally:
 repeat (x_steps)
 {
+    // Move horizontally:
     x += dcos(angle) * x_samples;
     y -= dsin(angle) * x_samples;
 
-    // Move outside of terrain if stuck:
+    // Eject from terrain if stuck:
     while (x_samples &gt; 0 &amp;&amp; player_collision_check(COL_RIGHT, MASK_MID, x, y, angle))
     {
         x -= dcos(angle);
@@ -208,20 +224,20 @@ repeat (x_steps)
         y -= dsin(angle);
     }
 
-    // Object handling:
+    // Handle NPC interactions:
     player_handle_list();
 
     // Terrain/slope collision:
     if (ground)
     {
-        while (player_collision_check(COL_MAIN, x, y))
+        while (player_collision_check(COL_MAIN, MASK_MAIN, x, y))
         {
             x -= dsin(angle);
             y -= dcos(angle);
         }
         if (player_collision_check(COL_SLOPE, MASK_MID, x, y, angle))
         {
-            while (!player_collision_check(COL_MAIN, x, y))
+            while (!player_collision_check(COL_MAIN, MASK_MAIN, x, y))
             {
                 x += dsin(angle);
                 y += dcos(angle);
@@ -236,7 +252,7 @@ repeat (x_steps)
                 if (col_edge_exception)
                 {
                     var angle_temp;
-                    angle_temp = player_get_angle(x, y, angle);
+                    angle_temp = player_get_angle(x, y, angle_relative);
                     if ((angle_temp &gt;= 60 &amp;&amp; angle_temp &lt;= 90) || (angle_temp &gt;= 240 &amp;&amp; angle_temp &lt;= 300))
                     {
                         if (!player_collision_check(COL_EDGE_LINE))
@@ -253,64 +269,57 @@ repeat (x_steps)
         else player_set_angle(global.gravity_angle);
     }
 
-    // Object handling:
+    // Handle NPC interactions:
     player_handle_list();
-}
-
-// Limit vertical speed if applicable:
-if (y_speed_limit)
-{
-    y_speed = clamp(y_speed, -y_speed_max, y_speed_max);
 }
 
 if (!ground)
 {
-    // Calculate movement steps &amp; samples:
+    // Limit vertical speed if applicable:
+    if (y_speed_limit)
+    {
+        y_speed = clamp(y_speed, -y_speed_max, y_speed_max);
+    }
+
+    // Calculate vertical steps &amp; samples:
     var y_steps, y_samples;
-    y_steps   = 1 + floor(abs(y_speed) / 13);
+    y_steps   = 1 + floor(abs(y_speed) / 13); // 13 is the vertical radius of the "main" mask.
     y_samples = y_speed / y_steps;
 
-    // Move vertically:
     repeat (y_steps)
     {
+        // Move vertically:
         x += dsin(angle) * y_samples;
         y += dcos(angle) * y_samples;
 
-        // Move outside of terrain if stuck:
-        while (y_samples &lt; 0 &amp;&amp; player_collision_check(COL_TOP, MASK_MID, x, y, 0))
+        // Eject from terrain if stuck:
+        while (y_samples &lt; 0 &amp;&amp; player_collision_check(COL_TOP, MASK_MID, x, y, global.gravity_angle))
         {
             x += dsin(angle);
             y += dcos(angle);
         }
-        while (y_samples &gt; 0 &amp;&amp; player_collision_check(COL_BOTTOM, MASK_MID, x, y, 0))
+        while (y_samples &gt; 0 &amp;&amp; player_collision_check(COL_BOTTOM, MASK_MID, x, y, global.gravity_angle))
         {
             x -= dsin(angle);
             y -= dcos(angle);
         }
 
-        // Object handling:
+        // Handle NPC interactions:
         player_handle_list();
 
         // Check for landing:
-        if (y_speed &gt;= 0 &amp;&amp; player_collision_check(COL_BOTTOM, MASK_BIG, x, y, 0))
+        if (y_speed &gt;= 0 &amp;&amp; player_collision_check(COL_BOTTOM, MASK_BIG, x, y, global.gravity_angle))
         {
             // Calculate and set angles:
             if (col_rotate_flag)
             {
-                if (!col_edge_skip)
+                if ((!col_edge_skip &amp;&amp; player_collision_check(COL_LEFT_EDGE, x, y, global.gravity_angle) &amp;&amp; player_collision_check(COL_RIGHT_EDGE, x, y, global.gravity_angle)) || col_edge_skip)
                 {
-                    if (player_collision_check(COL_LEFT_EDGE, x, y, 0) &amp;&amp; player_collision_check(COL_RIGHT_EDGE, x, y, 0))
-                    {
-                        player_set_angle(player_get_angle(x, y, angle));
-                    }
-                    else
-                    {
-                        player_set_angle(global.gravity_angle);
-                    }
+                    player_set_angle(player_get_angle(x, y, angle));
                 }
                 else
                 {
-                    player_set_angle(player_get_angle(x, y, angle));
+                    player_set_angle(global.gravity_angle);
                 }
             }
             else
@@ -318,7 +327,7 @@ if (!ground)
                 player_set_angle(global.gravity_angle);
             }
 
-            // Change horizontal speed upon landing on uneven terrain.
+            // Change horizontal speed upon landing on uneven terrain:
             if (abs(x_speed) &lt;= abs(y_speed) &amp;&amp; angle_relative &gt;= 22.5 &amp;&amp; angle_relative &lt;= 337.5)
             {
                 x_speed = y_speed * -sign(dsin(angle_relative));
@@ -328,26 +337,26 @@ if (!ground)
                 }
             }
 
-            // Set ground flag.
+            // Set ground flag:
             ground = true;
         }
 
         // Check for a ceiling:
-        if (y_speed &lt; 0 &amp;&amp; player_collision_check(COL_TOP, MASK_LARGE, x, y, 0) &amp;&amp; !player_collision_check(COL_TOP_OBJECT, MASK_LARGE, x, y, 0, par_obstacle) &amp;&amp; col_ceiling_movement)
+        if (y_speed &lt; 0 &amp;&amp; player_collision_check(COL_TOP, MASK_LARGE, x, y, global.gravity_angle) &amp;&amp; !player_collision_check(COL_TOP_OBJECT, MASK_LARGE, x, y, global.gravity_angle, par_obstacle) &amp;&amp; col_ceiling_movement)
         {
             // Set angles:
             player_set_angle(180);
 
             // Check if it's possible to attach to the ceiling:
-            if (player_collision_check(COL_LEFT_EDGE, x, y, angle) &amp;&amp; player_collision_check(COL_RIGHT_EDGE, x, y, angle))
+            if (player_collision_check(COL_LEFT_EDGE, x, y, angle_relative) &amp;&amp; player_collision_check(COL_RIGHT_EDGE, x, y, angle_relative))
             {
                 // Calculate and set new angles:
-                player_set_angle(player_get_angle(x, y, angle));
+                player_set_angle(player_get_angle(x, y, angle_relative));
                 
                 // Check if the ceiling is steep enough to grab on to:
                 if (angle_relative &lt; 135 || angle_relative &gt; 225)
                 {
-                    // Set horizontal speed and grab onto the ceiling.
+                    // Set horizontal speed and grab onto the ceiling:
                     x_speed = y_speed * -sign(dsin(angle_relative));
                     ground  = true;
                 }
@@ -364,7 +373,7 @@ if (!ground)
             }
         }
 
-        // Perform another wall stuck check to fix any more bugs that might occur:
+        // Perform another wall ejection to fix any more bugs that might occur:
         while (player_collision_check(COL_RIGHT, MASK_MID, x, y, angle))
         {
             x -= dcos(angle);
@@ -379,14 +388,14 @@ if (!ground)
         // Perform terrain/slope collision again to fix any landing bugs:
         if (player_collision_check(COL_BOTTOM, MASK_BIG, x, y, angle))
         {
-            while (player_collision_check(COL_MAIN, x, y))
+            while (player_collision_check(COL_MAIN, MASK_MAIN, x, y))
             {
                 x -= dsin(angle);
                 y -= dcos(angle);
             }
             if (player_collision_check(COL_SLOPE, MASK_MID, x, y, angle))
             {
-                while (!player_collision_check(COL_MAIN, x, y))
+                while (!player_collision_check(COL_MAIN, MASK_MAIN, x, y))
                 {
                     x += dsin(angle);
                     y += dcos(angle);
@@ -394,41 +403,44 @@ if (!ground)
             }
         }
 
-        // Object handling:
+        // Handle NPC interactions:
         player_handle_list();
     }
 }
 
 // Fall/launch off the tile if the edge sensors are no longer detecting a collision:
-repeat (x_steps * 2)
+repeat (x_steps)
 {
-    if (ground &amp;&amp; angle != 0 &amp;&amp; ((x_speed &lt;= 0 &amp;&amp; !player_collision_check(COL_LEFT_EDGE, x, y, angle)) || (x_speed &gt;= 0 &amp;&amp; !player_collision_check(COL_RIGHT_EDGE, x, y, angle))))
+    if (ground &amp;&amp; angle != global.gravity_angle)
     {
-        // Launch off ramps:
-        if (col_launch_flag)
+        if ((x_speed &lt;= 0 &amp;&amp; !player_collision_check(COL_LEFT_EDGE, x, y, angle)) || (x_speed &gt;= 0 &amp;&amp; !player_collision_check(COL_RIGHT_EDGE, x, y, angle)))
         {
-            if (angle != 90 &amp;&amp; angle != 270 &amp;&amp; angle != 180 &amp;&amp; col_launch_angle &gt; -1 &amp;&amp; col_launch_direction != 0 &amp;&amp; sign(x_speed) == col_launch_direction)
+            if (col_launch_flag)
             {
-                // Disable wall collisions to properly launch:
-                disable_wallstop = true;
-                if (alarm[0] == -1)
+                // Check for the necessary flags to launch off the colliding tile:
+                if (col_launch_angle &gt; -1 &amp;&amp; col_launch_direction != 0 &amp;&amp; sign(x_speed) == col_launch_direction)
                 {
-                    alarm[0] = 15;
+                    // Disable wall collisions to properly launch:
+                    disable_wallstop = true;
+                    if (alarm[0] == -1)
+                    {
+                        alarm[0] = 15;
+                    }
+
+                    // Set new angles:
+                    player_set_angle(sign(x_speed) * col_launch_angle);
+
+                    // Set speeds:
+                    y_speed = -dsin(angle_relative) * x_speed;
+                    x_speed =  dcos(angle_relative) * x_speed;
+                    ground  =  false;
                 }
-
-                // Set new angles:
-                player_set_angle(sign(x_speed) * col_launch_angle);
-
-                // Set speeds:
-                y_speed = -dsin(angle_relative) * x_speed;
-                x_speed =  dcos(angle_relative) * x_speed;
-                ground  =  false;
-            }
-            else // Fall off tiles.
-            {
-                y_speed = -(dsin(angle) * x_speed);
-                x_speed =   dcos(angle) * x_speed;
-                ground  =   false;
+                else // Otherwise, fall off.
+                {
+                    y_speed = -(dsin(angle_relative) * x_speed);
+                    x_speed =   dcos(angle_relative) * x_speed;
+                    ground  =   false;
+                }
             }
         }
     }
@@ -453,8 +465,36 @@ repeat (x_steps * 2)
 // Exit in the following states:
 if (state == STATE_DEATH || state == STATE_RESPAWN || !x_allow) exit;
 
-// Handle acceleration/deceleration.
-if (state == STATE_DEFAULT || state == STATE_BALANCE || (state == STATE_JUMP &amp;&amp; !jump_lock) || state == STATE_SKID || state == STATE_FLY || state == STATE_SPRING || state == STATE_CORKSCREW || state == STATE_CORKSCREW_ROLL || state == STATE_GLIDE_DROP)
+// Apply slope friction:
+if (state != STATE_SLIDE &amp;&amp; ground)
+{
+    // Check if we're not moving along a ceiling:
+    if (angle_relative &lt; 135 || angle_relative &gt; 225)
+    {
+        if (state != STATE_ROLL)
+        {
+            if (angle_relative &gt;= 22.5 &amp;&amp; angle_relative &lt;= 337.5 &amp;&amp; (x_speed != 0 || input_lock_timer != 0))
+            {
+                x_speed -= dsin(angle_relative) * 0.125;
+            }
+        }
+        else
+        {
+            // Rolling up a slope:
+            if (sign(x_speed) == sign(dsin(angle_relative)))
+            {
+                x_speed -= dsin(angle_relative) * roll_fric_up;
+            }
+            else // Rolling down a slope.
+            {
+                x_speed -= dsin(angle_relative) * roll_fric_down;
+            }
+        }
+    }
+}
+
+// Handle acceleration/deceleration (credit to VectorSatyr).
+if (state == STATE_DEFAULT || state == STATE_BALANCE || (state == STATE_JUMP &amp;&amp; !jump_lock) || state == STATE_BRAKE || state == STATE_FLY || state == STATE_SPRING || state == STATE_CORKSCREW || state == STATE_CORKSCREW_ROLL || state == STATE_GLIDE_DROP)
 {
     // Store input direction:
     var input_dir;
@@ -501,7 +541,7 @@ if (state == STATE_DEFAULT || state == STATE_BALANCE || (state == STATE_JUMP &am
         {
             if (abs(x_speed) &lt; x_speed_top || sign(x_speed) != input_dir)
             {
-                x_speed += (x_acceleration * 2) * input_dir;
+                x_speed += 2 * x_acceleration * input_dir;
                 if (abs(x_speed) &gt; x_speed_top &amp;&amp; sign(x_speed) == input_dir)
                 {
                     x_speed = x_speed_top * input_dir;
@@ -509,43 +549,15 @@ if (state == STATE_DEFAULT || state == STATE_BALANCE || (state == STATE_JUMP &am
             }
         }
 
-        // Air drag:
+        // Apply air resistance:
         if (y_speed &lt; 0 &amp;&amp; y_speed &gt; -4)
         {
-            x_speed -= floor(x_speed / 0.125) / 256;
+            if (abs(x_speed) &gt; 0.125) x_speed *= 0.96875;
         }
     }
 }
 
-// Decelerate/accelerate along slopes:
-if (state != STATE_SLIDE &amp;&amp; ground)
-{
-    // Check if we're not moving along a ceiling:
-    if (angle_relative &lt; 135 || angle_relative &gt; 225)
-    {
-        if (state == STATE_ROLL)
-        {
-            // Rolling up a slope:
-            if (sign(x_speed) == sign(dsin(angle_relative)))
-            {
-                x_speed -= dsin(angle_relative) * roll_decel_up;
-            }
-            else // Rolling down a slope.
-            {
-                x_speed -= dsin(angle_relative) * roll_decel_down;
-            }
-        }
-        else
-        {
-            if (angle_relative &gt;= 22.5 &amp;&amp; angle_relative &lt;= 337.5)
-            {
-                x_speed -= dsin(angle_relative) * 0.125;
-            }
-        }
-    }
-}
-
-// Fall if there's not enough speed to stay on ground:
+// Fall off the tile/slip if there's not enough horizontal speed to keep moving:
 if (angle_relative &gt;= 45 &amp;&amp; angle_relative &lt;= 315 &amp;&amp; ground &amp;&amp; abs(x_speed) &lt; 2.5 &amp;&amp; !tunnel_lock)
 {
     if (angle_relative &gt;= 90 &amp;&amp; angle_relative &lt;= 270)
@@ -605,7 +617,7 @@ if (ground)
 
     if ((state == STATE_JUMP &amp;&amp; dropdash_state &lt; 2) || state == STATE_FLY || state == STATE_HURT || state == STATE_SPRING || state == STATE_CARRY)
     {
-        // Reset X-Speed if hurt:
+        // Reset horizontal speed if hurt:
         if (state == STATE_HURT)
         {
             x_speed = 0;
@@ -614,7 +626,7 @@ if (ground)
         // Reset gravity after flying.
         if (state == STATE_FLY)
         {
-            y_acceleration = y_accel_common;
+            y_acceleration = 0.21875;
         }
         state = STATE_DEFAULT;
     }
@@ -629,9 +641,15 @@ if (ground)
 else
 {
     // Add gravity:
-    if (state != STATE_GLIDE &amp;&amp; state != STATE_CLIMB &amp;&amp; state != STATE_CORKSCREW &amp;&amp; state != STATE_CORKSCREW_ROLL &amp;&amp; state != STATE_CARRY)
+    if (state != STATE_GLIDE &amp;&amp; state != STATE_CLIMB &amp;&amp; state != STATE_CORKSCREW &amp;&amp; state != STATE_CORKSCREW_ROLL &amp;&amp; state != STATE_HANG &amp;&amp; state != STATE_CARRY)
     {
         y_speed = min(y_speed + y_acceleration, 16);
+    }
+    
+    // Bonk the player's head on a ceiling:
+    if (y_speed &lt; 0 &amp;&amp; player_collision_check(COL_TOP, MASK_BIG, x, y, angle))
+    {
+        y_speed = 0;
     }
 }
 
@@ -671,7 +689,7 @@ if (state == STATE_DEATH) exit;
 switch (character_id)
 {
     // Classic Sonic:
-    case CHAR_SONIC:
+    case CHAR_CLASSIC_SONIC:
     {
         player_state_shield();
         player_state_dropdash();
@@ -703,7 +721,7 @@ switch (character_id)
     }
 
     // Modern Sonic:
-    case CHAR_MODERN:
+    case CHAR_MODERN_SONIC:
     {
         player_state_boost();
         if (!cpu_flag) player_state_homing();
@@ -719,7 +737,7 @@ player_state_lookup();
 player_state_crouch();
 player_state_spindash();
 player_state_roll();
-player_state_skid();
+player_state_brake();
 player_state_push();
 player_state_balance();
 player_state_swap();
@@ -745,7 +763,7 @@ player_state_grind();
 if (state == STATE_DEATH) exit;
 
 // Decrease invincibility timer.
-if (invincibility_timer &gt; -1)
+if (invincibility_timer &gt; 0)
 {
     invincibility_timer -= 1;
     if (invincibility_timer &lt;= 0)
@@ -761,7 +779,7 @@ if (invincibility_timer &gt; -1)
     }
 }
 
-// Start invincibility timer once we land after being hit.
+// Start invincibility timer once we land after getting hit or respawning.
 if (invincibility_type == 1 &amp;&amp; invincibility_timer == -1 &amp;&amp; state != STATE_HURT &amp;&amp; state != STATE_RESPAWN)
 {
     invincibility_timer = 120;
@@ -770,7 +788,14 @@ if (invincibility_type == 1 &amp;&amp; invincibility_timer == -1 &amp;&amp; stat
 // Hide shields when invincible.
 if (shield_object != noone)
 {
-    shield_object.visible = (invincibility_type != 2);
+    if (invincibility_type != 2 &amp;&amp; !shield_object.visible)
+    {
+        shield_object.visible = true;
+    }
+    if (invincibility_type == 2 &amp;&amp; shield_object.visible)
+    {
+        shield_object.visible = false;
+    }
 }
 
 // Create invincibility sparkles (credit to Tpot).
@@ -811,208 +836,125 @@ if (superspeed_timer &gt; 0)
       <arguments>
         <argument kind="STRING">/// Underwater handling.
 
-// Don't run in certain cases:
-if (state != STATE_DEATH &amp;&amp; state != STATE_RESPAWN &amp;&amp; !instance_exists(obj_results))
+// Reset the drown timer and stop the drown counter &amp; jingle if applicable:
+if (state == STATE_DEATH || state == STATE_RESPAWN || instance_exists(obj_results) || shield_index == SHIELD_BUBBLE || !underwater)
 {
-    if (underwater)
+    if (drown_timer &lt; 1800)
     {
-        // Destroy the countdown if we have a bubble shield and keep the drown timer fixed.
-        if (shield_index == SHIELD_BUBBLE)
-        {
-            drown_timer = 1800;
-            if (instance_exists(drown_counter))
-            {
-                with (drown_counter) instance_destroy();
-                drown_counter = noone;
-            }
-            
-            if (!cpu_flag)
-            {
-                if (audio_is_playing(SFX._jingle_drown))
-                {
-                    audio_stop(SFX._jingle_drown);
-                }
-            }
-            exit;
-        }
-
-        // Decrease our drown timer.
-        if (drown_timer &gt; 0)
-        {
-            drown_timer -= 1;
-        }
-
-        // Start the drowning jingle and create the countdown timer.
-        if (drown_timer == 650)
-        {
-            if (!cpu_flag)
-            {
-                if (!audio_is_playing(SFX._jingle_drown))
-                {
-                    audio_play(SFX._jingle_drown, SFX.bgm_volume, 1, 0, 1);
-                }
-            }
-            
-            if (instance_number(obj_water_alarm) &lt; 2)
-            {
-                drown_counter        = instance_create(x, y - 32, obj_water_alarm);
-                drown_counter.parent = id;
-            }
-        }
-
-        // Kill the player.
-        if (drown_timer == 0)
-        {
-            drown_timer = 1800;
-            state       = STATE_DEATH;
-            has_drowned = true;
-            
-            if (!cpu_flag)
-            {
-                if (audio_is_playing(SFX._jingle_drown))
-                {
-                    audio_stop(SFX._jingle_drown);
-                }
-            }
-        }
-
-        // Breathing state.
-        if (state == STATE_BREATH)
-        {
-            if (!ground)
-            {
-                if (bubble_timer &lt; 1)
-                {
-                    x_speed = 0;
-                    y_speed = 0;
-                }
-                
-                if (input_left || input_right)
-                {
-                    x_speed += animation_direction * 0.025;
-                }
-                
-                if (bubble_timer &lt; 20)
-                {
-                    bubble_timer += 1;
-                }
-                else
-                {
-                    bubble_timer    = 0;
-                    animation_index = "WALK";
-                    state           = STATE_DEFAULT;
-                }
-                
-                // Reset drown counter:
-                drown_timer = 1800;
-                if (instance_exists(drown_counter))
-                {
-                    with (drown_counter) instance_destroy();
-                    drown_counter = noone;
-                }
-                
-                // Stop drowning jingle.
-                if (!cpu_flag)
-                {
-                    if (audio_is_playing(SFX._jingle_drown))
-                    {
-                        audio_stop(SFX._jingle_drown);
-                    }
-                }
-            }
-            else
-            {
-                state       = STATE_DEFAULT;
-                drown_timer = 1800;
-                if (instance_exists(drown_counter))
-                {
-                    with (drown_counter) instance_destroy();
-                    drown_counter = noone;
-                }
-                
-                if (!cpu_flag)
-                {
-                    if (audio_is_playing(SFX._jingle_drown))
-                    {
-                        audio_stop(SFX._jingle_drown);
-                    }
-                }
-            }
-        }
-        else // Reset bubble timer.
-        {
-            bubble_timer = 0;
-        }
-
-        // Alarm sounds.
-        if (!cpu_flag)
-        {
-            if (drown_timer mod 400 == 0)
-            {
-                if (!audio_is_playing(SFX._jingle_drown))
-                {
-                    audio_play(SFX._general_alarm_count, SFX.sfx_volume, 1, 0, 0);
-                }
-            }
-        }
-
-        // Air bubbles. 
-        if (drown_timer mod 78 == 0 &amp;&amp; drown_timer &gt; 600)
-        {
-            bubble              = instance_create(x + irandom_range(-7, 8), y - 6, obj_water_air_bubble);
-            bubble.bubble_index = choose(0, 1, 2, 1, 3);
-        }
+        drown_timer = 1800;
+    }
+    if (instance_exists(drown_counter))
+    {
+        with (drown_counter) instance_destroy();
+        drown_counter = noone;
+    }
+    if (audio_is_playing(SFX._jingle_drown) &amp;&amp; !cpu_flag)
+    {
+        audio_stop(SFX._jingle_drown);
     }
 }
 else
 {
-    drown_timer = 1800;
-    if (instance_exists(drown_counter))
+    // Decrease our drown timer.
+    if (drown_timer &gt; 0) drown_timer -= 1;
+
+    // Start the countdown timer and play the drowning jingle.
+    if (drown_timer == 650)
     {
-        with (drown_counter) instance_destroy();
-        drown_counter = noone;
+        if (instance_number(obj_water_alarm) &lt; 2)
+        {
+            drown_counter        = instance_create(x, y - 32, obj_water_alarm);
+            drown_counter.parent = id;
+        }
+        if (!audio_is_playing(SFX._jingle_drown) &amp;&amp; !cpu_flag)
+        {
+            audio_play(SFX._jingle_drown, SFX.bgm_volume, 1, 0, 1);
+        }
     }
-    
-    if (!cpu_flag)
+
+    // Drown the player.
+    if (drown_timer == 0)
     {
-        if (audio_is_playing(SFX._jingle_drown))
+        drown_timer = 1800;
+        state       = STATE_DEATH;
+        has_drowned = true;
+        if (audio_is_playing(SFX._jingle_drown) &amp;&amp; !cpu_flag)
         {
             audio_stop(SFX._jingle_drown);
         }
     }
-}
 
-// Above water, reset timers, stop drowning jingle and destroy the drown counter.
-if (!underwater)
-{
-    drown_timer = 1800;
-    if (instance_exists(drown_counter))
+    // Breathing state.
+    if (state == STATE_BREATH)
     {
-        with (drown_counter) instance_destroy();
-        drown_counter = noone;
-    }
-    
-    if (!cpu_flag)
-    {
-        if (audio_is_playing(SFX._jingle_drown))
+        if (!ground)
+        {
+            if (bubble_timer == 0)
+            {
+                x_speed = 0;
+                y_speed = 0;
+            }
+
+            if (input_left || input_right)
+            {
+                x_speed += animation_direction * 0.025;
+            }
+
+            if (bubble_timer &lt; 20)
+            {
+                bubble_timer += 1;
+            }
+            else
+            {
+                bubble_timer    = 0;
+                state           = STATE_DEFAULT;
+                animation_index = "WALK";
+            }
+        }
+        else
+        {
+            state = STATE_DEFAULT;
+        }
+
+        // Reset drown counter:
+        drown_timer = 1800;
+        if (instance_exists(drown_counter))
+        {
+            with (drown_counter) instance_destroy();
+            drown_counter = noone;
+        }
+        if (audio_is_playing(SFX._jingle_drown) &amp;&amp; !cpu_flag)
         {
             audio_stop(SFX._jingle_drown);
         }
     }
-}
-
-// Drowning bubbles.
-if (state == STATE_DEATH &amp;&amp; has_drowned)
-{
-    if (breath_timer != 0)
+    else
     {
-        breath_timer -= 1;
-        if (random(4) &gt;= 2)
+        // Reset bubble timer.
+        if (bubble_timer &gt; 0)
         {
-            bubble              = instance_create(x + irandom_range(-7, 8), y - 6, obj_water_air_bubble);
-            bubble.bubble_index = choose(0, 1, 2, 1, 3);
-            bubble.depth        = -999996;
+            bubble_timer = 0;
         }
+    }
+
+    // Alarm sounds.
+    if (!cpu_flag)
+    {
+        if (drown_timer mod 400 == 0)
+        {
+            if (!audio_is_playing(SFX._jingle_drown))
+            {
+                audio_play(SFX._general_alarm_count, SFX.sfx_volume, 1, 0, 0);
+            }
+        }
+    }
+
+    // Air bubbles.
+    if (drown_timer mod 78 == 0 &amp;&amp; drown_timer &gt; 600)
+    {
+        var bubble;
+        bubble              = instance_create(x + irandom_range(-7, 8), y - 6, obj_water_air_bubble);
+        bubble.bubble_index = choose(0, 1, 2, 1, 3);
     }
 }
 </argument>

@@ -169,7 +169,7 @@
       <locked>false</locked>
     </instance>
     <instance>
-      <object>obj_badnik_bubbles</object>
+      <object>obj_bubbles</object>
       <position x="704" y="224"/>
       <creationCode/>
       <locked>false</locked>

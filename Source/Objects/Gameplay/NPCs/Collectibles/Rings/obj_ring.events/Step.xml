@@ -14,8 +14,6 @@
       <appliesTo>.self</appliesTo>
       <arguments>
         <argument kind="STRING">/// Motion (dropped).
-
-// Apply motion:
 if (motion)
 {
     // Decrease lifespan:
@@ -98,7 +96,9 @@ if (player != noone)
       <not>false</not>
       <appliesTo>.self</appliesTo>
       <arguments>
-        <argument kind="STRING">/// Animation speed.
+        <argument kind="STRING">/// Animation speed &amp; alpha.
+
+// Speed:
 if (!motion)
 {
     image_index = STG.object_time div 120;
@@ -109,10 +109,20 @@ else
     {
         image_index = STG.object_time div 80;
     }
-    if (lifespan &lt; 120)
+    else
     {
         image_index = STG.object_time div 200;
     }
+}
+
+// Alpha:
+if (motion &amp;&amp; lifespan &lt; 90)
+{
+    image_alpha = (lifespan div 4) mod 2;
+}
+else if (image_alpha &lt; 1)
+{
+    image_alpha = 1;
 }
 </argument>
       </arguments>

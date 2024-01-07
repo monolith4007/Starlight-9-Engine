@@ -13,10 +13,11 @@
       <not>false</not>
       <appliesTo>.self</appliesTo>
       <arguments>
-        <argument kind="STRING">/// Init.
+        <argument kind="STRING">/// Initialize.
 
 // Gamepad connection check:
 gmp_exists = joystick_exists(0);
+alarm[0]   = 600;
 
 // Button variables:
 gmp_cup      = false;
@@ -27,7 +28,6 @@ gmp_caction  = false;
 gmp_cspecial = false;
 gmp_cswap    = false;
 gmp_cstart   = false;
-alarm[0]     = 300;
 </argument>
       </arguments>
     </action>

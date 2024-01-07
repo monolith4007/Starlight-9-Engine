@@ -56,10 +56,9 @@ if (state != STATE_GLIDE_DROP && glide_crouch_timer != 15)
     glide_crouch_timer = 15;
 }
 
-// Trigger glide.
+// Trigger glide and set initial speeds.
 if (state == STATE_JUMP && input_action_pressed && jump_action)
 {
-    // Change state and set initial speeds.
     state   = STATE_GLIDE;
     x_speed = animation_direction * 4;
     if (y_speed < 0) y_speed = 0;
@@ -81,10 +80,13 @@ if (state == STATE_GLIDE)
         }
         
         // Accelerate:
-        if (glide_turn_speed <= 0)
+        if (glide_turn_speed <= 0 && abs(x_speed) < glide_top_speed)
         {
             x_speed += glide_acceleration * animation_direction;
-            x_speed  = clamp(x_speed, -24, 24);
+            if (abs(x_speed) > glide_top_speed)
+            {
+                x_speed = glide_top_speed * animation_direction;
+            }
         }
         
         // Glide turning, big chunk of code (credit to Tpot).
@@ -140,16 +142,15 @@ if (state == STATE_GLIDE)
         }
         
         // Grab onto a wall.
-        if ((animation_direction ==  1 && player_collision_check(COL_RIGHT, MASK_BIG, x, y, 0) && player_collision_check(COL_RIGHT, spr_mask_ledge_climb, x, y, 0) && !player_collision_check(COL_RIGHT_OBJECT, MASK_BIG, x, y, 0, par_obstacle))
-        ||  (animation_direction == -1 && player_collision_check(COL_LEFT,  MASK_BIG, x, y, 0) && player_collision_check(COL_LEFT,  spr_mask_ledge_climb, x, y, 0) && !player_collision_check(COL_LEFT_OBJECT,  MASK_BIG, x, y, 0, par_obstacle)))
+        var grav_angle;
+        grav_angle = global.gravity_angle;
+        if ((animation_direction ==  1 && player_collision_check(COL_RIGHT, MASK_BIG, x, y, grav_angle) && player_collision_check(COL_RIGHT, spr_mask_ledge_climb, x, y, grav_angle) && !player_collision_check(COL_RIGHT_OBJECT, MASK_BIG, x, y, grav_angle, par_obstacle))
+        ||  (animation_direction == -1 && player_collision_check(COL_LEFT,  MASK_BIG, x, y, grav_angle) && player_collision_check(COL_LEFT,  spr_mask_ledge_climb, x, y, grav_angle) && !player_collision_check(COL_LEFT_OBJECT,  MASK_BIG, x, y, grav_angle, par_obstacle)))
         {
-            if (!player_collision_check(COL_TOP, MASK_MAIN, x, y, 0))
+            if (!player_collision_check(COL_TOP, MASK_MAIN, x, y, grav_angle))
             {
-                if (player_get_angle(x, y, angle) == 0 && !player_collision_check(COL_BOTTOM, MASK_MAIN, x, y, 0) && !player_collision_check(COL_LEFT_EDGE, x, y, angle) && !player_collision_check(COL_RIGHT_EDGE, x, y, angle))
+                if (player_get_angle(x, y, angle) == grav_angle && !player_collision_check(COL_BOTTOM, MASK_MAIN, x, y, grav_angle) && !player_collision_check(COL_LEFT_EDGE, x, y, angle) && !player_collision_check(COL_RIGHT_EDGE, x, y, angle))
                 {
-                    // Set Climbing X position.
-                    climb_ox = x;
-    
                     // Change state.
                     state = STATE_CLIMB;
     
@@ -161,7 +162,7 @@ if (state == STATE_GLIDE)
                     x_speed = 0;
                     y_speed = 0;
     
-                    // Play latch sound.
+                    // Play wall grab sound.
                     audio_play(SFX._player_grab, SFX.sfx_volume, 1, 0, 1);
                 }
                 else

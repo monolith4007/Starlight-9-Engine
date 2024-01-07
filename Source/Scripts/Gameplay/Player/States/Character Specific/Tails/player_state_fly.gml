@@ -2,19 +2,22 @@
 // Tails' flight ability.
 if (state == STATE_FLY)
 {
-    // Gain height:
+    // Reduce flight time:
     if (tails_flight_timer > 0)
     {
         tails_flight_timer -= 1;
+        
+        // Gain height:
         if (input_action_pressed && y_speed >= -1)
         {
             y_acceleration = -0.125;
         }
-    }
-    else // Drop if we flew too long.
-    {
-        if (y_speed <= 0) y_speed = 0.03125;
-        y_acceleration = 0.03125;
+        
+        // Drop if we flew too long.
+        if (tails_flight_timer <= 0)
+        {
+            y_acceleration = 0.03125;
+        }
     }
 
     // Reset gravity.
@@ -28,20 +31,19 @@ if (state == STATE_FLY)
     {
         state = STATE_JUMP;
         player_reset_trail();
+        animation_jump_speed = 1 / max(5 - abs(x_speed), 1);
     }
 }
 
 // Trigger flight:
 if (state == STATE_JUMP && input_action_pressed && jump_action)
 {
-    state            = STATE_FLY;
-    animation_angle  = 0;
-    tails_tail_angle = 0;
-    y_acceleration   = 0.03125;
+    state          = STATE_FLY;
+    y_acceleration = 0.03125;
 }
 
 // Reset flight timer.
-if ((ground || state == STATE_HANG || state == STATE_SPRING) && tails_flight_timer < 480)
+if (state != STATE_FLY && state != STATE_JUMP && tails_flight_timer < 480)
 {
     tails_flight_timer = 480;
 }
@@ -53,40 +55,40 @@ if (state == STATE_FLY && !underwater)
     if (tails_flight_timer > 0)
     {
         // Stop the dropping sound if it was playing:
-        if (audio_is_playing(SFX._player_flying_drop))
+        if (audio_is_playing(SFX._player_fly_drop))
         {
-            audio_stop(SFX._player_flying_drop);
+            audio_stop(SFX._player_fly_drop);
         }
         
         // Play the flight sound.
-        if (!audio_is_playing(SFX._player_flying))
+        if (!audio_is_playing(SFX._player_fly))
         {
-            audio_play(SFX._player_flying, SFX.sfx_volume, 1, 1, 1);
+            audio_play(SFX._player_fly, SFX.sfx_volume, 1, 1, 1);
         }
     }
     else // Dropping.
     {
         // Stop the flight sound if it's playing:
-        if (audio_is_playing(SFX._player_flying))
+        if (audio_is_playing(SFX._player_fly))
         {
-            audio_stop(SFX._player_flying);
+            audio_stop(SFX._player_fly);
         }
 
         // Play the dropping sound.
-        if (!audio_is_playing(SFX._player_flying_drop))
+        if (!audio_is_playing(SFX._player_fly_drop))
         {
-            audio_play(SFX._player_flying_drop, SFX.sfx_volume, 1, 1, 1);
+            audio_play(SFX._player_fly_drop, SFX.sfx_volume, 1, 1, 1);
         }
     }
 }
 else
 {
-    if (audio_is_playing(SFX._player_flying))
+    if (audio_is_playing(SFX._player_fly))
     {
-        audio_stop(SFX._player_flying);
+        audio_stop(SFX._player_fly);
     }
-    if (audio_is_playing(SFX._player_flying_drop))
+    if (audio_is_playing(SFX._player_fly_drop))
     {
-        audio_stop(SFX._player_flying_drop);
+        audio_stop(SFX._player_fly_drop);
     }
 }

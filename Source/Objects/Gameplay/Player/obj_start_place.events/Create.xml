@@ -30,21 +30,21 @@ global.player_id[1] = noone;
 // Main player:
 with (instance_create(x, y, par_player))
 {
-    character_id        = global.character_index;
-    cpu_flag            = false;
-    depth               = 0;
     global.player_id[0] = id;
+    cpu_flag            = false;
+    character_id        = global.character[0];
+    depth               = 0;
 }
 
 // CPU player:
-if (global.cpu_index != 0)
+if (global.character[1] &gt; 0)
 {
     with (instance_create(x - 16, y, par_player))
     {
-        character_id        = global.cpu_index;
-        cpu_flag            = true;
-        depth               = 1;
         global.player_id[1] = id;
+        cpu_flag            = true;
+        character_id        = global.character[1];
+        depth               = 1;
     }
 }
 

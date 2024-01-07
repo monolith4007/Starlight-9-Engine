@@ -36,8 +36,8 @@ if (!boosting && input_special && !tunnel_lock && boost_amount > 0 && abs(x_spee
 // While boosting...
 if (boosting)
 {
-    // Check if we're not skidding and facing the direction we're moving towards:
-    if (state != STATE_SKID && sign(x_speed) == animation_direction)
+    // Check if we're not braking and facing the direction we're moving towards:
+    if (state != STATE_BRAKE && sign(x_speed) == animation_direction)
     {
         // Decrease boost amount.
         boost_amount -= 0.2;

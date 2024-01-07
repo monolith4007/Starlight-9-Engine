@@ -18,9 +18,6 @@
 // Temp variables:
 var player_main, i, _cos, _sin;
 
-// Set previous x position:
-x_previous = x;
-
 // Set cos/sin:
 _cos = dcos(angle_mov) * chain_size;
 _sin = dsin(angle_mov) * chain_size;

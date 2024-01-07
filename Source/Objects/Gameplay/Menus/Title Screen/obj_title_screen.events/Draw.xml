@@ -13,14 +13,12 @@
       <not>false</not>
       <appliesTo>.self</appliesTo>
       <arguments>
-        <argument kind="STRING">/// Draw logo and menu.
-draw_self();
-
-// Draw menu.
+        <argument kind="STRING">/// Draw emblem and menu.
+draw_sprite(sprite_index, -1, view_xview[0] + view_wview[0] / 2, y);
 draw_set_color(c_yellow);
 draw_set_font(global.font_main);
 draw_set_halign(fa_center);
-draw_text(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 16, "- " + string(title_menu_string) + " -");
+draw_text(view_xview[0] + view_wview[0] / 2, view_yview[0] + view_hview[0] - 40, "&lt; " + string(title_string) + " &gt;");
 draw_set_halign(fa_left);
 </argument>
       </arguments>
