@@ -59,6 +59,10 @@ For gamepad management:
 - Music: SEGA, Sonic Mania Team, the composer of the options menu theme.
 - GmkSplitter: Medo42.
 - Various Game Maker 8.2 extensions: 8.2 Project.
+- JoyDLL (basis of gm82joy): Evan Balster.
+    > SDL2: SDL contributors.
+- GMFMODSimple (basis of gm82snd): icuurd12b42, Grix.
+    > FMOD Sound System: Firelight Technologies.
 - Game Maker 8.1: Mark Overmars, YoYo Games.
 - Sonic the Hedgehog: SEGA, Sonic Team.
 
