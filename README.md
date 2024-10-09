@@ -1,3 +1,7 @@
+# DEPRECATION NOTICE
+This framework is no longer being maintained, but will remain up for archival purposes.
+Consider using SonicForGMS or Orbinaut Framework instead of this.
+
 # Starlight-9-Engine
 ![alt text](https://cdn.discordapp.com/attachments/1010298152106086540/1185522850229125211/Logo.png)
 
